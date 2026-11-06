@@ -1,0 +1,151 @@
+## 33. Power and Battery Save
+
+### What it's for
+
+Long battery life: the MCU runs at 24 MHz whenever nothing needs its full speed (dynamic clocking), the receivers sleep in short cycles when nothing is happening, the MCU sleeps between events, and the battery is watched so the radio never transmits or shuts down badly on a flat one.
+
+### Using it
+
+- **Battery Save:** MENU 9 (same as MENU 0 7 7 1). Higher levels save more and react slower:
+
+  | Level | Receiver on | Receiver off | Time on |
+  | --- | --- | --- | --- |
+  | 1 | 300 ms | 500 ms | 38 % |
+  | 2 | 180 ms | 700 ms | 20 % |
+  | 3 | 180 ms | 800 ms | 18 % |
+
+  A signal can be heard up to one off-time late, and a burst shorter than that missed. Watched slots follow the same cycle.
+- **Low Power Mode:** MENU 0 7 7 2 (Off, Auto, On; Auto at 20 % by default). Everything not needed to receive and transmit on one VFO turns off: scan, watch, APRS, the decoders, broadcast and HF mode, GPS and Bluetooth; the screen dims, the keypad light goes off, and Battery Save runs its deepest cycle. Home becomes a single-slot screen in an amber frame; tuning, the menus and editing the channel or VFO work as usual. Auto turns it on below MENU 0 7 7 3's battery level (10, 20, 30 or 40 %) and off on the charger at 80 %. **To leave, hold SIDE1 and SIDE2 together for a second** (that never turns it on), or set MENU 0 7 7 2 Off.
+- **Dynamic clocking:** on by default, nothing to set. The core runs at 24 MHz at rest and goes to full speed (120 MHz) only while something needs it: keys and the knob, APRS and the decoders, a scan, the scope and the other exclusive modes, transmit, a live link. Measured idle: about 19 mA from the supply against about 65 mA at a fixed 120 MHz. MENU 0 9 9 4 MCU clock: Fixed keeps full speed always (the escape hatch). Low Power Mode is separate: it turns features off; the clock saving is already there without it.
+- **Auto power off:** MENU 0 7 8.
+- **Battery:** the status-bar icon (an icon only, SBAR-19) is green above 80 %, yellow down to 31 %, red at 30 % and below or at the warning level (SBAR-9.1), and red and blinking at the transmit cut-off. The percentage and both levels are on the Status page (MENU 0 0), the volts on About (MENU 0 9 8).
+- **Power switch:** "Saving…" while writes finish, then off.
+
+### Screens
+
+No mock-up yet.
+
+### Settings
+
+| Menu | Setting | Values | Default |
+| --- | --- | --- | --- |
+| 9, 0 7 7 1 | Battery Save | Off, 1, 2, 3 | 1 |
+| 0 7 7 2 | Low Power Mode | Off, Auto, On | Auto |
+| 0 7 7 3 | Auto below | 10, 20, 30, 40 % | 20 % |
+| 0 7 8 | Auto power off | Off, 30 min – 8 h without a key or signal | Off |
+
+> **Spec: Battery Save**
+>
+> - **PWR-1** Levels use stock's timings (table above); Off keeps the receivers on.
+> - **PWR-2** With a CTCSS or DCS code set, the on-time is at least 250 ms.
+> - **PWR-3** Any key, or squelch opening or closing: receiver fully on for 10 s, then 300/300 ms for 30 min, then the level's cycle.
+> - **PWR-4** Never sleep while squelch is open, a decoder or scan runs, either chip transmits or is in the unkey wait, or crossband runs. Watch alone doesn't keep a chip awake (PWR-19).
+> - **PWR-5** Sleep: REG_30 = 0, REG_37 = 0x1D00. Wake: REG_37 = 0x9D1F, then the receive sequence.
+> - **PWR-6** Sleep turns the sleeping slot's receive path select off and wake turns it back on, as stock, except while a broadcast plays: then the select stays on (BCR-19); never while either chip transmits or is in the unkey wait (TX-29), and only through the path machine.
+> - **PWR-7** One BK4829 awake at a time: the chip being listened to; the other sleeps until watch turns to it. A key-up wakes the chip for the transmit band and sleeps the other. Only APRS mode keeps a second chip awake, for slot C.
+> - **PWR-8** Battery Save shows on the Status page, not the status bar.
+> - **PWR-19** Watched chips follow Battery Save's own sleep/wake cycle, as stock dual watch does; a watched slot may miss the first fraction of a second. Watch default stays A+B. With APRS mode on, slot C's chip stays out of the sleep (its decoder runs, PWR-4) and the other chip keeps the cycle.
+> - **PWR-21** BK4829 settle waits around waking and sleeping (decision 119).
+>     - **PWR-21.1** Waking, REG_37's supplies come on, then at least the wake settle passes before the rest of the receive set-up and REG_30's receive on; going to sleep, the AF route is muted and REG_30 turned off, then the sleep settle passes before REG_37's supplies go off.
+>     - **PWR-21.2** The chip a watch hop turns to has its supplies on a tick (10 ms) before the hop, so the settle overlaps the current dwell and the hop's timing is unchanged; at a hop the chip that listens is tuned before the other sleeps.
+>     - **PWR-21.3** The waits never block other tasks.
+>     - **PWR-21.4** Defaults 2 ms wake and 1 ms sleep (to be tuned on the bench), 0 to 20 ms each from the terminal (TERM-31), RAM only; 0 is stock's (no wait).
+>     - **PWR-21.5** Receive on is REG_30 = 0x0200, about 50 µs, then the receive value, as stock.
+>     - **PWR-21.6** While FM broadcast plays (a broadcast slot), a BK4829 put to sleep (by the watch hop or Battery Save) turns REG_30 off only and keeps REG_37's supplies on, so its wake writes no REG_37 and waits no settle (the supplies switching clicked in the broadcast). They go off, PWR-5's full sleep, once the broadcast stops. One constant in the firmware (`BCAST_LDO_ON`) puts PWR-5's sleep back everywhere; the supplies' draw while asleep is spent only while broadcast plays.
+> - **PWR-20** Battery levels are stock's gauge: the PA1 reading >> 4 against the seven thresholds at 0xF200 (stock's defaults 0x81 0x87 0x8E 0x93 0x98 0xA0 and 0xBB when byte 0 is 0x00 or 0xFF). Warning: below the second threshold (about 6.5 V). Cut-off, transmit refused: below the first (about 6.2 V). Above 0xBB (about 9 V) transmit is refused too, as stock does at gauge level 7. Volts shown are the reading × 482/1000, before the trim.
+> - **PWR-22** The battery percentage (the Status page; never in the bar, SBAR-10) is this radio's calibrated gauge (0xF200, PWR-20) on a 2S Li-ion curve: 0 % at the first threshold (the cut-off), then 5, 15, 30, 45 and 65 % at the next five (the percentages a 2S pack has at stock's default thresholds), 100 % at 8.1 V (PWR-22.1), linear between; about 7.4 V reads half. The reading is a few seconds' average (each 2 s reading moves it a third of the way), held while any slot transmits and for 10 s after (the pack sags under the PA); a higher reading shows only once it has lasted 60 s (charging). The cable log has the reading, the average and the % every 10 s.
+>     - **PWR-22.1** 100 % is at 8.1 V, where a full pack sits under the receiver's load, not the charger's 8.4 V cut-off; anything above reads 100.
+>     - **PWR-22.2** The 65 % point (t5, stock's full-icon threshold) sits at most 7.95 V, 0.15 V below full: a calibration that puts it higher (both our radios' template has 0xAA, 8.19 V) still reads a full pack as 100 % and four bars. The warning and cut-off stay on the calibrated thresholds.
+>     - **PWR-22.3** For 15 s after the first reading the shown level follows the few-second average both ways; after that a rise waits a minute as before. The first reading comes under the power-up load (the screen, both chips starting, the boot sound's amplifier) and reads low; holding it for the minute showed a 51 % pack in red at power-up (black, Oct 28, 2026).
+> - **PWR-23** Nothing powered that isn't in use (the power audit, Oct 21, 2026):
+>     - **PWR-23.1** GPS off: the module unpowered, USART3 off and unclocked, PB10 and PB11 analog (PB10 idling high had fed the unpowered module through its receive pin); PB10 still goes low while keyed (GPS-22). The GPS task looks every 500 ms instead of 50 while GPS is off.
+>     - **PWR-23.2** A serial port switched off (Bluetooth off, GPS off) has its clock gated and both pins analog.
+>     - **PWR-23.3** The ADC's temperature sensor and internal reference are powered only for their reads every 10 s.
+>     - **PWR-23.4** The audio capture's timer (TMR4) and DMA1 are unclocked when it stops; the playback's DAC channel 1 is turned off (it was left on at mid-scale) and DMA2 unclocked, and TMR6 too unless a beep plays. DAC channel 2, the PA drive, is never touched by these.
+>     - **PWR-23.5** The SI4732 is held in reset while the broadcast receiver is off; the internal 48 MHz oscillator is off once the PLL runs; no input floats (PA4 analog, PC7 and PC8 pulled up as stock).
+>
+> **Spec: Low Power Mode**
+>
+> - **PWR-24** Low Power Mode, "the squeeze" (decision 234): everything not needed to receive and transmit on one VFO is off. Every change it makes is a runtime override: no stored setting changes (but 0 7 7 2 itself, PWR-24.4), so leaving puts each back exactly as it was.
+>     - **PWR-24.1** MENU 0 7 7 is a list: 0 7 7 1 Battery Save (MENU 9 still opens it), 0 7 7 2 Low Power Mode (Off, Auto, On; default Auto, Alex, Oct 21, 2026), 0 7 7 3 Auto below (10, 20, 30, 40 %; default 20 %). Both are in the settings record, in two bytes taken from its spare (its length stays): an older record reads Off and 20 %; a link settings write sets them (decision 328) and acts as the menu does: On goes in at once, Off comes out, Auto decides from the battery then. Going in turns Bluetooth off (PWR-24.4), so a write over Bluetooth that puts the radio in the mode ends that connection after its answer. Turning 0 7 7 2 goes Off, Auto, On (so reaching Auto never passes On, which enters at once and leaves the menu).
+>     - **PWR-24.2** In: 0 7 7 2 On (at once, from the menu or `set`, and at power-on while it is On), or Auto (PWR-24.3). Never by a key.
+>     - **PWR-24.3** Auto: in when the battery % (PWR-22) falls below 0 7 7 3's level, once per crossing; out by itself at 80 % (the charger; decision 254), but only when Auto put it in: turned on by hand (On) it never leaves by itself, only by the keys or the menu. Left by the keys, it doesn't come back until the % has been 10 points above its level (or the next power-on). No reading yet (the first 2 s), nothing. Choosing Auto decides from the battery then: below the level it goes in, above it stays out (or comes out, coming back from On); found on black, Oct 21, 2026, when stepping Off-On-Auto at 32 % entered and Auto held the mode until 80 %.
+>     - **PWR-24.4** In the mode: only the active slot (a broadcast slot gives way to A); watch off, a running scan stopped and SIDE2's scan refused with a toast, APRS (mode, KISS, beacons) and the decoders off, FM broadcast, HF mode, the crossband repeater (two VFOs), the band scope and the frequency counter (receivers that sweep or listen non-stop) closed and refused, GPS and Bluetooth off (the cable link stays), and the Radio task's Battery Save on its own cycle whatever 0 7 7 1 says: 180/800 ms, 10 s fully on after activity, then one minute of 300/300 (PWR-3's 30 minutes don't apply). Tuning, editing the channel or VFO, the menus, tone search and transmit work as usual; transmit keeps the slot's own power, high included (Alex, Oct 21: "the user may need the high power TX"): the mode limits how the radio is used, never what it can do on its one VFO. Out: SIDE1 and SIDE2 held together for 1 s, from any screen (it only leaves; while both are down neither does its own thing: no monitor, counter or knob combination), 0 7 7 2 Off, or Auto at 80 %. Leaving by the keys sets On to Off; under Auto it stays Auto (PWR-24.3).
+>     - **PWR-24.5** The backlight is at most 25 % (the level table's nearest at or below 30 %), the keypad light off, and live changes are redrawn at most once a second (keys and the knob still draw at once).
+>     - **PWR-24.6** Shown: a toast going in ("Low Power Mode", "hold SIDE1+2: off") and coming out ("off"); LOW in the status bar (SBAR-24); the Status page's Battery Save row says "Low Power Mode"; the UI readback's `bar ... lpm=1` and `state ... leave=N` (the side keys' hold, thousandths). A refused action (scan, scope, counter, broadcast, HF mode, crossband) gets the same toast as entering, "Low Power Mode" / "hold SIDE1+2: off": the way out, said when it is wanted (Alex, Oct 21, 2026: no standing line on the screen).
+>     - **PWR-24.7** Home in the mode is its own screen (the approved mock-up `LowPowerMode`), whatever 0 7 2 says, in fixed colours (the same in every theme): an amber band top (LOW POWER, the clock, the battery %) and bottom (home's own hints, in black, with PTT Talk in the middle; OK still opens the quick menu), amber sides 4 px wide, and inside on black the active slot alone: its head line (channel number and name, or VFO and band), RX in green or TX in red at its right, the frequency in the big digits (the transmit one while keyed), mode, tone, shift and power, then RX's S-meter text and 8 blocks, TX's time keyed, or "Quiet" and empty blocks. While both side keys are down a "Leaving" box over the frequency and the settings line fills its bar over the second. The keys are home's. The readback's screen id is `LowPower`. High contrast and big for the dim backlight (Oct 21, 2026): white digits, near-white detail lines in 15 px bold (the head line, the settings line, the S-meter text, TX's time and "Quiet"), filled RX/TX tags, a meter of 8 blocks 23 x 32 across the width; no line of what is off or how to leave (said on entering and when something refused is tried, PWR-24.6). Rows (y): head 34-64, frequency baseline 120, settings line baseline 158, S-meter text baseline 210, meter 228-260.
+>     - **PWR-24.8** Under the meter, the active slot's last reception: "Heard 2 s ago · S8" (seconds for the first minute, then minutes, then hours; the peak S-reading of that reception). Blank before the first and while a signal is on (the meter shows it). Kept in RAM from when the squelch opened to when it closed, for the active slot only; another slot's reception doesn't replace it. Redrawn only as its age changes, so it costs no measurable power (Alex, Oct 21, 2026: "how about adding last heard?").
+>     - **PWR-24.9** The core runs at 24 MHz in the mode (decision 250). One second after entering (the Radio and DSP tasks have stopped what the mode stops; GPS and Bluetooth are off), the MCU clock drops from 120 MHz (the crystal x15 through the PLL) to 24 MHz (x3, the APBs undivided, so the cable keeps every link rate up to 921600); leaving goes back to 120 MHz at once, before the next redraw. Every timing follows the speed: the time base, the cable, Bluetooth and GPS rates, the SPI flash, the ADC, the beep and sample timers, the screen and keypad PWM (25 kHz at both speeds) and the bit-banged buses' waits. The switch runs in the UI task between draws, so nothing is part way through a transfer; interrupts are held off while the PLL relocks (a byte arriving on the cable just then can be lost). Time doesn't jump or drift: the tick timer is stopped at a tick edge and moved on by the time the switch took, the part tick carried to the next switch, so it stays within 0.5 ms of true time however many switches. Transmit stays at 24 MHz (the BK4829 makes every on-air tone, and its bus waits follow the clock). A `clock-*` bench image runs at its own speed outside the mode, and `clock-24` never switches. The cable log notes each switch ("clock: 24 MHz (interrupts held N us)"). The bench measured about 20 mA less at 24 MHz than at 120 MHz in every state (docs/dev/power.html).
+>     - **PWR-24.10** A key or the knob brings the core back to full speed at once, and it stays there for 3 s after the last one, so menus and the knob keep up; then 24 MHz again. The screen going dark ends it at once. Standby, nearly all of the mode's time, keeps the saving.
+
+> **Spec: dynamic MCU clocking**
+>
+> - **PWR-26** Dynamic MCU clocking (decision 252): out of Low Power Mode the core runs at 24 MHz at rest and at the build's speed (120 MHz) while anything needs it, decided each turn of the UI task by a governor (`clocktree::clock_target`), with the same switch as PWR-24.9 (in the UI task between draws, never mid-transfer; time kept across it). Low Power Mode keeps its own timing (PWR-24.9, PWR-24.10: 24 MHz after a second, 3 s of full speed after a key, transmit at 24 MHz); the governor is its superset for normal use.
+>     - **PWR-26.1** The reasons for the build's speed, any one is enough: a key or the knob within the last 3 s while the screen is lit, the key that wakes it included (as PWR-24.10; judged by the screen's state, not the backlight's duty, which still reads 0 as it ramps up, so the wake's redraw is at full speed: before Nov 3, 2026 it ran at 24 MHz, 885 ms on black; and a key raises the clock before its own commands go to the Radio task, since its beep, started at once, holds any switch until it ends (PWR-26.4): before Nov 4, 2026 the first key after rest could redraw at 24 MHz, HF mode's open about 800 ms); the APRS decoder's capture while the APRS slot's squelch is open (PWR-26.9, counted as audio), the pager decoder (a slot on the pager frequency), or SAME alerts with a slot on a weather channel (162.400-162.550 MHz, where the BK4829's FSK receiver is armed); a scan on any slot; an exclusive mode (band scope, tone search, frequency counter, FM broadcast, HF mode, the crossband repeater: each steps or polls a receiver on a timer, and HF and broadcast talk to the SI4732 over a bit-banged bus); transmitting, and the Transmit and emergency screens; the alert screen (its tone and the SAME decode behind it); a live link session (PWR-26.2); audio running or about to start (PWR-26.4). Not reasons (the BK4829 does the receive audio and every on-air tone; the watch's hops keep up at 24 MHz, measured Oct 22, 2026, PWR-26.7): receiving and the watch's hops, VOX, GPS, the store's writes, beeps (they only hold a switch back).
+>     - **PWR-26.2** A live link session: a link session active on either port (a frame within 10 s, LINK's session window), or any byte from the cable, or from a connected Bluetooth device, within the last 5 s (a terminal key, a link frame, KISS). The first byte of a burst after a quiet spell arrives at 24 MHz and raises the speed while the rest of the burst is still coming in.
+>         - **PWR-26.2.1** No byte is lost to a switch (decision 362). While the core runs from the crystal (the PLL relocking, about 660 us with interrupts off), the APBs are undivided and every port is set for 8 MHz at once; the ports' bytes are taken as they arrive, as their interrupts would, and the target's dividers come only just before the PLL takes over again. A framing error that comes with a switch moves neither port's rate (LINK-11.1, LINK-25.2). A rate the crystal can't reach (the cable's 921600) keeps its divisor across the switch; a link session holds the speed up anyway (PWR-26.2).
+>     - **PWR-26.3** Hysteresis: the build's speed lasts at least 1 s after the last reason clears, so it doesn't flap (a key's 3 s included, 4 s after the last key in all).
+>     - **PWR-26.4** Never a switch while the audio capture (TMR4) or the playback or a beep (TMR6) is running: their sample timers would glitch. A task about to start the capture or the playback (the DSP task: a decoder, AFSK transmit, the bench's transmit test) asks for the build's speed first and waits for it, at most 0.5 s; a capture that started at 24 MHz all the same asks again every 10 s (stopped, raised, started). A redraw doesn't hold a waiting capture off: the clock is raised between its bands (decision 360). Beeps and message sounds start at either speed and hold the switch until they end.
+>     - **PWR-26.5** MCU clock (MENU 0 9 9 4, System > Advanced): Dynamic (the default) or Fixed, the build's speed always, Low Power Mode included: no switches at all, the behaviour before PWR-24.9. In the settings record (a byte appended); an older record reads Dynamic.
+>     - **PWR-26.6** Counters since power on: System (the page after About) has a Clock row, "24 MHz · 1,234 switches" (the speed now and the switches made); the UI readback's `bar` line has `mcu=` (MHz now; 0 in the simulators), `switches=`, `held_us=` (the longest a switch held interrupts off, µs) and `why=` (the reasons now as bits: 1 input, 2 decode, 4 scan, 8 mode, 16 tx, 32 alert, 64 link, 128 audio). The cable log notes each switch with its reasons ("clock: 120 MHz (interrupts held 140 us, input)").
+>     - **PWR-26.7** Measured (decision 253; black, tx-bench build, Oct 22, 2026): the DPS-150P's own charge tally over 15 minutes per run at 7.6 V, idle in Ferrite's optimised resting state (squelch closed on a quiet channel, no keys, the backlight off and the screen controller asleep, about 7 mA on its own, GPS and Bluetooth off, Battery Save cycling the receivers), the tally read at the start and the end of each run: Fixed 64.7 mA (watch Off) and 64.2 mA (watch A+B); Dynamic 18.6 mA and 18.7 mA, about 71 % less, 31 h becoming 107 h on a 2000 mAh pack. The watch's hops stay at 24 MHz (CPU load 32 %, 25 % without watch). Idle is the best case; use with keys or scanning sits between the two. APRS mode keeps C's receiver awake; since PWR-26.9 the core goes to 120 MHz only while C's squelch is open (a packet), so most of the saving applies with it on too.
+>     - **PWR-26.8** While satellite passes are predicted (SAT-6) the build's speed is raised to the top clock, 240 MHz (the APBs at /4, so every peripheral and timer runs as at 120 MHz), in Dynamic only (not Fixed, not in Low Power Mode, never while audio runs, PWR-26.4); the predict reason holds only while the satellite screen predicts, or an alarm's pass is refined (decision 341: until Nov 3, 2026 the source counted as predicting whenever its screen was closed, holding 120 MHz from power on with satellites, a clock and a position). A `clock-*` bench image stays at its own speed.
+>     - **PWR-26.9** APRS (APRS mode, KISS, an APRS-flagged channel) isn't a reason for the build's speed by itself (decision 350). The AFSK decoder captures audio only while the APRS slot's squelch (SQL-19) is open and for 300 ms after it shuts (the frame's last flags); a running capture is the reason (audio, PWR-26.4), so between packets the core rests at 24 MHz. The capture asks for the build's speed as it starts (PWR-26.4: the switch and the UI task's turn, well inside a packet's TX delay, 300 ms by default here, APRS-48). The squelch is read on the chip the watch hop listens to, or on the one APRS mode keeps awake beside it (APRS-16). With the squelch at 0 (always open) the capture runs always, as before. The pager decoder and SAME still capture throughout. Alex, Nov 3, 2026: "could we step down to 24mhz while waiting for aprs packets".
+>         - **PWR-26.9.1** After our own AFSK transmission (a beacon, a message, an ack, a digipeat, KISS) the capture runs for 5 s whatever the squelch says, then stops as PWR-26.9 has it once the squelch is shut: a digipeater's copy of our packet comes back within a second or two, while the chip settles from the key-up, and waiting for the squelch's open lost its first flags (Alex, Nov 4, 2026, clear: the speaker broke squelch on the echo, the decoder framed nothing; APRS-53). The readback's `decode` line has the last and the longest time from the squelch opening to the capture running (`capture_ms`, `capture_max`), to check it lands well inside a packet's TX delay.
+>     - **PWR-26.10** At rest (24 MHz) the screen redraws for live changes alone (a signal level, a counter) at most every 250 ms; a key, the knob or anything else urgent draws at once (and raises the clock, PWR-26.1). Low Power Mode keeps its once a second (PWR-24.5). Alex, Nov 4, 2026: a level jittering by a dB woke a check of the whole screen 5-6 times a second, about 25 ms each at 24 MHz with nothing to send, about 14 % of the CPU at rest.
+
+> **Spec: MCU and modules**
+>
+> - **PWR-9** The MCU clock is stock's tree: 8 MHz crystal, PLL ×15 = 120 MHz, APB1/APB2 at 60 MHz, the build's speed; it changes at run time only to 24 MHz (PWR-24.9 in Low Power Mode, PWR-26 at rest), never to another speed, and 0 9 9 4 Fixed keeps it at 120 MHz always.
+> - **PWR-10** The core sleeps (WFE) whenever every task waits.
+> - **PWR-11** GPS and Bluetooth modules are powered down when not in use.
+
+> **Spec: battery**
+>
+> - **PWR-12** Transmit is refused below the cut-off; a warning shows before it.
+> - **PWR-13** Transmit stays locked until the bench confirms the battery pin and divider.
+> - **PWR-14** Battery trim (not in the menu until built, decision 276) is limited to ±0.30 V; the cut-off uses the trimmed reading.
+> - **PWR-15** The battery is sampled while transmitting; below the under-load threshold, the radio unkeys through the normal unkey order (TX-26), with hysteresis.
+> - **PWR-16** Empty battery: clean shutdown, showing the voltage.
+
+> **Spec: power off**
+>
+> - **PWR-17** Switch off (PE0 high twice, 50 ms apart): full unkey if transmitting, finish queued writes and save the settings ("Saving…", at most 3 s), then release PA11. PA11 waits for the Radio task's unkey (at most 1 s, TX-33). Each step goes to the cable log with its time in ms since boot: `power off: switch off` (or `auto off`), `radio told`, `radio unkeyed` (if it was keyed), `saving`, `saved` (or `save cut at 3 s`), `off`; the Radio task's `shutdown: start`, `shutdown: unkeyed`, `shutdown: chips off`.
+> - **PWR-18** Auto power off after the set time with no activity (keys, PTT, or any slot receiving), through the same shutdown, with a warning 10 s before.
+
+### Under the hood
+
+
+### Status
+
+Battery Save logic is in the `ferrite` scaffold, not yet on a radio. Battery Save and `rxwake` in 1e; battery reading, warnings, auto power off and power-off saving in 2g. Done when current per level is measured and every PWR rule passes on the radio.
+
+
+### Settled details
+  - PWR-24: decision 234 (Oct 21, 2026; Alex: "its all about the squeeze in low power mode"); phase 2, the 24 MHz core (PWR-24.9), decision 250.
+  - PWR-26: decision 252 (Oct 22, 2026), the governor for normal use after decision 251's boost; decision 253, measured and merged for every build, a headline feature.
+
+- as stock, sleep turns the slot's receive path select off and wake turns it back on (`rf_path(band, 0)`, `analysis/battery_save.md`), never while either chip transmits or is in the unkey wait (TX-29). PWR-6 is changed to match; the Radio task already does this through the path machine.
+- Auto power off counts keys, PTT and any slot receiving as activity, and warns 10 s before switching off (decided Oct 6, 2026). No charger detect has been found.
+- Rule history and comparisons with stock and nicFW (kept here so the rules state behaviour only):
+  - PWR-6: decision 76.
+  - PWR-20: decision 76.
+  - PWR-22.2: decision 231 (Oct 21, 2026; Alex, daily use: the clear radio at 8.14 V never showed a full battery).
+  - PWR-22.1: decision 199 (Oct 20, 2026): 100 % had been at 8.4 V, so a full pack (8.14 V at rest, Alex, Oct 16) read in the 90s.
+  - PWR-22: decided Oct 15, 2026 (user, decision 184): the % counted stock's six default thresholds (0, 16, 33 ... 100 %) and ignored the calibrated gauge.
+  - PWR-21.6: Oct 15, 2026 (user, decision 185): the broadcast clicks (parked Oct 13); judged by ear after the flash, kept or flipped back by the constant.
+  - PWR-9: decision 76.
+  - PWR-17: changed Oct 15, 2026 (decision 171): the power hold waits for the unkey (until then the UI let PA11 go once the store was idle, which could be inside the unkey wait), and the steps are logged, so TX-33 and PWR-17 can be judged off the radio.
+  - PWR-18: decided Oct 6, 2026.
+  - PWR-6: changed Oct 13, 2026 (decision 113): the select stays on during a broadcast (BCR-19), where its switching clicked in the shared speaker amp.
+  - PWR-21: decision 119, Oct 13, 2026: a deliberate change from stock's no-wait wake, bench-tuned (the clicks at each chip-swapping hop and each Battery Save phase during a broadcast).
+  - PWR-7, PWR-19: changed Oct 13, 2026 (decision 111): one BK4829 awake at a time (stock's watch, `analysis/watch.md`); APRS mode keeps C's chip awake, through Battery Save too.
+
+### Open points
+
+- Battery-life target: proposed under 60 mA receiving with squelch closed; met at rest with dynamic clocking (18.7 mA, PWR-26.7). Typical use with the screen lit and keys is still to measure.
+- Settled (Alex, Oct 22, 2026): the earlier fixed-clock images' ~20 mA between 24 and 120 MHz (docs/dev/power.html) came from a different state, with the screen and other features on and a shallower receiver cycle; PWR-26.7's runs are idle with the BK4829s on a deeper (less on-time) cycle, and they read the supply's own charge tally rather than sampled current, so they are the more accurate.
+- Carrier-squelch on-time may shorten after `rxwake`.
+
+---
+
