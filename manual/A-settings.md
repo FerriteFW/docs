@@ -142,6 +142,7 @@ No menu number; on the HF screen's options page (hold MENU). Kept in the HF stat
 | 0 5 9 5 | FX.25 on TX | Off, 16, 32, 64 check bytes | 16 bytes | 25 |
 | 0 5 9 6 | Mute speaker for APRS | Off, on | On | 25 |
 | 0 5 9 8 | Decode log | Off, on (APRS-56: packets heard but not decoded to the event log) | Off | 25 |
+| 0 5 9 9 | Auto reply | Off, on; OK opens its page: reply to, delay, message (APRS-57) | Off | 25 |
 
 ### 0 6 GPS and time
 
