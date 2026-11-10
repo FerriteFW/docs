@@ -51,8 +51,8 @@ There's no arming step: after setup, transmit works on your region's amateur ban
 >
 > - **SETUP-1** Run on first boot (no layout header) and from MENU 0 9 7 1.
 > - **SETUP-2** Eight pages in the order above; one question per page.
-> - **SETUP-3** Every page has a default and OK on it gives a working radio, except the region: all eight regions show on one screen and none is chosen until OK on one, since the region decides where you may transmit.
-> - **SETUP-4** OK next, BACK previous, # skips the rest with defaults kept.
+> - **SETUP-3** Every page has a default and OK on it gives a working radio, except the region: all eight regions show on one screen and none is chosen until OK on one, since the region decides where you may transmit. The list (here and in 0 9 4) is Canada first, then the rest by name, Other last; the stored values don't change with the order (decision 368).
+> - **SETUP-4** OK next, BACK previous, # skips the rest with defaults kept, except on the pages you type on (callsign, owner card), where # changes the letters (KEY-12) and the hint bar says "# Mode".
 > - **SETUP-5** Each answer writes its menu setting; changing it later in the menu is the same setting.
 
 > **Spec: transmit in setup**
@@ -81,7 +81,8 @@ Mock-ups for pages 2, 3 and 8 approved (0b). The store is built (roadmap 1d, Oct
 - Time zone: UTC until you set it, in setup or at 0 6 5 (decided Oct 7, 2026). GPS gives UTC only, with no daylight saving, so no zone is guessed.
 - Setup lists all eight regions on one screen (US, Canada, UK, Europe, Australia, New Zealand, Japan, Other), no submenu (decided Oct 6, 2026); the region mock-up is redrawn from the UI (Oct 7, 2026).
 - Rule history and comparisons with stock and nicFW (kept here so the rules state behaviour only):
-  - SETUP-3: decided Oct 6, 2026.
+  - SETUP-3: decided Oct 6, 2026. The order: Nov 9, 2026 (Alex; decision 368).
+  - SETUP-4: # on a typing page changes the letters from Nov 9, 2026 (decision 367).
   - SETUP-7: decided Oct 7, 2026.
   - SETUP-12: decided Oct 3, 2026.
   - SETUP-13: decided Oct 15, 2026 (decision 174): VE7TEST went out on APRS as VE7TES.

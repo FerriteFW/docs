@@ -40,7 +40,7 @@ One fixed map; no key can be reassigned. Short = released under 700 ms. Long = h
 
 **HF mode** has no key or shortcut: MENU 0 3 4. Inside it: knob/▲▼ tune, ◀▶ band, \* mode, # recent list, hold MENU options, PTT transmits on 18–64 MHz where allowed (FM; AM is receive only), BACK leaves (chapter 20a).
 
-**Text entry:** digits multi-tap; \* cycles upper, lower, symbols; # is a space; BACK deletes. There is no cursor: typing and BACK work at the end, and the knob and ◀▶ do nothing. Message text is predictive (TEXT-1 – TEXT-11): one press per letter, knob picks the word, # or 0 space, 1 marks (. , ? ! ' / - @ :), hold \* spells; # on the quick messages puts them away to write your own (TEXT-6.1).
+**Text entry:** digits multi-tap; \* is a space; # cycles upper, lower, symbols; BACK deletes. There is no cursor: typing and BACK work at the end, and the knob and ◀▶ do nothing. Message text is predictive (TEXT-1 – TEXT-11): one press per letter, knob picks the word, \* or 0 space, 1 marks (. , ? ! ' / - @ :), hold \* spells; \* on the quick messages puts them away to write your own (TEXT-6.1).
 
 **Key lock** (hold #, KEY-13): the keypad locks (PTT, SIDE1 and SIDE2 still work); within 3 s \* makes it All (PTT too) and 0 All but PTT (only PTT). Auto lock (after 0 9 1 1's time, KEY-20) locks the keypad. The volume knob and hold # always work (KEY-14).
 
