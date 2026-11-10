@@ -255,7 +255,7 @@ Every screen, how you get to it and where its keys lead, one table per chapter. 
 - **Built, hook, no event source yet**: D15 SSB patch confirm: App hook `ssb_patch_found`; the patch check at boot doesn't call it yet (sim F10); D21 Link write progress: App hook `link_write_progress`; the Link task doesn't exist yet (sim after F11); D22 Power off: App hook `power_off`; the volume switch isn't read yet (sim F8); D23 Empty battery: App hook `battery_empty`; the battery monitor doesn't call it yet (sim F9).
 <!-- /nav:unreachable -->
 
-Not in the tables yet (hand-kept until `docs/tools/navgraph.py` reads IDs with a letter suffix): **A16a** Quick messages, reached from APRS messages (C5): hold MENU, OK on Quick messages; OK edits one, # puts the factory text back (manual TEXT-7). Weather radio (B16) is still in the code, but the manual dropped its screen on Oct 6, 2026: the WX channels are a zone (WX-1).
+Not in the tables yet (hand-kept until `docs/tools/navgraph.py` reads IDs with a letter suffix): **A16a** Quick messages, reached from APRS messages (C5): hold MENU, OK on Quick messages; OK edits one, # puts the factory text back (manual TEXT-7). **A16b** Auto reply, MENU 0 5 9 9 (APRS-57). Weather radio (B16) is still in the code, but the manual dropped its screen on Oct 6, 2026: the WX channels are a zone (WX-1).
 
 **MENU 0, the advanced menu.** ▸ opens a screen, › a third-level list; the rest are values changed in the list.
 
