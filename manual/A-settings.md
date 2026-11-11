@@ -67,7 +67,7 @@ Zone: name (16), in "scan all", shown in ◀▶, sort by distance, resume rule, 
 | 0 2 1 | Browse | Zones, All, per band (broadcast: the saved FM stations), Recent, Nearby; edit, rename, move, renumber, copy to slot, skip, delete | — | 10 |
 | 0 2 2 | Add repeater | Frequency, shift, tone, name | — | 10 |
 | 0 2 3 | Zones | Name, scan options, priority 1 and 2; new, rename, delete | — | 10 |
-| 0 2 4 | Channel display | Name, number, frequency | Name | 10 |
+| 0 2 4 | Channel shows | Name, number, frequency | Name | 10 |
 | 0 2 5 | Local zone | Off, 10, 20, 30, 50, 80 km | 50 km | 10 |
 | 0 2 6 | FM broadcast (its settings; a slot in the broadcast band is the receiver, decisions 352, 354) | — | — | 20 |
 | 0 2 6 1 | FM step | 50, 100, 200 kHz | 100 kHz | 20 |
@@ -150,12 +150,12 @@ No menu number; on the HF screen's options page (hold MENU). Kept in the HF stat
 | --- | --- | --- | --- | --- |
 | 0 6 1 | GPS | Off, Auto, On | Auto | 28 |
 | 0 6 2 | Position | View: fix, satellites, position, grid, altitude, speed, heading | — | 28 |
-| 0 6 3 | Coordinate format | Decimal, DDM, DMS, Grid square | DDM | 28 |
+| 0 6 3 | Coordinates | Decimal, DDM, DMS, Grid square | DDM | 28 |
 | 0 6 4 | Units | Metric, imperial, nautical | Metric | 28 |
 | 0 6 5 | Time zone | UTC−12 to +14, with 30 and 45 min offsets | UTC | 28 |
 | 0 6 6 | Clock | 24 h, 12 h; from GPS on/off; set manually | 24 h, from GPS | 28 |
 | 0 6 7 | Waypoints | List, mark here, arrival alarm (off, 50 m–1 km) | Alarm off | 28 |
-| 0 6 8 | GPS during RX/TX | Always on, off on receive, off on transmit, both | Always on (revisit after noise measurement) | 28 |
+| 0 6 8 | GPS off during | Never, receive, transmit, both | Never (revisit after noise measurement) | 28 |
 | 0 6 9 | Fixed position | Latitude, longitude, altitude | None | 28 |
 
 ### 0 7 Display, sound, power
@@ -163,22 +163,22 @@ No menu number; on the HF screen's options page (hold MENU). Kept in the HF stat
 | Menu | Setting | Values | Default | Ch |
 | --- | --- | --- | --- | --- |
 | 0 7 1 | Theme | Dark, daylight, night red, cyberpunk | Dark | 31 |
-| 0 7 2 | Home layout | Watch, single + scope, watch + activity | Watch | 6 |
+| 0 7 2 | Layout | Watch, single + scope, watch + activity | Watch | 6 |
 | 0 7 3 1 | S-meter | Bars, dBm | Bars | 31 |
-| 0 7 3 2 | Power-on message | Off, callsign, 16-character text | Callsign | 31 |
+| 0 7 3 2 | Power-on text | Off, callsign, 16-character text | Callsign | 31 |
 | 0 7 3 3 | Boot screen | Logo, owner card | Logo | 5 |
 | 0 7 4 1 | Backlight timeout | 5 s–10 min, always on | 1 min | 31 |
 | 0 7 4 2 | Brightness | 1–10; night red keeps its own level | 7 (night red 3) | 31 |
 | 0 7 4 3 | Backlight on transmit | Off, on | On | 31 |
-| 0 7 4 4 | Wake screen on | Keys; keys and RX; keys, RX and TX | Keys and RX | 31 |
-| 0 7 4 5 | Keypad light | Off, with the screen, on key press, always | With the screen | 31 |
+| 0 7 4 4 | Wake on | Keys; keys and RX; keys, RX and TX | Keys and RX | 31 |
+| 0 7 4 5 | Key light | Off, with the screen, on key press, always | With the screen | 31 |
 | 0 7 5 1 | Key beep | Off, on | On | 32 |
 | 0 7 5 2 | Beep volume | Low, Mid, High | Mid | 32 |
 | 0 7 5 3 | Alert tones | Off, on | On | 32 |
 | 0 7 5 4 | Arrival tone | Off, on | On | 28 |
 | 0 7 5 5 | Message sound | Off, Ding, Mail, Packet, Droid, Pager | Packet | 25 |
 | 0 7 5 6 | Message volume | Low, mid, high, max | Max | 25 |
-| 0 7 6 | LEDs | Off; RX and TX; RX, TX and heartbeat | RX, TX and heartbeat | 31 |
+| 0 7 6 | LEDs | Off; RX and TX; RX, TX, heartbeat | RX, TX, heartbeat | 31 |
 | 0 7 7 | Power saving | (list) | | 33 |
 | 0 7 7 1 | Battery Save | Off, 1, 2, 3 | 1 | 33 |
 | 0 7 7 2 | Low Power Mode | Off, Auto, On | Auto | 33 |
@@ -205,7 +205,7 @@ No menu number; on the HF screen's options page (hold MENU). Kept in the HF stat
 | 0 8 6 2 | CW ID | Off, every 10 min, on unkey | Off | 18 |
 | 0 8 7 | Busy lockout default | Off, on | Off | 15 |
 | 0 8 8 1 | Subtone level | Low, Normal, High | Normal | 16 |
-| 0 8 8 2 | Tail elimination (receive muting beside it) | Off, receive, transmit, both | Off | 16 |
+| 0 8 8 2 | Tail removal (tail elimination; receive muting beside it) | Off, receive, transmit, both | Off | 16 |
 | 0 8 8 3 | Phase | 55 Hz, 120°, 180°, 240° | 55 Hz | 16 |
 | 0 8 8 4 | Extend TX (`0 8 8` alone in the terminal) | Off, on (warned once). Emergency frequencies (406, 243.0, 121.5 MHz) need a second PTT within 5 s | Off | 15 |
 | 0 8 8 5 | Dry TX (TX-48) | Off, on: the PA drive held at 0 on every key-up; off at every power-on, never stored, on the radio's own keys only | Off | 15 |

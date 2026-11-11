@@ -21,7 +21,7 @@ No mock-up yet.
 | 0 8 5 2 | Memories | 16 × 16 digits, each with a 10-character name (# names it) | Empty |
 | 0 8 5 3 | Speed | 50–200 ms, each tone and each gap | 100 ms |
 | 0 8 5 4 | DTMF sidetone | Off, on (hear the digits sent, at beep volume) | On |
-| 0 8 5 5 | First digit delay | 0–1000 ms after key-up, so a repeater opens | 300 ms |
+| 0 8 5 5 | Start delay | 0–1000 ms after key-up, so a repeater opens | 300 ms |
 
 > **Spec: DTMF**
 >
