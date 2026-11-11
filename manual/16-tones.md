@@ -22,7 +22,7 @@ No mock-up yet.
 | MENU 4 | Tones (RX, TX) | Off, CTCSS (50 tones), DCS (104 codes, normal or inverted) | Off |
 | 0 8 4 | End tone (roger) | Off, beep, two-tone up, two-tone down, chirp, Quindar | Off |
 | 0 8 8 1 | Subtone level | Low, Normal, High: the CTCSS/DCS level around the calibration's (TONE-16) | Normal |
-| 0 8 8 2 | Tail elimination | Off, receive, transmit, both | Off |
+| 0 8 8 2 | Tail removal | Off, receive, transmit, both | Off |
 | 0 8 8 3 | Phase | 55 Hz, 120°, 180°, 240° | 55 Hz |
 | Channel | Tail elimination | Global, off, on (the radio's 0 8 8 mode and phase) | Global |
 | Channel | End tone | Global, off, beep, two-tone up, two-tone down, chirp, Quindar | Global |

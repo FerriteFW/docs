@@ -32,12 +32,12 @@ The status bar shows a satellite while GPS is on: outline while searching, solid
 | Menu | Setting | Values | Default |
 | --- | --- | --- | --- |
 | 0 6 1 | GPS | Off, auto, on | Auto |
-| 0 6 3 | Coordinate format | Decimal, DDM, DMS, Grid square | DDM |
+| 0 6 3 | Coordinates | Decimal, DDM, DMS, Grid square | DDM |
 | 0 6 4 | Units | Metric, imperial, nautical | Metric |
 | 0 6 5 | Time zone | UTC−12 to +14, with 30 and 45 min offsets | UTC |
 | 0 6 6 | Clock | 24 h, 12 h; from GPS on, off; set manually | 24 h, from GPS |
 | 0 6 7 | Waypoints | List, mark here; arrival alarm off, 50 m–1 km | Alarm off |
-| 0 6 8 | GPS during RX/TX | Always on, off while receiving a signal, off while transmitting, both | Always on |
+| 0 6 8 | GPS off during | Never, receive (while receiving a signal), transmit, both | Never |
 | 0 6 9 | Fixed position | Latitude, longitude, altitude | None |
 | 0 7 5 4 | Arrival tone | Off, on (with Sounds, chapter 32) | On |
 
@@ -51,11 +51,11 @@ The status bar shows a satellite while GPS is on: outline while searching, solid
 >     - **GPS-1.5** Auto (decision 268) powers the module only while something needs a position, and keeps it off (PA8, as Off) the rest of the time. The needs: (a) APRS mode on with position beacons and no fixed position (GPS-3); (b) a GPS screen open (position, satellites, waypoints, go to a waypoint); (c) going to a waypoint, or its arrival alarm armed (a stored waypoint alone is not a need); (d) the clock from GPS (0 6 6): one fix after power-on, then nothing more for the clock. While powered the power manager runs it as On does (GPS-26 – GPS-33: standby between wakes, the wake before a timed beacon, running while moving). When the last need ends the module powers off a minute later (a screen closed and opened again doesn't cycle it). In Low Power Mode GPS is off whatever the setting (PWR-24.4), so a power-on in the mode takes no clock fix, and it isn't taken on leaving. The first fix after the module was off may be a cold start (whether its backup supply keeps the ephemeris with PA8 off is a GPS-31 bench check). The status-bar icon (GPS-6) shows while the module is powered.
 > - **GPS-2** Every fix records satellites, HDOP and its age; the last fix is kept with its age while the module sleeps; consumers see the age and never treat a stale fix as current. The position screen shows accuracy as "±N m" (HDOP × 5 m), not the raw HDOP.
 > - **GPS-3** With no fix, position users (APRS, Nearby) take the fixed position, or none.
-> - **GPS-4** GPS during RX/TX powers the module off for the chosen cases and back on after.
+> - **GPS-4** GPS off during (0 6 8) powers the module off for the chosen cases and back on after.
 > - **GPS-5** While transmitting, PB10 (USART3 TX) is driven low and restored after, as stock does.
 > - **GPS-6** The status-bar icon shows only with GPS on (in Auto, while the module is powered, GPS-1.5): outline searching, solid with a fix from the last 3 minutes (GPS-25), not merely while the module runs.
-> - **GPS-14** GPS during RX/TX.
->     - **GPS-14.1** GPS during RX/TX defaults to Always on: the module isn't powered off while receiving and transmitting. Revisit after the bench noise measurement.
+> - **GPS-14** GPS off during (0 6 8; named GPS during RX/TX until 0.8.2, its values Always on, Off on receive, Off on transmit, Off on both).
+>     - **GPS-14.1** GPS off during defaults to Never: the module isn't powered off while receiving and transmitting. Revisit after the bench noise measurement.
 >     - **GPS-14.2** The power manager still puts it in standby between fixes then (GPS-26).
 > - **GPS-15** The position page (MENU 0 6 2).
 >     - **GPS-15.1** A status line with the fix type, satellites used of those in view and the accuracy (GPS-2), the fix's age at the right (amber past 10 s).

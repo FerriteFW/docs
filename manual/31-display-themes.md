@@ -30,16 +30,16 @@ How every screen looks: frame, fonts, colours, backlight and LEDs. Looks may cha
 | Menu | Setting | Values | Default |
 | --- | --- | --- | --- |
 | 0 7 1 | Theme | Dark, daylight, night red, cyberpunk | Dark |
-| 0 7 2 | Home layout | Watch, single + scope, watch + activity | Watch |
+| 0 7 2 | Layout | Watch, single + scope, watch + activity | Watch |
 | 0 7 3 1 | S-meter | Bars, dBm | Bars |
-| 0 7 3 2 | Power-on message | Off, callsign, 16-character text | Callsign |
+| 0 7 3 2 | Power-on text | Off, callsign, 16-character text | Callsign |
 | 0 7 3 3 | Boot screen | Logo, owner card | Logo |
 | 0 7 4 1 | Backlight timeout | 5, 10, 15, 30 s; 1, 2, 5, 10 min; always on | 1 min |
 | 0 7 4 2 | Brightness | 1–10; night red keeps its own level | 7 (night red 3) |
 | 0 7 4 3 | Backlight on transmit | Off, on | On |
-| 0 7 4 4 | Wake screen on | Keys; keys and RX; keys, RX and TX | Keys and RX |
-| 0 7 4 5 | Keypad light | Off, with the screen, on key press, always | With the screen |
-| 0 7 6 | LEDs | Off; RX and TX; RX, TX and heartbeat (DISP-21) | RX, TX and heartbeat |
+| 0 7 4 4 | Wake on | Keys; keys and RX; keys, RX and TX | Keys and RX |
+| 0 7 4 5 | Key light | Off, with the screen, on key press, always | With the screen |
+| 0 7 6 | LEDs | Off; RX and TX; RX, TX, heartbeat (DISP-21) | RX, TX, heartbeat |
 
 > **Spec: frame**
 >
@@ -51,7 +51,7 @@ How every screen looks: frame, fonts, colours, backlight and LEDs. Looks may cha
 
 > **Spec: look**
 >
-> - **DISP-6** Text: JetBrains Mono, regular and bold, 12 and 15 px. Frequency digits: Ferrite Mono Tight, 46 px (active slot) and 26 px (watched), one digit width so frequencies never shift. Barlow Semi Condensed only for the FERRITE wordmark.
+> - **DISP-6** Text: JetBrains Mono, regular and bold, 12 and 15 px; the menus' rows (MENU 0) at 14 px regular in 25 px rows, every name and value whole (decision 372). Frequency digits: Ferrite Mono Tight, 46 px (active slot) and 26 px (watched), one digit width so frequencies never shift. Barlow Semi Condensed only for the FERRITE wordmark.
 > - **DISP-7** Fonts are 4-bit anti-aliased, compiled into MCU flash, English only; nothing depends on stock's font data.
 > - **DISP-8** No text under 12 px; text contrast at least 4.5:1 in dark, daylight and cyberpunk. Night red draws all text at full red on black (DISP-18); dark adaptation comes first.
 > - **DISP-9** Colours come only from named tokens: background, surface, text, secondary text, accent, receive, transmit, warning, info, slot A, B, C. A theme is one token table; views never use literal RGB.
