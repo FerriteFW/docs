@@ -63,7 +63,7 @@ There's no arming step: after setup, transmit works on your region's amateur ban
 > - **SETUP-9** An empty callsign is allowed; automatic transmissions stay refused until one is set.
 > - **SETUP-10** The summary shows the transmit state, that there are no channels yet, and how to add them.
 > - **SETUP-11** The owner card is entered on the radio only on setup page 4; after that it is edited in the web app only (no radio menu item).
-> - **SETUP-12** The callsign is stored and shown in capitals; letters typed in lower case become capitals as you type.
+> - **SETUP-12** The callsign is stored and shown in capitals; letters typed in lower case become capitals as you type. It takes capitals, digits, - and / (key 1: - / 1).
 > - **SETUP-13** The callsign takes up to 10 characters and CW ID sends it whole, but an AX.25 address holds 6: with a longer one the callsign page says "over 6 characters: no APRS" under the box (amber), and APRS beacons and messages are refused ("Beacon not sent: callsign over 6"); KISS frames carry the client's own addresses and still go. Decision 174.
 >     - **SETUP-13.1** The refusal comes when you send, never later: Send in compose ("Callsign over 6", "no APRS"), Beacon now ("callsign over 6") and the link's message send refuse at once rather than queue something the APRS task can't frame (until Oct 22, 2026 they said "queued" and nothing went).
 

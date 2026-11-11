@@ -29,7 +29,7 @@ Says what the radio is, what's installed, whether each part checked out, and why
 
 > **Spec: About**
 >
-> - **SELF-5** Shows version and build; MCU and SPI flash identity and the MCU's unique ID (SELF-8); calibration status; why transmit is locked, if it is; hardware checks; SSB patch state; how to enter the bootloader. The live numbers are System's (SELF-9).
+> - **SELF-5** Shows version and build; MCU and SPI flash identity and the MCU's unique ID (SELF-8); calibration status; why transmit is locked, if it is; hardware checks; the SI4732's firmware, chip and component revisions, read at the boot check ("Not read" when it didn't answer); SSB patch state; how to enter the bootloader. The live numbers are System's (SELF-9).
 > - **SELF-6** Without an SSB patch, About says "not installed" and the menu path that installs it.
 > - **SELF-7** There is no firmware-update screen; About explains the stock bootloader route.
 > - **SELF-8** About shows the MCU's 96-bit factory unique ID (0x1FFFF7E8, which stock reads too) as 20 Crockford base32 digits (no I, L, O or U; the 12 stored bytes read as a bit stream, nothing lost) in groups of five on two rows, "R28JM FRR1S" / "27V4T WPTH0"; "Not read" while it is all zero.

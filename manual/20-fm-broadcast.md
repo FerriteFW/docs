@@ -8,7 +8,7 @@ FM broadcast on the SI4732, with RDS, on any home slot tuned into the broadcast 
 
 **On a home slot.** Tune any slot (A, B or C) into the broadcast FM band, 87.5–108.0 MHz (76–95 MHz with region Japan), by VFO, typed frequency or a stored channel: it plays broadcast FM on the SI4732 by itself, no menu. Tune it out and it's a two-way slot again. For broadcast below 87.5 MHz (64–108), set the slot's mode to **WFM** (MENU 3).
 
-1. Its card shows the frequency, STEREO, the SNR, the station's RDS radio text (the whole 64 characters once it has arrived; the station name only when it sends no text) and the signal.
+1. Its card shows the frequency, STEREO, the SNR, the station's RDS radio text (the whole 64 characters once it has arrived; the station name only when it sends no text) and the signal. When the station sends its programme type, the header names it in place of Broadcast ("VFO · Jazz").
 2. **▲▼ or the knob** tune by the FM step (0 2 6 1, 100 kHz), **◀▶** seek the next station. **MENU** shows FM's settings instead of the slot's: step, AGC, radio monitor, sleep timer, and **5 Saved stations**.
 3. Your other slots keep watching. When one of them is heard it takes the speaker and the broadcast goes quiet ("muted" on the card); the broadcast comes back 2 s after that slot's audio ends.
 4. One slot plays broadcast at a time: tune a second slot into the band and the broadcast moves to it. The first then says "FM on B" and stays silent until you tune it out.
@@ -67,6 +67,7 @@ No mock-up yet.
 >     - **BCR-26.5** It reads muted while a slot heard has the speaker.
 >     - **BCR-26.6** The other two home layouts show the RDS text in place of the slot's settings.
 >     - **BCR-26.7** Single + scope shows the signal in dBuV with the SNR and STEREO in a row under the frequency, the RDS text under them, and its S-meter shows the SI4732's signal on FM's own scale (0–70 dBuV, labelled 0–60) in place of the S scale, green while it plays.
+>     - **BCR-26.8** While the slot plays a station that sends a programme type (RDS PTY), its name takes the place of "Broadcast" in the slot's header ("VFO · Classic rock", "012 · Jazz"). The names follow the region: the North American RBDS list in the US and Canada, the European RDS list elsewhere. "Broadcast" again when the station sends none (type 0) or the slot stops playing.
 > - **BCR-27** One FM state: the broadcast slot's station is the broadcast; the Status page's Broadcast row says "FM 100.5 on A" (its OK opens 0 2 6).
 > - **BCR-28** Quick settings (MENU) on a slot in the broadcast band are FM's: 1 step, 2 AGC, 3 radio monitor, 4 sleep timer, 0 More.
 > - **BCR-29** The broadcast slot runs as the exclusive mode FM broadcast (MODE-1).

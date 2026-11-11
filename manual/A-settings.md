@@ -241,7 +241,7 @@ Weather alerts have three items, with no Open weather radio (weather radio is ch
 
 | Setting | Where it changes | Default | Ch |
 | --- | --- | --- | --- |
-| Predictive or multi-tap for message text | Hold \* in message compose; the last choice is kept (TEXT-10) | Predictive | 7 |
+| Predictive or multi-tap for message text | # in message compose goes round T9, abc, ABC, 123; the last choice is kept (TEXT-10) | Predictive | 7 |
 | Show hidden channels | Hold MENU on a channel list (CHAN-24) | Off | 10 |
 | Quick messages | Hold MENU on Messages (0 5 2), Quick messages (TEXT-7) | The factory nine | 25 |
 
