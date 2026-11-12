@@ -9,7 +9,7 @@ Tune any frequency the radio can receive, by stepping or by typing it.
 1. V/M puts the active slot in VFO mode. Each slot has its own VFO, remembered per band. Home VFOs tune 18 MHz and up in FM, NFM or AM, or WFM for broadcast FM anywhere 64–108 MHz (chapter 20); below 18 MHz, and USB, LSB and CW, are in HF mode (chapter 20a).
 2. Knob or ▲▼ step by the slot's step; SIDE2 + knob steps 1 MHz; ◀▶ change band.
 3. Type a frequency: digits, with \* as the point; OK enters it, or \* again once a digit follows the point (146 \* 52 \*), so one hand does it all. What you type is tuned exactly, never snapped to the step; entry shows the band, whether the value is on the step, and whether transmit is allowed there (VFO-12).
-4. Hold SLOT to edit the VFO: mode, RX tone, tone, offset, power, step, squelch, busy lock, reverse.
+4. Hold ABC to edit the VFO: mode, RX tone, tone, offset, power, step, squelch, busy lock, reverse.
 5. Hold 9 (or MENU 8) to save it as a channel; on a channel, hold 9 copies it to the VFO. For reverse, hold \* (the quick menu), then PTT A.
 
 ### Screens
@@ -17,7 +17,7 @@ Tune any frequency the radio can receive, by stepping or by typing it.
 | | |
 | --- | --- |
 | ![Editing a VFO in place](img/screens/HomeEdit.png) | ![Quick settings on a VFO](img/screens/MenuQuick.png) |
-| Hold SLOT, VFO | MENU, VFO |
+| Hold ABC, VFO | MENU, VFO |
 
 ### Settings
 

@@ -8,8 +8,8 @@ Listen on two or three slots at once, and answer on whichever is heard.
 
 1. MENU 7 (or hold 4): watch off, A+B, or A+B+C.
 2. The active slot is large and heard first. A watched slot is heard when the active one is quiet.
-3. A watched slot that opens is highlighted (RX on its card) and plays while the active slot is quiet. The active slot never changes by itself: only you change it (SLOT, or a PTT that keys its own slot).
-4. To answer: PTT B keys slot B whichever slot is active; PTT A keys the active slot (KEY-7). To answer slot C, press SLOT to make it active, then PTT A.
+3. A watched slot that opens is highlighted (RX on its card) and plays while the active slot is quiet. The active slot never changes by itself: only you change it (ABC, or a PTT that keys its own slot).
+4. To answer: PTT B keys slot B whichever slot is active; PTT A keys the active slot (KEY-7). To answer slot C, press ABC to make it active, then PTT A.
 5. A home slot on 18–64 MHz needs the band relay. If the watched slots need different relay states, watch turns itself off: a toast says "Watch off: HF needs the relay", `TW`/`DW` disappears, and the Status page says why. It comes back by itself once they all need the same state.
 6. **Pause:** while a watched slot is receiving, # on home pauses watch for the pause time (MENU 0 1 6 1, 1 min); the hint bar shows "# Pause".
 7. Watching pauses while any slot transmits and stays paused for 30 s after unkey, so replies on your channel are not missed (WATCH-16). With Battery Save on, watched receivers sleep and wake on its cycle, so a watched slot may miss the first fraction of a second.

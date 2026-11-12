@@ -22,7 +22,7 @@ The active slot's settings; the same nine rows on every screen with a slot.
 
 ### Channel and zone fields
 
-Edited in the channel editor (hold SLOT on a channel, or MENU 8). No menu number. All chapter 10 unless noted.
+Edited in the channel editor (hold ABC on a channel, or MENU 8). No menu number. All chapter 10 unless noted.
 
 | Field | Values | Default | Ch |
 | --- | --- | --- | --- |

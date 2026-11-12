@@ -37,7 +37,7 @@ No mock-up yet.
 
 > **Spec: channel-only**
 >
-> - **PIN-5** Channel-only mode hides V/M, frequency entry, MENU 0 and channel editing; SLOT, zone browsing, volume, squelch, quick mute (\*, HOME-15) and PTT still work; leaving it is hold #, which asks for the PIN when one is set; in channel-only mode hold # only leaves, so the key lock isn't available there. Hold-digit shortcuts that change a value (0, 2–8, and 9's copy, KEY-23) are refused with "Channel-only: hold # to leave"; 1 (the scope) works, and so does hold V/M (the zone list). Hold \* (the quick menu, HOME-17) is refused the same way.
+> - **PIN-5** Channel-only mode hides V/M, frequency entry, MENU 0 and channel editing; ABC, zone browsing, volume, squelch, quick mute (\*, HOME-15) and PTT still work; leaving it is hold #, which asks for the PIN when one is set; in channel-only mode hold # only leaves, so the key lock isn't available there. Hold-digit shortcuts that change a value (0, 2–8, and 9's copy, KEY-23) are refused with "Channel-only: hold # to leave"; 1 (the scope) works, and so does hold V/M (the zone list). Hold \* (the quick menu, HOME-17) is refused the same way.
 
 > **Spec: recovery**
 >
@@ -57,7 +57,7 @@ No mock-up. Built in 2g (PIN, key lock, channel-only mode). Done when every PIN 
 ### Settled details
 
 - The reset clears everything Ferrite stored except calibration and the SSB patch: settings, channels, zones, presets, the home channel, messages, the event log, waypoints and trims. It asks with deliberate extra steps: a screen listing what goes, then OK, then hold # for 3 s (decided Oct 6, 2026).
-- Channel-only mode hides V/M, frequency entry, MENU 0 and channel editing; SLOT, zone browsing, volume, squelch and PTT work; leaving it is hold #, which asks for the PIN when one is set; in channel-only mode hold # only leaves, so the key lock isn't available there (decided Oct 6–7, 2026).
+- Channel-only mode hides V/M, frequency entry, MENU 0 and channel editing; ABC, zone browsing, volume, squelch and PTT work; leaving it is hold #, which asks for the PIN when one is set; in channel-only mode hold # only leaves, so the key lock isn't available there (decided Oct 6–7, 2026).
 - The wait after wrong PINs stays 30 s and a power cycle resets the count (decided Oct 6, 2026).
 - Rule history and comparisons with stock and nicFW (kept here so the rules state behaviour only):
   - PIN-3: decided Oct 6, 2026.

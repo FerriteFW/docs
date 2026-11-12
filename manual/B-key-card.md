@@ -9,7 +9,7 @@ One fixed map; no key can be reassigned. Short = released under 700 ms. Long = h
 | ▲▼ | Step frequency or channel | Repeat | SIDE2 held: 1 MHz or 10 channels. SIDE1 held: squelch | Move the highlight |
 | ◀▶ | Channel: zone. VFO: band | Repeat | — | Same as the knob (KEY-19) |
 | Knob | Tune, or step channels | — | SIDE1 held: squelch. SIDE2 held: big steps. Quick menu up: brightness (HOME-17) | Change the highlighted value |
-| SLOT | Next slot, A → B → C | Edit the slot in place | — | Leaves edit in place |
+| ABC | Next slot, A → B → C | Edit the slot in place | — | Leaves edit in place |
 | V/M | VFO ↔ channel | Zones (the zone list) | — | — |
 | SIDE1 | Tap: monitor latched. Hold: monitor | — | + knob or ▲▼: squelch level | — |
 | SIDE2 | Scan start/stop | — | + knob or ▲▼: big steps. PTT + SIDE2: tone burst | — |
