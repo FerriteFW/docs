@@ -43,7 +43,7 @@ Every value is in Appendix A.
 | Band scope | The scope settings, 0 3 1 (bars, step, sweep speed, trigger, waterfall) |
 | FM broadcast | Step, AGC, radio monitor, presets |
 | HF mode | Step, bandwidth, AGC, LNA, fine tune (BFO), recent list |
-| APRS heard, the APRS card | Beacon now, beacon on/off (APRS-17), messages, clear the heard list, APRS settings |
+| APRS heard, the APRS card | Beacon now (APRS-17), messages, clear the heard list, APRS settings |
 | APRS messages | Write a message, quick messages (TEXT-7), APRS settings |
 | Channel lists | Show hidden (CHAN-24) |
 | Event log | Mark all read, clear the log, decoder settings |

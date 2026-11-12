@@ -8,7 +8,7 @@ Squelch keeps the speaker quiet until a signal is there. Monitor opens it on dem
 
 - **Set squelch:** hold SIDE1 and turn the knob (or ▲▼); you hear it as you set it. Or MENU 1, with a live signal meter.
 - **Monitor:** hold SIDE1 to listen with squelch open. Tap SIDE1 to latch it; tap again to release.
-- **Per channel:** the channel's squelch override (hold SLOT).
+- **Per channel:** the channel's squelch override (hold ABC).
 - **Fine control:** MENU 0 9 9 1 sets the thresholds per band.
 
 ### Screens

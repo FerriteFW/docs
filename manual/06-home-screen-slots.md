@@ -16,21 +16,22 @@ The radio has three **slots**, A, B and C, each on a VFO or a channel. PTT A tra
 | Big step | SIDE2 + knob: 10 channels | SIDE2 + knob: 1 MHz |
 | Change group | ◀▶ zone | ◀▶ band |
 | Go direct | Type the number | Type the frequency (\* = point) |
-| Next slot | SLOT | SLOT |
+| Next slot | ABC | ABC |
 | VFO ↔ channel | V/M | V/M |
 | Zones (the zone list) | Hold V/M | Hold V/M |
 | Copy (KEY-23) | Hold 9: copy the channel to the VFO (asks first) | Hold 9: save the VFO as a channel |
 | Home channel | Hold 0 | Hold 0 |
 | Shortcut (runs at once, a popup names it) | Hold a digit | Hold a digit |
 | Shortcut list | MENU 0 9 1 3 | MENU 0 9 1 3 |
-| Status page | # | # |
+| Quick help (the key map and help pages) | # | # |
+| Status page | MENU 0 0 | MENU 0 0 |
 | Pause watch (a watched slot is receiving) | # | # |
 | Mute this slot (it still receives) | \* | \* |
 | Quick menu: reverse, night red, GPS, Bluetooth, brightness | Hold \* | Hold \* |
 
 **Quick menu:** hold \* on home and a small box comes up over home, naming what the side keys and the knob do while it is up, with each one's state: PTT A reverse, PTT B night red, PF1 GPS, PF2 Bluetooth, the knob brightness. Each press acts at once and the box shows the new state. BACK, \* again or any other key closes it (that key does nothing else), and so do 5 s with no key or knob. While it is up PTT A and PTT B never transmit; a PTT you were holding when it closed has to be let go first. The side connector's PTT closes it and transmits as usual.
 
-**Edit in place:** hold SLOT. The slot's settings fill the screen as a grid: arrows pick, the knob changes, changes apply at once. A VFO shows 9 settings; a channel also shows its zone, name and frequency, plus 12 settings. Leave with BACK, SLOT or 8 s idle; PTT keeps the changes and transmits.
+**Edit in place:** hold ABC. The slot's settings fill the screen as a grid: arrows pick, the knob changes, changes apply at once. A VFO shows 9 settings; a channel also shows its zone, name and frequency, plus 12 settings. Leave with BACK, ABC or 8 s idle; PTT keeps the changes and transmits.
 
 ### Screens
 
@@ -39,7 +40,7 @@ The radio has three **slots**, A, B and C, each on a VFO or a channel. PTT A tra
 | ![Home, watch layout](img/screens/HomeA.png) | ![Home, single + scope](img/screens/HomeB.png) | ![Home, watch + activity](img/screens/HomeC.png) |
 | Watch (default) | Single + scope | Watch + activity |
 | ![Editing a VFO in place](img/screens/HomeEdit.png) | ![Editing a channel in place](img/screens/HomeEditCh.png) | ![A toast over home](img/screens/Toast.png) |
-| Hold SLOT, VFO | Hold SLOT, channel | A message arrives |
+| Hold ABC, VFO | Hold ABC, channel | A message arrives |
 | ![Channel mode, name first](img/screens/HomeChannel.png) | ![A channel with no name](img/screens/HomeChannelNoName.png) | |
 | Channel mode: the name first (simulator) | A channel with no name: the frequency large | |
 
@@ -70,8 +71,9 @@ The three layout boards above predate the name-first channel cards (decision 54)
 > - **HOME-7** Redraw only what changed; the meter never makes the frequency flicker.
 > - **HOME-8** Holding a digit runs its shortcut at the long-press time, while still held; a popup in the middle of the screen names it for 1.2 s: just the feature's name, with the new value under it for a setting (hold 0: the channel). The hint bar stays. The release does nothing. No page shows during the hold; the list of shortcuts is a reference page at MENU 0 9 1 3.
 > - **HOME-9** Toasts replace the hint bar for 3 s and never cover the frequency.
-> - **HOME-10** # (short) on home opens the Status page; while a watched slot is receiving, it pauses watch instead (WATCH-6) and the hint bar says "# Pause". Hold # stays key lock.
-> - **HOME-11** The slots are always stacked A, B, C, top to bottom; SLOT only changes which one is large, in its own place.
+> - **HOME-10** # (short) on home opens the quick help on the holds (decision 376; Alex: "start with the hold page"); # goes on through the help pages (holds, home keys, side keys, menu numbers, the manual) and round, ◀▶ as on About (HELP-1), and BACK goes home. While a watched slot is receiving, # pauses watch instead (WATCH-6) and the hint bar says "# Pause". Hold # stays key lock. The Status page is MENU 0 0 (SBAR-13).
+>     - **HOME-10.1** The home hint bar starts with "Hold ABC Edit" (the slot's settings, EDIT-1, EDIT-2); a tap's A·B·C wasn't worth its place.
+> - **HOME-11** The slots are always stacked A, B, C, top to bottom; ABC only changes which one is large, in its own place.
 > - **HOME-12** In the watch layout the three cards fill the content area: the large card 124 px tall, the others 67 px, 6 px apart, with 5 px clear below the status bar and above the hint bar. The extra height spaces the rows out; nothing new is shown (decision 98).
 > - **HOME-13** Home stays quick while the knob turns (decision 106).
 >     - **HOME-13.1** While the knob turns (until 400 ms after its last step), home redraws the active slot's part at once (frequency, header, chips, meter) and holds the heavier parts: the other slots' cards or lines, the activity rows and the scope strip; each of those light redraws takes under 20 ms.
@@ -81,7 +83,7 @@ The three layout boards above predate the name-first channel cards (decision 54)
 > - **HOME-15** Quick mute: \* (short) on home mutes the active slot and \* again unmutes it; \* \* within a second turns it off (HOME-15.1), and \* on an off slot turns it back on. A muted slot still receives: its squelch, S-meter and the green LED work as before; only its audio is kept off the speaker, and it never holds the speaker from a watched slot (WATCH-3). On the broadcast slot it mutes the broadcast. The mute stays with its slot (A, B or C) through slot changes until \* again. It is RAM only, never saved: a power cycle clears it.
 >   - Shown in the slot's own state word, in amber, on every layout: "Muted"; while it receives, "Muted" with the RX tag beside it (HOME-15.3). Home has no room for a new mark, so the state word carries it; on the broadcast slot "Muted" takes the place of the broadcast's own states (BCR-26). A toast confirms each press ("Slot A muted", "\* unmutes, \*\* off"); there is no hint-bar label.
 >   - **HOME-15.1** Off: \* \* within a second (the second \* within 1 s of the one that muted) turns a slot off; a later \* only unmutes, so unmuting never passes through Off; \* on an off slot turns it on. An off slot isn't received or watched: no chip listens to it, the active one too, so its watch turns go to the other slots (WATCH-2.1; e.g. A off beside APRS mode's C on 2 m gives C the VHF chip alone, and its "APRS first" note goes); it is never heard and never scans. The toasts: "Slot A off" with "\* turns it back on", then "Slot A on". The APRS slot (C while APRS mode, KISS or beacons hold it) keeps Normal ↔ Muted, and C is turned on when APRS takes it. A latched monitor (SQL-14) goes off with it. RAM only, as the mute: a power cycle turns every slot on. The readback's card `state="Off"`.
->   - **HOME-15.2** An off slot's card is powered down (mock-up O1): no surface fill (the page shows through), a dashed outline in the dim line colour instead of the border, the slot letter dim, a dim header naming what it is on ("VFO · VHF · 146.520"; a channel's number and name, or its frequency without one; cut to fit) with "Off" at its right, a big dim "OFF" in the middle and "\* turns it back on" under it. As the active slot it keeps the large card's size and the same look, its dashed outline blue, so SLOT still shows where it is.
+>   - **HOME-15.2** An off slot's card is powered down (mock-up O1): no surface fill (the page shows through), a dashed outline in the dim line colour instead of the border, the slot letter dim, a dim header naming what it is on ("VFO · VHF · 146.520"; a channel's number and name, or its frequency without one; cut to fit) with "Off" at its right, a big dim "OFF" in the middle and "\* turns it back on" under it. As the active slot it keeps the large card's size and the same look, its dashed outline blue, so ABC still shows where it is.
 >   - **HOME-15.3** Muted while receiving, every card keeps "Muted" in amber and shows the green RX tag right of it, as a receiving card does (the large card's outlined tag, the small cards' bold RX), with the green border of any receive (the large card keeps its blue). On the APRS card the priority note ("APRS first", "A·B first", APRS-21) hides while both show; on the single + scope layout the header shows the same. The readback keeps `state="RX muted"`.
 >   - **HOME-15.4** An off slot doesn't transmit, scan or latch monitor: PTT (A for the active slot, B for slot B), the side connector's PTT, VOX, the dialer and a remote key-up, SIDE2's scan and SIDE1's monitor are refused with the refusal beep and a toast, "Slot A is off" with "\* turns it back on". No TX refused screen: nothing in the menu fixes it.
 >   - On a scanning active slot \* still skips the hit (KEY-18); hold \* is the quick menu (HOME-17); channel-only mode allows it (PIN-5).
@@ -124,17 +126,17 @@ The three layout boards above predate the name-first channel cards (decision 54)
 > - **NAV-2** VFO mode: knob/▲▼ step by the slot's step; ◀▶ step bands, by frequency from low to high, wrapping; every receive band is in the list, and the region decides transmit only.
 > - **NAV-3** SIDE2 held: big steps (1 MHz or 10 channels).
 > - **NAV-4** Digits open entry, showing the band, whether the typed value is on the step, and whether TX is allowed there.
-> - **NAV-5** SLOT cycles the enabled slots, A → B → C.
+> - **NAV-5** ABC cycles the enabled slots, A → B → C.
 > - **NAV-6** No key's meaning depends on a setting.
 
 > **Spec: edit in place**
 >
-> - **EDIT-1** Hold SLOT: single-slot layout, first setting focused, status bar EDIT A, slot tagged EDIT.
+> - **EDIT-1** Hold ABC: single-slot layout, first setting focused, status bar EDIT A, slot tagged EDIT.
 > - **EDIT-2** VFO: 9 settings. Channel: zone, name, frequency + 12 settings.
 > - **EDIT-3** Arrows move, knob changes; hint bar "◀▲▼▶ Pick · Knob Change".
 > - **EDIT-4** Changes apply at once and save within 2 s; "\* Undo" for 5 s.
 > - **EDIT-5** Changing zone or number moves the channel; Home sets the one home channel.
-> - **EDIT-6** Ends on BACK, SLOT or 8 s idle; PTT keeps changes and transmits.
+> - **EDIT-6** Ends on BACK, ABC or 8 s idle; PTT keeps changes and transmits.
 > - **EDIT-7** Settings that don't apply are greyed and say why when selected.
 
 ### Under the hood

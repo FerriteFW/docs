@@ -6,7 +6,7 @@ Sends the CTCSS or DCS tone a repeater or group needs, the tone burst that opens
 
 ### Using it
 
-- **Tones:** MENU 4, or hold SLOT and pick the tone cell. RX and TX are set separately, each as a mode (Off, CTCSS, DCS-N, DCS-I: ◀▶) and a value (the knob); cross modes are just different pairs. Hold 5 opens the tone picker; MENU 0 3 5 finds the tone on the air (chapter 22).
+- **Tones:** MENU 4, or hold ABC and pick the tone cell. RX and TX are set separately, each as a mode (Off, CTCSS, DCS-N, DCS-I: ◀▶) and a value (the knob); cross modes are just different pairs. Hold 5 opens the tone picker; MENU 0 3 5 finds the tone on the air (chapter 22).
 - **Tone burst:** PTT + SIDE2 sends 1750 Hz.
 - **Tail elimination:** in the Transmit group, 0 8 8: mode (receive-side muting sits beside transmit, in the same setting) and phase; a channel can turn it off or on for itself (TONE-7).
 - **End tone (roger beep):** 0 8 4, beside tail elimination; a channel's End tone overrides it, as its Tail elimination does. Both are set on the tone picker's second page: OK on a channel's Tone cell, then ▼ past the TX tone (TONE-17). A short tone sent as you let go of PTT, before the carrier drops, so the other side hears that you've finished. OK on a value plays it on the speaker without transmitting.

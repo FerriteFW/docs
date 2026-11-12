@@ -15,12 +15,12 @@ One fixed key map, the same on every screen and every Ferrite radio. No key can 
 | ▲▼ | Home: step frequency or channel. Lists: move | Repeat |
 | ◀▶ | Home: zone (channel mode) or band (VFO mode). Everywhere else: the same as the knob, unless the screen says otherwise (KEY-19) | Repeat |
 | Knob | Home: tune or step channels. Settings: change the highlighted value | Home, quick menu up: brightness (HOME-17) |
-| SLOT | Next slot, A → B → C. Zones page: edit the zone (CHAN-27) | Edit the active slot in place |
+| ABC | Next slot, A → B → C. Zones page: edit the zone (CHAN-27) | Edit the active slot in place |
 | V/M | VFO ↔ channel | Zones (the zone list), in VFO and channel mode alike (KEY-23) |
 | SIDE1 (PF1) | Tap: monitor latched until tapped again | Monitor while held. Hold + knob or ▲▼: squelch; hold + ◀▶: clarifier |
 | SIDE2 (PF2) | Scan start/stop | Held alone: frequency counter, opened as it comes up (KEY-22). Hold + knob or ▲▼: big steps (1 MHz, 10 channels) |
 | \* | Home: the active slot Normal, Muted, Off in turn (HOME-15, HOME-15.1). Decimal point in entry. Scanning: skip this hit. Elsewhere the hint bar's action | Home: the quick menu (HOME-17) |
-| # | Home: Status page, or pause watch while a watched slot is receiving. Elsewhere: the hint bar's action | Key lock on/off |
+| # | Home: the quick help, or pause watch while a watched slot is receiving. Elsewhere: the hint bar's action | Key lock on/off |
 | 0–9 | Frequency, channel or menu number | Shortcut (below) |
 | PTT A | Transmit on the active slot from any screen (returns home first; exceptions in KEY-7). Quick menu up: reverse, never transmits | PTT + SIDE2: tone burst |
 | PTT B | Transmit on slot B from any screen (returns home first). Quick menu up: night red, never transmits | PTT + SIDE2: tone burst |
@@ -97,7 +97,7 @@ No mock-up yet.
 > - **KEY-25** A key is never held up by the screen's work or the radio's updates: the UI task takes a key or the knob before anything else waiting for it (the Radio task's snapshot, the tick), and the time a press is held is its own: a hold is a hold and an arrow moves one row however busy the screen (decision 341; black, Nov 1, 2026: on the satellite pages the downlink's level changed every 10 ms tick and kept the keys waiting, so a press and its release arrived together, a held MENU read as OK and the arrows lagged and jumped).
 > - **KEY-22** SIDE2 (PF2) held alone opens the frequency counter (MENU 0 3 2) when it comes up. Held as a modifier (+ knob or ▲▼ for big steps, or with PTT as the tone burst) it never does, however long it is held. Not in channel-only mode (PIN-5).
 > - **KEY-12** Text entry: multi-tap digits; \* (marked _ on the key) is the space; # (marked ^) cycles case and symbols; BACK deletes. 0 also has the space before its digit, and 1 the marks before its (TEXT-2.1). There is no cursor: typing and BACK work at the end of the text, and the knob and ◀▶ do nothing there. Message text also has predictive entry (TEXT-1 to TEXT-11). A channel name's symbols page has only the name set's symbols (CHAN-31).
-> - **KEY-17** # on home: the Status page, or pause watch while a watched slot is receiving (HOME-10).
+> - **KEY-17** # on home: the quick help, or pause watch while a watched slot is receiving (HOME-10).
 > - **KEY-18** \* while scanning skips the current hit for this scan (SCAN-11), on the scan screen and on home while the active slot scans, where hold \* does nothing (no quick menu); on home otherwise \* mutes and unmutes the active slot, \* \* within a second turns it off and \* on an off slot turns it on (HOME-15, HOME-15.1) and hold \* is the quick menu (HOME-17). On the scan screen ▲▼ set the direction and leave a hit (SCAN-16), and # skips a hit for every scan (SCAN-17). No other key pauses or skips.
 > - **KEY-19** ◀ and ▶ (short press and repeat) do exactly what the knob does, ◀ = one click back, ▶ = one forward: in menus and quick settings they change the highlighted value, in a value editor they step it, in a list they move.
 >   - Screens that give ◀▶ a job of their own: home (band or zone), scope (marker; the knob moves the centre), HF mode (band), FM broadcast (seek), the crossband start screen (move between cells), the edit grids (move between cells; the knob changes the cell), More's Recent row (pick one), the event log list (filter by source), GPS (position ↔ satellites), About (About, the Help pages and the self-test, HELP-1), PIN entry (◀ deletes), setup's text pages (◀ deletes), channel renumbering and range-preset edges (steps of 10 / 1 MHz), and the key test.
