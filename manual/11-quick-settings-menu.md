@@ -49,6 +49,10 @@ Every value is in Appendix A.
 | Event log | Mark all read, clear the log, decoder settings |
 | GPS position, waypoints | Mark here, waypoints or GPS position, GPS settings |
 
+**The APRS slot's quick page:** **hold ABC** on the APRS slot opens its most-used APRS settings as a grid, the way hold ABC on any other slot opens the slot's settings (EDIT-1): arrows pick, the knob changes, OK opens the bigger editor, # resets, BACK or ABC leaves. The help box names each setting's menu path (MENU-34):
+
+APRS mode, beacon, power, frequency, path, digipeat, beacon text ("Bcn text", the comment, typed in T9 by default, TEXT-10), its text rate (APRS-50.1) and symbol: the same page whatever holds C (APRS mode, KISS or beacons alone).
+
 **Task flows** for rare jobs, inside the tree: add a repeater, set up weather alerts, add a Bluetooth device, setup.
 
 ### Screens
@@ -92,7 +96,7 @@ Every value is in Appendix A.
 > - **MENU-18** # resets the highlighted value to its default.
 > - **MENU-19** A change takes effect as soon as it is made; only the destructive actions of MENU-23 wait for a confirm.
 > - **MENU-20** BACK leaves an edit and restores the old value; OK keeps it; PTT keeps it and goes home.
-> - **MENU-21** Changes save within 2 s, power-cut safe. No save step, no pending state.
+> - **MENU-21** Changes save within 2.5 s (2 s after the last change, looked for every 500 ms: PWR-26.14), power-cut safe. No save step, no pending state.
 > - **MENU-22** After a change, the hint bar offers "\* Undo" for 5 s.
 > - **MENU-23** Only destructive actions confirm (delete channel or zone, reset), naming what goes.
 
@@ -108,6 +112,7 @@ Every value is in Appendix A.
 > - **MENU-31** A setting that holds a frequency (0 5 4 the APRS frequency, 0 4 2 2 the pager frequency, a range preset's start and end) opens one shared frequency entry box on OK (or its digit): home's entry (digits, \* the point, OK or a whole frequency keeps it, BACK deletes, then leaves), headed with the setting, showing its value now and what it takes. A frequency outside the setting's range is refused with a toast saying why, the digits kept to fix: APRS 64-300 MHz on 5 kHz steps, pagers 136-520 MHz, range edges 18-1300 MHz with the start under the end and never across 18 or 64 MHz (SCAN-14). The knob still steps the value on its row. The terminal's `set` takes the same settings in MHz with the same checks (TERM-12).
 > - **MENU-32** Each settings group whose settings include ones that can take the radio away from its expected behaviour ends with an **Advanced** row: those settings, one list, with defaults that are right for nearly everyone. The rest of the group is what owners change. A group with none has no Advanced row. The full menu itself (MENU 0, hold MENU) is **More**.
 > - **MENU-33** A row stays out of the menu until its feature is built: no row says only "setting comes next". Background job (WATCH-13 – WATCH-15), Scan target (SCAN-2) and the Nearby sort (CHAN-15) left the menu with decision 256, until they are judged worth building; the rows after them closed up (MENU-6.1).
+> - **MENU-34** Hold ABC on the APRS slot opens its quick page: nine APRS settings as a 3 x 3 grid (APRS mode, beacon, power, frequency, path, digipeat, "Bcn text" the beacon comment, text rate, symbol), as hold ABC on another slot opens the slot's (EDIT-1). It is the same page whatever holds C: APRS mode, KISS or beacons alone (APRS-29). Each cell is a menu setting by its path, with the menu's values, steps, greying and reset: the arrows pick (stopping at the grid's edges), a digit picks a cell (MENU-5), the knob changes the value at once (MENU-16, MENU-19, with "\* Undo", MENU-22), OK opens what the menu row opens (MENU-17, MENU-31), # resets (MENU-18), BACK or ABC returns home. A value too long for its cell is cut at a word break, and the help box shows it whole while the cell is picked; otherwise the help box has the setting's help line, or why it is greyed (MENU-14), with its path. Idle, it goes home after the menu timeout (MENU-28). Other screens have no quick page. Alex, Nov 12, 2026 (decision 378).
 
 ### Under the hood
 
