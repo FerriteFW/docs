@@ -134,7 +134,7 @@ The three layout boards above predate the name-first channel cards (decision 54)
 > - **EDIT-1** Hold ABC: single-slot layout, first setting focused, status bar EDIT A, slot tagged EDIT.
 > - **EDIT-2** VFO: 9 settings. Channel: zone, name, frequency + 12 settings.
 > - **EDIT-3** Arrows move, knob changes; hint bar "◀▲▼▶ Pick · Knob Change".
-> - **EDIT-4** Changes apply at once and save within 2 s; "\* Undo" for 5 s.
+> - **EDIT-4** Changes apply at once and save within 2.5 s (PWR-26.14); "\* Undo" for 5 s.
 > - **EDIT-5** Changing zone or number moves the channel; Home sets the one home channel.
 > - **EDIT-6** Ends on BACK, ABC or 8 s idle; PTT keeps changes and transmits.
 > - **EDIT-7** Settings that don't apply are greyed and say why when selected.

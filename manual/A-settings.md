@@ -134,6 +134,7 @@ No menu number; on the HF screen's options page (hold MENU). Kept in the HF stat
 | 0 5 6 2 | After voice TX | Off, on | Off | 25 |
 | 0 5 6 3 | Beacon power | Low, mid, high | Low | 25 |
 | 0 5 6 4 | Telemetry | Off, on: values in the comment (APRS-54) | Off | 25 |
+| 0 5 6 5 | Text rate | All, 1/2, 1/4, 1/8 (APRS-50.1) | All | 25 |
 | 0 5 7 | Digipeat | Off, on (0 5 7 1); aliases WIDE1-1, or WIDE1-1 and your callsign (0 5 7 2); wait 0–5 s (0 5 7 3) | Off, WIDE1-1, 0 s | 25 |
 | 0 5 8 | KISS TNC | Off, cable, Bluetooth (that port speaks raw KISS; on = apps may transmit) | Off | 26 |
 | 0 5 9 1 | Path | None, WIDE1-1, WIDE1-1,WIDE2-1, custom; custom path, typed (0 5 9 2) | WIDE1-1,WIDE2-1, none | 25 |
