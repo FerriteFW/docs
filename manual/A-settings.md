@@ -220,7 +220,7 @@ No menu number; on the HF screen's options page (hold MENU). Kept in the HF stat
 | 0 9 1 3 | Shortcuts | — | — | 7 |
 | 0 9 2 1 | Bluetooth | Off, on | Off | 29 |
 | 0 9 2 2 | Link status | View | — | 29 |
-| 0 9 2 3 | Cable port | Auto, link, terminal, KISS | Auto | 37 |
+| 0 9 2 3 | Cable port | Auto, link, terminal (KISS is 0 5 8) | Auto | 37 |
 | 0 9 3 1 | PIN lock | Off, at power on, at power on and unlock | Off | 34 |
 | 0 9 3 2 | Channel-only mode | Off, on (hides VFO and editing) | Off | 34 |
 | 0 9 3 3 | Change PIN | 4–6 digits: the old PIN first, then the new one twice | — | 34 |

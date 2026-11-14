@@ -10,7 +10,7 @@ A plain-text interface over the cable that any terminal program can use: a conso
 2. Press Enter. The radio answers with a menu: **Radio · Channels · Zones · Settings · APRS · GPS · Monitor · About**.
 3. Arrows move, Enter edits, Esc goes back, digits jump (the same numbers as the radio's menu).
 
-**Cable port** (MENU 0 9 2 3): *auto* picks the mode from the first bytes received: link frames mean the web app, a typed Enter means the terminal. *Link*, *terminal* and *KISS* force one.
+**Cable port** (MENU 0 9 2 3): *auto* picks the mode from the first bytes received: link frames mean the web app, a typed Enter means the terminal. *Link* and *terminal* force one. KISS on the cable is 0 5 8 KISS TNC (chapter 26).
 
 **Command line.** `:` on any page opens it on the bottom line; Enter runs it, Esc closes it, Up brings the last command back. The answer shows on the bottom line until the next key; `:help` lists the commands.
 
@@ -71,14 +71,14 @@ Lines are merged by number: a `ch`, `zone` or `preset` line replaces what it nam
 
 | Menu | Setting | Values | Default |
 | --- | --- | --- | --- |
-| 0 9 2 3 | Cable port | Auto, link, terminal, KISS | Auto |
+| 0 9 2 3 | Cable port | Auto, link, terminal | Auto |
 | 0 9 9 5 | Cable log | Off, on | Off |
 | 0 9 9 3 | Terminal colour | Off, on | Off |
 
 > **Spec: the terminal**
 >
 > - **TERM-1** VT100 at 80 × 24 over the cable; works with any terminal program, no special client.
-> - **TERM-2** In *auto*, the first bytes decide: a 0x00 (the link's frame delimiter; the web app sends one before its first frame) gives the cable to the link protocol, which keeps it while frames or syncs keep coming (10 s); a typed Enter selects the terminal; KISS only when KISS mode or *KISS* is chosen. *Link* and *Terminal* fix the port to one of them; *KISS* leaves both silent (chapter 26).
+> - **TERM-2** In *auto*, the first bytes decide: a 0x00 (the link's frame delimiter; the web app sends one before its first frame) gives the cable to the link protocol, which keeps it while frames or syncs keep coming (10 s); a typed Enter selects the terminal; *Link* and *Terminal* fix the port to one of them. With 0 5 8 KISS TNC on Cable the cable is KISS's and neither speaks (chapter 26; 0 9 2 3 had a KISS of its own until decision 386, which did the same: a radio saved with it comes back with 0 5 8 on Cable).
 > - **TERM-3** The cable is trusted (LINK-7): never asked for the PIN.
 > - **TERM-4** The terminal never gets in the radio's way.
 >     - **TERM-4.1** The radio keeps working while the terminal is open.
