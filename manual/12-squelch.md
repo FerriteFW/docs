@@ -69,6 +69,14 @@ Squelch keeps the speaker quiet until a signal is there. Monitor opens it on dem
 >     - **SQL-19.3** Open, it follows the chip: the chip's hold through a noisy reading and its tail stay (SQL-18.4).
 >     - **SQL-19.4** Counts since power-on, both chips: opens, opens shorter than 50 ms, spikes ignored, opens ignored while settling; on the home readback's own line `aprs_sq opens=N short=N spikes=N settle=N` while C is the APRS slot, and each open's length in a bench build's cable log ("aprs sq open ms").
 >     - **SQL-19.5** The APRS slot receives with the chip's receive noise gate (REG_28 bit 8) and AFC off and its 300 Hz high-pass and de-emphasis off (APRS-55, decision 309); the squelch's thresholds, open delay and decisions (SQL-17, SQL-18.4, SQL-19) are as before.
+> - **SQL-20** Open beep (decision 402): a tone as the squelch opens, so a quiet channel announces a signal.
+>     - **SQL-20.1** Set per channel (the channel's options, Console's channel list) and per VFO slot; the choices are the end tones' (TONE-10.2): Off (the default), Beep, Two-tone up, Two-tone down, Chirp, Quindar. No radio-wide setting.
+>     - **SQL-20.2** With an open beep set, the slot's audio waits 70 ms after the squelch opens: with the software squelch's 30 ms (SQL-18.1), the signal has held about 100 ms. Shorter opens stay silent. Only the speaker waits: the squelch, the watch, scans and the decoders see the open as before.
+>     - **SQL-20.3** The tone plays from the MCU (SND-11's key-beep path, at the key beeps' volume) over the received audio: the audio opens with the tone and isn't muted under it, so nothing after the wait is lost. The Radio task steps it each tick and doesn't wait through it; it stops when the audio does. Skipped if DAC1 is busy with another sound.
+>     - **SQL-20.4** It plays each time the speaker opens to the slot: when its squelch opens, when the watch turns the audio to it, and when a scan stops on a signal. Never on the APRS slot, nor for a latched monitor, nor while keyed.
+>     - **SQL-20.5** With 0 9 5 at Chip, the 70 ms is timed from the chip's open.
+>     - **SQL-20.6** Stored in the channel record's byte 31, bits 5-7 (0 = Off, 1-5 the tones), and for a VFO in its saved settings' flags byte, bits 2-4 (the link's channel records too): no format change; an older writer's 0 reads Off.
+>     - **SQL-20.7** Set on the tone picker's second page (MENU 4, ▼ past TX): on a channel below its end tone and tail, on a VFO alone; # is Off. The terminal's `ch` line has `openbeep=off|beep|up|down|chirp|quindar`.
 
 ### Under the hood
 
@@ -91,7 +99,7 @@ Squelch editor mock-up approved (0b). Basic squelch in 1e; advanced squelch in m
 
 ### Open points
 
-None.
+- SQL-20.3 rests on the receive audio and the MCU's DAC1 being summed before the volume pot (`analysis/audio_path.md`: inferred, not measured). Check on the radio that the tone and a received signal play together cleanly; if not, the audio opens after the tone.
 
 ---
 
