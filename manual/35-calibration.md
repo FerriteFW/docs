@@ -31,8 +31,9 @@ No mock-up yet.
 > **Spec: validation**
 >
 > - **CAL-5** Check at every boot. Blank (0xF0E0 = 0xFF) or invalid: transmit locked on every band, receive still works, About says why.
-> - **CAL-6** Valid means: programmed flag set; every PA byte plausible (not 0x00 or 0xFF); low < mid < high at every index; a factory crystal trim, when marked, within ±20 ppm (|k| ≤ 871; a bigger one also leaves receive untrimmed); tone gains fit their 7-bit fields; TX windows parse (CAL-11).
-> - **CAL-7** The sector's CRC-32 is recorded in the layout header (bytes 6–9, outside the header's own CRC) on the first boot that checks it, which is the first boot after install (and with the backup); at every boot a mismatch, or no store to check against, locks transmit and the cable log says why (About and Status to follow). A format of the store records it again (decision 129).
+> - **CAL-6** Valid means: programmed flag set; a factory crystal trim, when marked, within ±20 ppm (|k| ≤ 871; a bigger one also leaves receive untrimmed); tone gains fit their 7-bit fields; TX windows parse (CAL-11). A sector that fails one of these locks transmit on every band.
+>     - **CAL-6.1** The power curves are checked per band (UHF, VHF, 200 MHz, HF, the entries the bands reach): every byte plausible (not 0x00 or 0xFF) and Low below High at every entry; Mid isn't checked against either (a Mid above High only gives that level more drive). A band that fails locks transmit on that band only: the rest of the radio transmits, About reads "HF TX locked" (or the band), the Calibration page names the check and the entry, and the refusal says "locked on this band" (decision 412, issue #40).
+> - **CAL-7** The sector's CRC-32 is recorded in the layout header (bytes 6–9, outside the header's own CRC) on the first boot that checks it, which is the first boot after install (and with the backup); at every boot a mismatch, or no store to check against, locks transmit and the cable log says why; About's Calibration row and the refusal name the check that failed (CAL-20). A format of the store records it again (decision 129), and so does the owner's acceptance (CAL-20).
 > - **CAL-8** The level-to-row mapping is a type with a unit test: "low" reads the row whose default is 100.
 
 > **Spec: use**
@@ -54,6 +55,11 @@ No mock-up yet.
 >
 > - **CAL-17** Trims live at 0x003000 (layout 3, decision 333; two alternating copies), apart from calibration; "reset trims" clears only them.
 > - **CAL-18** Limits: crystal trim within ±20 ppm; battery reading trim within ±0.30 V.
+> - **CAL-20** What locked transmit is shown, and a changed sector can be used as it is (decision 410, issue #40).
+>     - **CAL-20.1** About's Calibration row shows the transmit check's verdict, not only that the sector isn't blank: Valid, "Blank: TX locked", "Invalid: TX locked" (a CAL-6 check failed) or "Changed: TX locked" (CAL-7), and its Transmit row "Locked: calibration" with it. The "Can't transmit" refusal names the same check (the MCU, blank, invalid, changed).
+>     - **CAL-20.2** While it reads "Changed", OK on About asks "Use the calibration as it is?". OK there checks the sector against every CAL-6 check and, only if all pass, records its CRC as the accepted one; transmit unlocks without a restart and About reads Valid. A sector that fails a check stays locked and About reads "Invalid: TX locked". The calibration itself is never written (CAL-1).
+>     - **CAL-20.3** The accepted CRCs are appended after the layout header in its sector (from byte 0x100, 4 bytes each, the last counts), never erased: a power cut can't lose the header, and one cut short reads as another change (accept again). A format clears them with the header.
+>     - **CAL-20.4** The Calibration page (MENU 0 9 8, ◀▶ to it) names the check that failed: "Power byte" (a 0x00 or 0xFF the bands reach) or "Power order" (Low not below Mid, or Mid not below High), each with the band row, entry and level ("Power order: VHF 5, Mid"); "TX windows", "Crystal trim", "Sub-tone gain"; "Store not ready" when the CRC couldn't be checked (the store not mounted), which About shows as "Not checked: locked", not "Changed", and offers no OK for. The sector's own checks come before the CRC: a sector failing one that changed too reads Invalid with its check. The refusal names it too.
 
 ### Under the hood
 
