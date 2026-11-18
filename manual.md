@@ -36,7 +36,6 @@ The manual is the spec for the Ferrite firmware for the Radtel RT-950 Pro. The b
 | 25. APRS | [25-aprs.md](manual/25-aprs.md) |
 | 26. KISS TNC | [26-kiss-tnc.md](manual/26-kiss-tnc.md) |
 | 27. Decoders: pagers, DSC, AIS | [27-decoders.md](manual/27-decoders.md) |
-| 27a. SSTV pictures | [27a-sstv.md](manual/27a-sstv.md) |
 | 28. GPS, time and waypoints | [28-gps-time.md](manual/28-gps-time.md) |
 | 28a. Satellites | [28a-satellites.md](manual/28a-satellites.md) |
 | 29. Bluetooth, the cable and the web app | [29-bluetooth-link.md](manual/29-bluetooth-link.md) |

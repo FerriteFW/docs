@@ -53,7 +53,6 @@ Chapters: **What it's for · Using it · Screens · Settings · Spec** (numbered
 - [25. APRS](#25-aprs)
 - [26. KISS TNC](#26-kiss-tnc)
 - [27. Decoders: pagers, DSC, AIS](#27-decoders-pagers-dsc-ais)
-- [27a. SSTV pictures](#27a-sstv-pictures)
 
 **Part 6 · Location**
 
