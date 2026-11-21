@@ -40,7 +40,7 @@ No mock-up yet.
 > - **PWR-2** With a CTCSS or DCS code set, the on-time is at least 250 ms.
 > - **PWR-3** Any key, or squelch opening or closing: receiver fully on for 10 s, then 300/300 ms for 30 min, then the level's cycle.
 > - **PWR-4** Never sleep while squelch is open, a decoder or scan runs, either chip transmits or is in the unkey wait, or crossband runs. Watch alone doesn't keep a chip awake (PWR-19).
-> - **PWR-5** Sleep: REG_30 = 0, REG_37 = 0x1D00. Wake: REG_37 = 0x9D1F, then the receive sequence.
+> - **PWR-5** Sleep: REG_30 = 0, REG_37 = 0x1D00. Wake: REG_37 = 0x9D1F, then the receive sequence, which sets 0x9F1F (SQL-18.9): a chip awake and receiving reads 0x9F1F.
 > - **PWR-6** Sleep turns the sleeping slot's receive path select off and wake turns it back on, as stock, except while a broadcast plays: then the select stays on (BCR-19); never while either chip transmits or is in the unkey wait (TX-29), and only through the path machine.
 > - **PWR-7** One BK4829 awake at a time: the chip being listened to; the other sleeps until watch turns to it. A key-up wakes the chip for the transmit band and sleeps the other. Only APRS mode keeps a second chip awake, for slot C.
 > - **PWR-8** Battery Save shows on the Status page, not the status bar.
@@ -118,6 +118,7 @@ No mock-up yet.
 > **Spec: power off**
 >
 > - **PWR-17** Switch off (PE0 high twice, 50 ms apart): full unkey if transmitting, finish queued writes and save the settings ("Saving…", at most 3 s), then release PA11. PA11 waits for the Radio task's unkey (at most 1 s, TX-33). Each step goes to the cable log with its time in ms since boot: `power off: switch off` (or `auto off`), `radio told`, `radio unkeyed` (if it was keyed), `saving`, `saved` (or `save cut at 3 s`), `off`; the Radio task's `shutdown: start`, `shutdown: unkeyed`, `shutdown: chips off`.
+>     - **PWR-17.1** Settings changed in the last seconds before power-off (or a restart) are saved too: a save already under way makes the flush wait, and it is made again once that save is done, within the same 3 s; the wait lasts while the settings and slots aren't the last saved, not only while the store is busy. (A user's VFO settings weren't kept through a power cycle; a review of Nov 20, 2026: one attempt, refused by a save under way, then nothing.)
 > - **PWR-18** Auto power off after the set time with no activity (keys, PTT, or any slot receiving), through the same shutdown, with a warning 10 s before.
 
 ### Under the hood

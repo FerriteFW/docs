@@ -38,11 +38,12 @@ The status bar shows only what changes what a key does now, or needs attention. 
 >
 > - **SBAR-1** 20 px tall; device-wide state only. Per-slot state (power, tones, shift, mode) stays on the slot.
 > - **SBAR-2** Clock centred: `14:32`, `Z` suffix in UTC. With no time source the callsign takes the clock's place (its first 6 characters, the slot's room); nothing shows there when no callsign is set.
-> - **SBAR-3** Left, in order: screen name, padlock, `SCN`, `TW`/`DW`, inbox, alerts paused. Right: the satellite alarm's mark (SAT-20), `DRY` (SBAR-22), GPS, Bluetooth, battery at the right edge.
+>     - **SBAR-2.1** With the 12 h clock (MENU 0 6 6) the bar's time is `2:32p` (the hour without its zero, `a` or `p`; at most `12:32p`, so it fits where `14:32Z` does), as are the satellite pass times; UTC stays 24 h (`14:32Z`). The GPS screen says `2:32 pm`, where there's room. (A user's report, Nov 19, 2026: 12 h showed only on the GPS screen.)
+> - **SBAR-3** Left, in order: screen name, padlock, `SCN`, `TW`/`DW`, `VOX` (SBAR-25), inbox, alerts paused. Right: the satellite alarm's mark (SAT-20), `DRY` (SBAR-22), GPS, Bluetooth, battery at the right edge.
 > - **SBAR-4** Nothing else is ever in the bar. Each item appears only when it applies and keeps a fixed position.
 > - **SBAR-5** Screen name: the screen's own name, not its path, 8 characters or fewer; absent on home; cut short if the icons need the space (about 90 px on the left).
 > - **SBAR-6** Inbox: one envelope with one count of unread messages, decodes and alerts; red while an alert (SAME, DSC distress) waits.
-> - **SBAR-7** GPS shows only with GPS on: outline searching, solid with a fix.
+> - **SBAR-7** GPS shows only with GPS on: searching, the ring alone in dim grey; with a fix, green with its centre filled (a colour and a shape, SBAR-12). Decision 416.
 > - **SBAR-8** Bluetooth's icon: grey while Bluetooth is on (0 9 2 1) with nothing connected, blue while a device is connected, none while off. Night red has only red, so there connected is the rune cut out of a filled badge and on the rune alone. The readback's `bar` says `bt_on` and `bt` (connected).
 > - **SBAR-9** Battery always; its fill steps at the calibrated gauge's thresholds as stock's bars (full above the sixth, one step less below each of the sixth, fifth and fourth; PWR-22); amber below the warning level; red and blinking at the transmit cut-off.
 >     - **SBAR-9.1** The fill's colour tells the level: green above 80 %, yellow (the theme's amber) down to 31 %, red at 30 % and below (the outline red with it), and red at the low warning or the cut-off whatever the percentage says. The LED heartbeat uses the same three (DISP-21). Decision 239.
@@ -50,6 +51,7 @@ The status bar shows only what changes what a key does now, or needs attention. 
 > - **SBAR-22** Dry TX on (TX-48): `DRY` in amber, bold, left of the GPS and Bluetooth marks (inside the right half, 142 to 179 px), from the moment it is turned on until it is turned off or the radio powers off; in every theme by its token (night red's red, cyberpunk's magenta). The readback's `bar` line says `dry=1`.
 > - **SBAR-24** Low Power Mode on (PWR-24): `LOW` in the battery's fill colour (a saving, not a warning), bold, left of where the GPS and Bluetooth marks would be (both are off in the mode) and of `DRY`, inside the right half; the readback's `bar` line says `lpm=1`. In the mode home draws its own bands (PWR-24.7), so the mark shows on the other screens.
 > - **SBAR-11** Every state that changes what a key does (lock, scan) is in the bar.
+> - **SBAR-25** VOX on (0 8 2, VOX-1): `VOX` in amber after `TW`/`DW` in the left half, on every screen, as speech can key the radio with no hand on PTT; the readback's `bar` line says `vox=1`. Decision 416.
 > - **SBAR-12** Colour by exception (amber attention, red critical), and every colour also has a shape.
 > - **SBAR-16** Watch shows as `TW` when three slots are watched and `DW` when two; nothing when watch is off, or cancelled because the watched slots need different relay states (WATCH-11). It shows only on home, the Status page and Watch and scan settings (MENU 0 1); other screens keep the room for their name.
 
@@ -85,6 +87,7 @@ The status bar shows only what changes what a key does now, or needs attention. 
   - SBAR-20: decided Oct 8, 2026, decision 91; changed Oct 13, 2026: the slope is the AT32's −4.26 mV/°C (Table 55), not STM32F1's +4.1 as hwtest has it. The old sign read about 12 °C in a warm room, falling as the radio warmed (black radio, Oct 12, 2026). Changed Oct 13, 2026 (decision 112): no calibration; the cable log line (from SBAR-21) stays here.
   - SBAR-21: decided Oct 12, 2026 (user), built Oct 13, 2026. The datasheet allows the sensor's offset to differ by up to 50 °C between chips, so only a calibrated reading means anything absolute. Retired Oct 13, 2026 (user, decision 112): there is no way to measure the die on the assembled radio, and the corrected reading looks right.
   - SBAR-19: decided Oct 6, 2026.
+  - SBAR-25, SBAR-7: Nov 18, 2026 (Alex), decision 416: a short unwanted key-up was reported with nothing on home to say whether VOX was on; the GPS mark's fix and search looked too alike (only a small grey dot apart).
   - SBAR-22, SBAR-3: decided Oct 16, 2026 (Alex), built Oct 16, 2026, decision 190: a switch that removes RF from every key-up must never be on unseen. Neither stock nor nicFW has one.
   - SBAR-2: changed Oct 15, 2026 (user, decision 183): with no time the callsign in the clock's place (it showed `--:--`).
   - SBAR-9: changed Oct 15, 2026 (decision 184): the icon's fill steps at the calibrated thresholds as stock's bars; amber and red now follow the calibrated gauge (the firmware never set them before).

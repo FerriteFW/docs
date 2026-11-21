@@ -192,6 +192,7 @@ Per channel: **APRS** flag (decode APRS while on this channel), default off.
 >     - **APRS-57.1** Reply to: `*` (or nothing) is everyone; text then `*` is every callsign starting so (`VE7*`, `VE3DTJ*` for every SSID); anything else is one callsign-SSID exactly (SSID 0 written or not; case doesn't matter). Typed with capitals, digits and `-`; \* types the wildcard.
 >     - **APRS-57.2** No reply to ourselves on any SSID, to a service (APRS-39), to an ack, reject or query (APRS-33), or to a station replied to in the last 30 minutes: two radios replying to each other stop at one reply each. One reply waits at a time; a message from a second station during the delay gets none. No room for another of our messages (APRS-13.3) or no callsign (APRS-8): none is sent.
 >     - **APRS-56.6** Each capture's DC removal starts from its first sample, not mid-scale (decision 361): a fresh capture has no settling step under a packet's flags.
+> - **APRS-58** Third-party traffic (an IGate relaying from APRS-IS, a `}` packet): the relaying station is heard, and a message inside addressed to us, an ack among them, is taken as from its own sender (1 to 9 capitals, digits and `-`): it reaches the inbox and is acked to that sender by name, and an ack inside acks ours, so messages to and from internet stations and services (SMSGTE, EMAIL-2, WXBOT) work. (A review of Nov 20, 2026: third-party packets were only heard, their messages and acks lost.)
 
 
 ### Under the hood

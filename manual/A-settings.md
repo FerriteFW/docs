@@ -225,7 +225,7 @@ No menu number; on the HF screen's options page (hold MENU). Kept in the HF stat
 | 0 9 3 2 | Channel-only mode | Off, on (hides VFO and editing) | Off | 34 |
 | 0 9 3 3 | Change PIN | 4–6 digits: the old PIN first, then the new one twice | — | 34 |
 | 0 9 4 | Region | US, Canada, UK, Europe, Australia, New Zealand, Japan, Other | None until chosen in setup | 15 |
-| 0 9 5 | Squelch | Software, chip (SQL-18.3) | Software | 12 |
+| 0 9 5 | Squelch | Chip, software (SQL-18.3) | Chip | 12 |
 | 0 9 6 | SSB patch | Installed or not; source | — | 20a |
 | 0 9 7 1 | Run setup again | — | — | 4 |
 | 0 9 7 2 | Reset | Everything except calibration and the SSB patch (BOOT-14) | — | 34 |

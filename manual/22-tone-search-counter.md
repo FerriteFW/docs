@@ -49,6 +49,7 @@ No mock-up yet.
 > - **TSRCH-10** The frequency counter's range.
 >     - **TSRCH-10.1** The counter covers 64–1300 MHz with both BK4829s, each in its own range: chip 0 below 300 MHz, chip 1 from 300 MHz (its 630–756 MHz gap excepted).
 >     - **TSRCH-10.2** It never moves the band relay (SAFE-20), so 18–64 MHz is not counted.
+>     - **TSRCH-10.3** Both chips count at once, with both band receive paths on (SAFE-24): a strong, close carrier on one band can't keep the other band's chip from counting. A chip's reading counts only when it is in that chip's range and agrees with its reading before; the strongest reading of the last 2 s shows. If both paths can't be on (a slot has the band relay energised), the chips take turns, and a chip keeps its turn only while it has readings that count. Closing the counter turns the second path off again. Decision 420.
 > - **TSRCH-11** # holds: the reading freezes on screen while the counter keeps listening; OK then copies the frozen frequency (TSRCH-7), and # again releases it.
 > - **TSRCH-8** The counter only receives. It never keys the transmitter.
 

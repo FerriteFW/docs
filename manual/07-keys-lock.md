@@ -31,8 +31,8 @@ One fixed key map, the same on every screen and every Ferrite radio. No key can 
 | --- | --- | --- | --- |
 | 0 | Home channel | 5 | Tones (the tone picker) |
 | 1 | Band scope | 6 | Step: the next one (VFO only) |
-| 2 | TX power: low, mid, high | 7 | Shift: simplex, +, − (on a channel: its editor) |
-| 3 | Squelch (the value editor) | 8 | Offset (the value editor; on a channel: its editor) |
+| 2 | TX power: low, mid, high | 7 | Shift: the options, simplex, +, −, Split (the value editor) |
+| 3 | Squelch (the value editor) | 8 | Offset: its amount, typed in MHz (VFO-26) |
 | 4 | Watch on/off | 9 | Copy: a VFO to a channel (the save form); a channel to the VFO ("Copy to VFO?", OK copies) |
 
 **Hold \* on home: the quick menu** (HOME-17). A small box over home; while it is up PTT A is reverse, PTT B night red, PF1 GPS on/off, PF2 Bluetooth on/off and the knob the brightness, each acting at once with its new state shown. BACK, \* or any other key closes it, as do 5 s without a key. PTT A and PTT B never transmit while it is up.
@@ -90,11 +90,12 @@ No mock-up yet.
 > - **KEY-8** As SAFE-14: a PTT held at power-on is ignored until released.
 > - **KEY-9** The hint bar names what \*, # and MENU do on the current screen: at most three key + label pairs (four don't fit 240 px), the screen's own keys before the universal BACK.
 > - **KEY-10** Every long press is also reachable from a visible screen or list.
-> - **KEY-11** The ten long-press digits are fixed as in the table above. 7 and 8 on a channel open the channel editor at its Offset cell; 6 on a channel changes nothing and says "VFO only".
+> - **KEY-11** The ten long-press digits are fixed as in the table above. 7 and 8 work the same on a VFO and a channel (decision 418); 6 on a channel changes nothing and says "VFO only".
 > - **KEY-21** The shortcut list (MENU 0 9 1 3) runs its rows: ▲▼, the knob or a digit pick one, OK runs it from home as holding that digit would (with its popup), and the help line names the digit to hold ("Hold 5").
 > - **KEY-23** Hold V/M on home opens the zone list (C11, as MENU 0 2 3) in VFO and channel mode alike; OK there puts the active slot on a zone and comes back home (CHAN-27). Hold 9 is copy, one of the few keys whose meaning follows the mode, the same idea both ways: on a VFO it opens the save form (VFO-9); on a channel it asks "Copy to VFO?" (the channel named; OK copies, BACK cancels) and OK does VFO-23. Where hold V/M saved before, hold 9 saves: HF mode (HF-26) and the scan hit list (SCAN-23); hold V/M there opens nothing (HF mode says why, HF-13). Channel-only mode refuses hold 9 and still opens the zone list (PIN-5).
 > - **KEY-24** The channel knob steps the same way on every screen: one way is up (the next channel, a higher frequency, value or level, the next item in a list), the other down. Its direction is the encoder read A before B, as the first builds had it (decision 369, reversing decision 196).
 > - **KEY-25** A key is never held up by the screen's work or the radio's updates: the UI task takes a key or the knob before anything else waiting for it (the Radio task's snapshot, the tick), and the time a press is held is its own: a hold is a hold and an arrow moves one row however busy the screen (decision 341; black, Nov 1, 2026: on the satellite pages the downlink's level changed every 10 ms tick and kept the keys waiting, so a press and its release arrived together, a held MENU read as OK and the arrows lagged and jumped).
+> - **KEY-26** What every key does on every screen (each key tapped and held, the side keys, PTT A and the knob: where it leads, what it asks the radio, any message) is a reviewed record in the simulator's tests; a change shows up there and is accepted on purpose. Decision 424.
 > - **KEY-22** SIDE2 (PF2) held alone opens the frequency counter (MENU 0 3 2) when it comes up. Held as a modifier (+ knob or ▲▼ for big steps, or with PTT as the tone burst) it never does, however long it is held. Not in channel-only mode (PIN-5).
 > - **KEY-12** Text entry: multi-tap digits; \* (marked _ on the key) is the space; # (marked ^) cycles case and symbols; BACK deletes. 0 also has the space before its digit, and 1 the marks before its (TEXT-2.1). There is no cursor: typing and BACK work at the end of the text, and the knob and ◀▶ do nothing there. Message text also has predictive entry (TEXT-1 to TEXT-11). A channel name's symbols page has only the name set's symbols (CHAN-31).
 > - **KEY-17** # on home: the quick help, or pause watch while a watched slot is receiving (HOME-10).
