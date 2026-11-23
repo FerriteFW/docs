@@ -16,7 +16,7 @@ One open link protocol connects the radio to Ferrite's own web app, over the pro
 
 **The radio's PIN on Bluetooth:** while a PIN lock is on (MENU 0 9 3 1), every Bluetooth connection asks for the radio's own PIN before anything else: the terminal shows `PIN:`, and the web app asks you to type it. Wrong PINs count with the radio's own (three, then a 30 s wait, shown on the radio too). With no PIN lock, a Bluetooth connection reads and writes like the cable. The cable never asks: it needs the radio in your hands.
 
-**KISS mode** (MENU 0 5 8) turns its port into a raw KISS TNC; the link protocol is off on that port while it's on (chapter 26).
+**KISS mode** (MENU 0 5 3 KISS, its port MENU 0 5 8) turns its port into a raw KISS TNC; the link protocol is off on that port while it's on (chapter 26).
 
 **During a write session** the radio shows progress (item, %); keys are ignored except **BACK**, which cancels.
 
@@ -32,7 +32,7 @@ No mock-up yet.
 
 | Menu | Setting | Values | Default |
 | --- | --- | --- | --- |
-| 0 5 8 | KISS TNC (chapter 26) | Off, cable, Bluetooth | Off |
+| 0 5 8 | KISS port (chapter 26) | Cable, Bluetooth (KISS itself: 0 5 3) | Bluetooth |
 | 0 9 2 1 | Bluetooth | Off, on | Off |
 | 0 9 2 2 | Link status | View | — |
 | 0 9 2 3 | Cable port (chapter 37) | Auto, link, terminal | Auto |

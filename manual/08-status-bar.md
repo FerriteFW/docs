@@ -19,7 +19,7 @@ The status bar shows only what changes what a key does now, or needs attention. 
 | Right | Bluetooth | A device is connected |
 | Right | Battery: amber below the warning, red and blinking at the transmit cut-off | Always |
 
-**Status page:** # on home, or MENU 0 0. One row per state: transmit (ready, or why locked), region, Extend TX, inbox, scan (and its position), watch (and why it's off, if the relay cancelled it), jobs, beacon, Battery Save, broadcast, GPS, clock source (GPS or manual), Bluetooth (and the peer), the speaker mic (SND-12), battery (percentage, warning and cut-off levels; the volts are on About), the MCU's temperature, key lock, weather alerts ("Paused: HF mode" while in HF mode). OK on a row opens its setting.
+**Status page:** MENU 0 0. One row per state: transmit (ready, or why locked), region, Extend TX, inbox, scan (and its position), watch (and why it's off, if the relay cancelled it), jobs, beacon, Battery Save, broadcast, GPS, clock source (GPS or manual), Bluetooth (and the peer), the speaker mic (SND-12), battery (percentage, warning and cut-off levels; the volts are on About), the MCU's temperature, key lock, weather alerts ("Paused: HF mode" while in HF mode). OK on a row opens its setting.
 
 ### Screens
 
@@ -39,7 +39,7 @@ The status bar shows only what changes what a key does now, or needs attention. 
 > - **SBAR-1** 20 px tall; device-wide state only. Per-slot state (power, tones, shift, mode) stays on the slot.
 > - **SBAR-2** Clock centred: `14:32`, `Z` suffix in UTC. With no time source the callsign takes the clock's place (its first 6 characters, the slot's room); nothing shows there when no callsign is set.
 >     - **SBAR-2.1** With the 12 h clock (MENU 0 6 6) the bar's time is `2:32p` (the hour without its zero, `a` or `p`; at most `12:32p`, so it fits where `14:32Z` does), as are the satellite pass times; UTC stays 24 h (`14:32Z`). The GPS screen says `2:32 pm`, where there's room. (A user's report, Nov 19, 2026: 12 h showed only on the GPS screen.)
-> - **SBAR-3** Left, in order: screen name, padlock, `SCN`, `TW`/`DW`, `VOX` (SBAR-25), inbox, alerts paused. Right: the satellite alarm's mark (SAT-20), `DRY` (SBAR-22), GPS, Bluetooth, battery at the right edge.
+> - **SBAR-3** Left, in order: screen name, padlock, `SCN`, `TW`/`DW`, `VOX` (SBAR-25), `SPK` (SBAR-26), inbox, alerts paused. Right: the satellite alarm's mark (SAT-20), `DRY` (SBAR-22), GPS, Bluetooth, battery at the right edge.
 > - **SBAR-4** Nothing else is ever in the bar. Each item appears only when it applies and keeps a fixed position.
 > - **SBAR-5** Screen name: the screen's own name, not its path, 8 characters or fewer; absent on home; cut short if the icons need the space (about 90 px on the left).
 > - **SBAR-6** Inbox: one envelope with one count of unread messages, decodes and alerts; red while an alert (SAME, DSC distress) waits.
@@ -52,12 +52,13 @@ The status bar shows only what changes what a key does now, or needs attention. 
 > - **SBAR-24** Low Power Mode on (PWR-24): `LOW` in the battery's fill colour (a saving, not a warning), bold, left of where the GPS and Bluetooth marks would be (both are off in the mode) and of `DRY`, inside the right half; the readback's `bar` line says `lpm=1`. In the mode home draws its own bands (PWR-24.7), so the mark shows on the other screens.
 > - **SBAR-11** Every state that changes what a key does (lock, scan) is in the bar.
 > - **SBAR-25** VOX on (0 8 2, VOX-1): `VOX` in amber after `TW`/`DW` in the left half, on every screen, as speech can key the radio with no hand on PTT; the readback's `bar` line says `vox=1`. Decision 416.
+> - **SBAR-26** A speaker mic plugged in (SND-12): `SPK` in grey after `VOX`, on every screen, so it's clear which mic is live; the readback's `bar` line says `spk=1`. The screen name gives way for it, as for the other marks (SBAR-5).
 > - **SBAR-12** Colour by exception (amber attention, red critical), and every colour also has a shape.
 > - **SBAR-16** Watch shows as `TW` when three slots are watched and `DW` when two; nothing when watch is off, or cancelled because the watched slots need different relay states (WATCH-11). It shows only on home, the Status page and Watch and scan settings (MENU 0 1); other screens keep the room for their name.
 
 > **Spec: Status page**
 >
-> - **SBAR-13** MENU 0 0 opens the Status page; so does # on home (HOME-10).
+> - **SBAR-13** MENU 0 0 opens the Status page (# on home opens the quick help instead, HOME-10).
 > - **SBAR-14** It lists every active state in words, including why transmit is locked, if it is.
 > - **SBAR-15** OK on a row opens that row's setting.
 > - **SBAR-18** Alerts paused: a small bell with a slash, left of the clock after the inbox, shown while in HF mode with SAME on (HF-6); the Status page's Weather alerts row says "Paused: HF mode".
@@ -87,6 +88,7 @@ The status bar shows only what changes what a key does now, or needs attention. 
   - SBAR-20: decided Oct 8, 2026, decision 91; changed Oct 13, 2026: the slope is the AT32's −4.26 mV/°C (Table 55), not STM32F1's +4.1 as hwtest has it. The old sign read about 12 °C in a warm room, falling as the radio warmed (black radio, Oct 12, 2026). Changed Oct 13, 2026 (decision 112): no calibration; the cable log line (from SBAR-21) stays here.
   - SBAR-21: decided Oct 12, 2026 (user), built Oct 13, 2026. The datasheet allows the sensor's offset to differ by up to 50 °C between chips, so only a calibrated reading means anything absolute. Retired Oct 13, 2026 (user, decision 112): there is no way to measure the die on the assembled radio, and the corrected reading looks right.
   - SBAR-19: decided Oct 6, 2026.
+  - SBAR-26: Nov 22, 2026 (Alex; a Discord report, ferrite#112): with a speaker mic in, nothing on screen said which mic would transmit.
   - SBAR-25, SBAR-7: Nov 18, 2026 (Alex), decision 416: a short unwanted key-up was reported with nothing on home to say whether VOX was on; the GPS mark's fix and search looked too alike (only a small grey dot apart).
   - SBAR-22, SBAR-3: decided Oct 16, 2026 (Alex), built Oct 16, 2026, decision 190: a switch that removes RF from every key-up must never be on unseen. Neither stock nor nicFW has one.
   - SBAR-2: changed Oct 15, 2026 (user, decision 183): with no time the callsign in the clock's place (it showed `--:--`).

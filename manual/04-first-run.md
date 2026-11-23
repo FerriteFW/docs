@@ -6,7 +6,7 @@ Asks the few things a new owner needs, one per page, so the radio is usable at o
 
 ### Using it
 
-Runs on first power-on and again from MENU 0 9 7 1. Every page has a default: OK-OK-OK gives a working radio. **OK** next, **BACK** previous, **#** skips the rest.
+Runs on first power-on and again from MENU 0 9 7 1. Every page has a default: OK-OK-OK gives a working radio. **OK** next, **BACK** previous, **#** skips the rest (on the callsign and owner pages # changes the letters instead, SETUP-4).
 
 | Page | Asks | Default |
 | --- | --- | --- |

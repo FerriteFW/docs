@@ -14,11 +14,16 @@ Everything below 64 MHz, on its own screen: long wave, medium wave and shortwave
 | --- | --- |
 | Tune | Knob or ▲▼, by the step |
 | Big step | SIDE2 + knob: 1 MHz |
-| Change band | ◀▶ |
-| Change mode | \*: AM, USB, LSB, CW, FM (as the band allows) |
+| Change the step | ◀▶ (◀ bigger, ▶ smaller; the digit at the step is underlined) |
+| Change band | SIDE1 (next), hold SIDE1 (the one before) |
+| Change mode | SIDE2: AM, USB, LSB, CW, FM (as the frequency allows) |
+| Filter width | \* narrower, # wider |
 | Type a frequency | Digits (\* = point) |
-| Recent list | # (the last 10 frequencies) |
-| Step, bandwidth, AGC | Hold MENU |
+| Seek | Hold 3 up, hold 1 down |
+| AGC | Hold 4 (the next) |
+| Recent list | Hold 7 (the last 10 frequencies) |
+| Save as a channel | Hold 9 |
+| HF options | Hold MENU |
 | Transmit (18–64 MHz, where allowed) | PTT |
 | Leave | BACK (back where you opened it), hold BACK (home) |
 
@@ -44,7 +49,7 @@ There are no channels or zones in HF mode: each band remembers its own VFO, and 
 
 > **Spec: entering and leaving**
 >
-> - **HF-1** HF mode opens only from MENU 0 3 4. No hold-digit shortcut, no side key, and tuning past the lowest home band never enters it.
+> - **HF-1** HF mode opens only from MENU 0 3 3. No hold-digit shortcut, no side key, and tuning past the lowest home band never enters it.
 > - **HF-2** It refuses to open, saying why, while a chip transmits or the crossband repeater runs.
 > - **HF-3** On entry: the relay is set for the receiver in use (HF-11) and the SI4732 powers up for the mode: AM without the patch, USB, LSB or CW with the patch streamed in behind a progress bar (HF-19). The same bar shows when the first USB, LSB or CW after AM loads it.
 > - **HF-4** BACK leaves HF mode to the screen it was opened from (hold BACK: home): the SI4732 is muted and powered down, the relay follows the active slot again (WATCH-10), and everything paused resumes.
@@ -72,7 +77,7 @@ There are no channels or zones in HF mode: each band remembers its own VFO, and 
 >
 > - **HF-17** Ferrite never ships, publishes or commits the patch. Each owner imports it from their own stock `.BTF`. (Was BCR-8.)
 > - **HF-18** Import it with the flasher (`--ssb-from`: the patch is bundled after the image, and the first boot copies it to SPI flash and verifies its SHA-256; later boots find it installed and write nothing), or over the link with `SSB_WRITE` (the cable, or Bluetooth past the PIN while a PIN lock is on: LINK-8). Only the storage task writes it, to 0x008000 (layout 3, decision 333; 0x06B000 in layout 2). (Was BCR-9.)
-> - **HF-19** As stock (decision 351): the SI4732 runs AM without the patch, and USB, LSB and CW with it: powered up with the patch flag (`POWER_UP 01 31 05`), 550 ms for the crystal, then the patch's 8-byte records streamed from SPI flash (a few seconds), then SSB_MODE (the filter's bandwidth, AVC on, AFC off), stock's AVC max gain and soft mute off. A change between USB, LSB and CW keeps the patch; a change to AM powers the chip up again without it, and back to a sideband loads it again. Stock waits 3 s at each such switch; Ferrite doesn't. (Was BCR-10.)
+> - **HF-19** As stock (decision 351): the SI4732 runs AM without the patch, and USB, LSB and CW with it: powered up with the patch flag (`POWER_UP 01 31 05`), 550 ms for the crystal, then the patch's 8-byte records streamed from SPI flash (a few seconds), then SSB_MODE (the filter's bandwidth, AVC on, AFC off), stock's AVC max gain and soft mute off. A change between USB, LSB and CW keeps the patch; a change to AM powers the chip up again without it, and back to a sideband loads it again. Stock waits 3 s at each such switch; Ferrite doesn't. (Was BCR-10.) The patch goes at a 3 µs I2C half period (about 150 kHz): at 1 µs the clock's low time was under the SI4732's 1.3 µs minimum (ferrite#88; decision 433).
 >     - **HF-19.1** In USB, LSB and CW the chip tunes to the whole kHz and the rest goes on the BFO (SSB_BFO, Hz), so a step under 1 kHz moves only the BFO; CW is received on USB 700 Hz below the frequency shown, so a carrier on it is a 700 Hz tone. The filter's SSB bandwidths are 3, 2.2, 1.2 and 0.5 kHz (SSB_MODE's AUDIOBW). The BFO's sign (the chip hearing tune + BFO) is to confirm on a real signal.
 > - **HF-20** With no verified patch, USB, LSB and CW are hidden and About says the patch isn't installed. AM and chip 1 still work. (Was BCR-11.)
 > - **HF-21** As SAFE-9: a settings reset never erases the SSB patch. (Was BCR-12.)
@@ -81,6 +86,7 @@ There are no channels or zones in HF mode: each band remembers its own VFO, and 
 >
 > - **HF-22** HF transmit (18–64 MHz, chip 1, FM; AM is receive only) works in HF mode and from a home slot on those frequencies, under the same chapter 15 rules (TX-4).
 > - **HF-23** In HF mode, any PTT (A, B, C or the side connector) transmits on the HF frequency, on chip 1 only, in FM (AM is receive only), where the region and Extend TX allow, with every chapter 15 check. It doesn't go home first (an exception to KEY-7).
+>     - **HF-23.1** After any key-up in HF mode (PTT on 10 m or 6 m FM, or an automatic transmission) the HF receiver is set up again on the Radio task's next tick: its receive route, its tune and the speaker. The key-up leaves the transmit path's receive set-up and the speaker off, and the screen doesn't ask for HF mode again, so the receiver stayed silent until a retune (ferrite#130).
 > - **HF-24** On an SI4732 frequency or mode (below 18 MHz, or USB, LSB, CW), PTT refuses: "Receive only here".
 > - **HF-25** Before key-up the SI4732 is muted and its input switched away (TX-24); transmit is only possible on chip 1, so the relay is already energised (HF-11) and doesn't move.
 
@@ -89,6 +95,7 @@ There are no channels or zones in HF mode: each band remembers its own VFO, and 
 > - **HF-26** HF mode's memories are channels (CHAN-26): hold 9 saves one (KEY-23), and recalling one opens HF mode on it.
 > - **HF-27** Each HF band remembers its own VFO: frequency, mode, step, bandwidth, fine tune.
 > - **HF-28** The recent list holds the last 10 frequencies used (frequency and mode), newest first, without duplicates. A frequency counts as used after 10 s on it or a transmission. OK on an entry tunes it.
+>     - **HF-28.1** # clears the recent list only after the shared confirm ("Clear the recent list?", MENU-23), from the list's own page and from HF mode's recent row; an empty list has nothing to ask.
 > - **HF-29** The HF VFOs and the recent list live in RAM while in HF mode and are written to their own SPI sector (0x084000) on leaving and at power-off, never while tuning.
 > - **HF-30** HF transmit starts on Low (TX-36).
 

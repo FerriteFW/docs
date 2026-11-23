@@ -40,7 +40,7 @@ Listen on two or three slots at once, and answer on whichever is heard.
 >     - **WATCH-3.4** A muted slot keeps a chip it shares only for its dwell, so it blocks no other slot.
 > - **WATCH-4** A watched slot that opens squelch is highlighted.
 > - **WATCH-5** The active slot changes only when you change it. A watched slot that is heard is highlighted and plays (WATCH-3, WATCH-4), but never becomes the active slot, on home or any other screen. Stock's watch moves to the slot that opened and goes home 100 ms after it closes; nicFW's MultiWatch switches to it unless Keep VFO is on. Ferrite deliberately doesn't: a slot that changes under you is disruptive, and PTT B (KEY-7) answers slot B without switching.
-> - **WATCH-6** While a watched slot is receiving, # on home pauses watch for the pause time (0 1 6 1, default 1 min), so a busy slot can't keep taking the speaker; the hint bar shows "# Pause".
+> - **WATCH-6** While a watched slot is receiving, # on home pauses watch for the pause time (0 1 6 1, default 1 min), so a busy slot can't keep taking the speaker; the hint bar shows "# Pause". The toast names that time ("Watch paused · for 30 s", "for 1 min", "for 5 min"); it said 1 min whatever was set (the audit of Nov 23, 2026).
 > - **WATCH-7** Hold 4 turns watch off, and on again as the set it was before (A+B or A+B+C; A+B if it was never on).
 > - **WATCH-8** Under Battery Save, watched chips follow Battery Save's own sleep/wake cycle; a watched slot may miss the first fraction of a second. Watch default stays A+B.
 > - **WATCH-9** Watch pauses while the crossband repeater runs (XB-13).

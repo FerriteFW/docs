@@ -21,8 +21,8 @@ No mock-up yet.
 | --- | --- | --- | --- |
 | 0 8 2 1 | VOX | Off, on | Off |
 | 0 8 2 2 | VOX level | 1–9 | 5 |
-| 0 8 2 3 | VOX tail | 0.5–3 s | 2 s |
-| 0 8 3 | Mic gain | 1–9 | 5 |
+| 0 8 2 3 | VOX tail | 0.5, 1, 1.5, 2, 3, 5 s | 2 s |
+| 0 8 3 | Mic gain | 1–9 | 8 |
 | 0 8 6 1 | Callsign | Text | Empty |
 | 0 8 6 2 | CW ID | Off, every 10 min, on unkey | Off |
 | Channel | Reverse | On, off | Off |
@@ -46,7 +46,9 @@ No mock-up yet.
 >     - **VOX-14.1** VOX thresholds are stock's (0x0802F73C), compared, as stock does, with bits 11-4 of the 12-bit PA0 reading (0x0801645C): numbered as stock's menu: level 1 = 21 (keys easiest) up to level 9 = 101, in steps of 10, with stock's 8-count hysteresis.
 >     - **VOX-14.2** So a higher level needs a louder voice, as a higher volume number does (the feel bench-confirmed).
 >     - **VOX-14.3** The setting's help line says so.
-> - **VOX-15** Mic gain 1–9 (0 8 3) sets REG_7D[5:0], the BK4829's mic sensitivity (0.5 dB a step, 0x00–0x3F), to 0x39 − (9 − gain) × 5: 9 is 0x39, 10.5 dB over stock's default 0x24 (0x0801DD90, its Mic Gain setting 0; the chip starts at 0x12), about stock's loudest (its setting 2, the calibration's 0xF210 byte 0: 0x37 on both bench radios), so a quiet speaker mic turns up as far as on stock. Each step down is 2.5 dB, to 0x11 at 1; 5, the default, is 0x25, half a dB over stock's default. The rest of REG_7D stays as the start-up left it. The calibration byte itself isn't read (decision 126). Decision 415.
+> - **VOX-15** Mic gain 1–9 (0 8 3) sets REG_7D[5:0], the BK4829's mic sensitivity (0.5 dB a step, 0x00–0x3F), to 0x3F − (9 − gain) × 5: 9 is 0x3F, the field's top, 13.5 dB over stock's default 0x24 (0x0801DD90, its Mic Gain setting 0; the chip starts at 0x12) and 4 dB over stock's loudest (its setting 2, the calibration's 0xF210 byte 0: 0x37 on both bench radios); 8, the default, is 0x3A. Each step down is 2.5 dB, to 0x17 at 1. The rest of REG_7D stays as the start-up left it. The calibration byte itself isn't read (decision 126). Decisions 415, 431, 436.
+>     - **VOX-15.1** A settings record from before 0.9.6 (without 0.9.6's mark, its last byte) whose Mic gain is the old default 5 loads at the new default 8; any other value stays, and a 0.9.6 record keeps whatever it holds (decision 436).
+>     - **VOX-15.2** A key-up on the speaker mic (its PTT, or VOX or the link with one plugged in, SND-12.7) goes one step above Mic gain, 9 at most: 9 at the default (decision 436).
 > - **VOX-6** Mic gain sets REG_7D at every voice key-up, the crossband repeater's too. A data key-up (APRS) sets stock V0.29's 0x34 for the burst (0x0801F01C) instead; the next key-up sets the mic gain again. The mic isn't muted during a burst, as stock.
 
 > **Spec: reverse and talkaround**
@@ -79,7 +81,7 @@ No mock-up. Roadmap 4c. VOX is wired (Oct 8, 2026, decision 96): 0 8 2's setting
 - Rule history and comparisons with stock and nicFW (kept here so the rules state behaviour only):
   - VOX-13: decided Oct 7, 2026; its "1 the least sensitive" corrected Oct 15, 2026 to match VOX-14.1 and the radio (level 1 keyed on the quietest reading).
   - VOX-14: decision 76.
-  - VOX-15: decision 76; 2.5 dB steps up to about stock's loudest, decision 415 (Nov 18, 2026: a speaker mic too quiet on air at 9).
+  - VOX-15: decision 76; 2.5 dB steps up to about stock's loudest, decision 415 (Nov 18, 2026: a speaker mic too quiet on air at 9).; the field's top and 9 the default, decision 431 (Nov 22, 2026: radios' mics differ by 13 dB).
   - VOX-12: decided Oct 6, 2026. Oct 15, 2026 (decision 164): a callsign changed on setup's callsign page (0 8 6 1) reached CW ID only after a restart (found by XB-12's test); the UI now sends the callsign to the Radio task whenever the setting changes, by any path.
   - VOX-16: decision 87.
   - VOX-3: home only, decision 145 (Oct 13, 2026: VOX keyed in a menu on the bench, so it couldn't be reached to turn it off).

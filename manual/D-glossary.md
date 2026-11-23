@@ -6,7 +6,7 @@
 | AIS | Ship position reports on marine VHF; decoded, never sent. |
 | APC | The PA drive voltage (DAC2, PA5), read from the calibration curves. |
 | APRS | Packet position and message network on 144.390 MHz (US; the frequency follows the region). |
-| APRS mode | MENU 0 5 3: slot C becomes the APRS slot, watched and decoding; with C active, PTT A opens a message. |
+| APRS mode | MENU 0 5 3: Off, Tracker (beacons only), On or KISS. On: slot C becomes the APRS slot, watched and decoding; with C active, PTT A opens a message. |
 | Automatic view | A computed channel list: All, per band, Recent, Nearby. Never stored. |
 | Background job | A zone scan or decoder that a watched slot runs instead of one frequency. |
 | Band scope | A muted sweep on the active slot's chip showing signal bars across a span, with a waterfall row (chapter 21: hold 1 on home; settings at MENU 0 3 1). |

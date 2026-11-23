@@ -6,7 +6,7 @@ Lets an APRS or packet app on a computer or phone use the radio as its modem, re
 
 ### Using it
 
-1. MENU 0 5 8: **Cable** or **Bluetooth**. That port now speaks raw KISS bytes, which is what apps expect; with KISS off it speaks the Ferrite link protocol (chapter 29).
+1. MENU 0 5 8: the port, **Cable** or **Bluetooth** (Bluetooth by default). Then MENU 0 5 3: **KISS**. That port now speaks raw KISS bytes, which is what apps expect; with KISS off it speaks the Ferrite link protocol (chapter 29).
 2. For Bluetooth, turn it on (MENU 0 9 2 1) and connect from the app.
 3. Received frames go to the app; frames from the app are transmitted on the APRS frequency. Turning KISS on is your consent for apps to transmit packets: KISS has no session, so no PIN is asked, but every transmit check still applies.
 
@@ -23,7 +23,8 @@ No mock-up yet.
 
 | Menu | Setting | Values | Default |
 | --- | --- | --- | --- |
-| 0 5 8 | KISS TNC | Off, cable, Bluetooth | Off |
+| 0 5 3 | APRS mode | KISS turns it on (Off, Tracker, On, KISS) | Off |
+| 0 5 8 | KISS port | Cable, Bluetooth | Bluetooth |
 | 0 9 2 1 | Bluetooth | Off, on | Off |
 
 > **Spec: KISS**
@@ -34,9 +35,10 @@ No mock-up yet.
 > - **KISS-4** Every frame received on the APRS frequency is sent to the app.
 > - **KISS-5** Over Bluetooth, KISS uses the plain serial characteristic (FFE0/FFE1), transmit included.
 > - **KISS-6** With KISS on, the chosen port (cable or Bluetooth) carries raw KISS bytes, not link frames; with it off, that port speaks the Ferrite link protocol.
+>     - **KISS-6.1** KISS is turned on and off as 0 5 3's KISS (decision 440); 0 5 8 is only its port, Cable or Bluetooth (Bluetooth by default), kept while KISS is off. Changing 0 5 8 with KISS on moves KISS to that port. A record from before keeps KISS on the port it was on.
 > - **KISS-7** Turning KISS on is the consent for apps to transmit packets; KISS has no session, so the link's PIN (LINK-30) isn't asked. The normal transmit checks apply (KISS-2).
 > - **KISS-8** The link protocol has no `KISS` message: packets go only through KISS mode on its own port (KISS-6), so the web app can't send or receive them alongside programming on one connection. The link on the other port still runs beside it (the cable for Console, Bluetooth for a KISS app, or the other way round).
-> - **KISS-9** While KISS is on (cable or Bluetooth), slot C is the APRS slot, as with APRS mode (APRS-15, APRS-19): it tunes to the APRS frequency (0 5 4) and is locked there ("Slot C held by KISS"), it has receive priority on its chip (APRS-21.1), and KISS frames go out on it. KISS off gives C back (unless APRS mode or beacons hold it, APRS-29).
+> - **KISS-9** While KISS is on (cable or Bluetooth), slot C is the APRS slot, as with APRS mode (APRS-15, APRS-19): it tunes to the APRS frequency (0 5 4) and is locked there ("Slot C held by KISS"), it has receive priority on its chip (APRS-21.1), and KISS frames go out on it. KISS off gives C back (unless APRS mode holds it).
 > - **KISS-10** KISS on means the app does APRS: while it is on, the radio sends nothing of its own. APRS mode and automatic beacons are suspended (their settings kept, back as they were when KISS goes off), 0 5 3 and 0 5 6 1 are greyed with "KISS on: the app sends", and Beacon now and sending a message from the radio are refused with the same words. The radio still decodes (KISS-4): the heard list, the inbox and the message sound work as ever. Two stations' acks, beacons and query answers from one radio and its app are never sent.
 > - **KISS-11** KISS follows the KISS TNC spec (`datasheets/protocols/KISS.txt`, 1987) as a single-port, half-duplex TNC. Port 0 only: frames for other ports are ignored. Commands: 0 data (15 bytes, the shortest AX.25 frame, up to the length cap), 1 TXDELAY (applied to the host's frames), 2 P and 3 SlotTime (p-persistence as the spec's section 6), 4 TXtail (kept, not used), 5 full duplex (kept, but never skips the channel check: KISS-2, the radio is half duplex), 6 SetHardware (ignored). Return (0xFF) is ignored: KISS is the radio's own setting, not a mode the host leaves. A byte after FESC other than TFEND or TFESC is dropped and the frame goes on, as the spec says.
 > - **KISS-12** Mobilinkd's KISS extensions (SetHardware, command 6: `datasheets/protocols/Mobilinkd_KISS_config_protocol.md`) and the other hardware commands apps send (the Benshi and B.B. Link set and restore frequency, 0xEA and 0xEB) are ignored, and the radio never sends a command-6 frame of its own. Never acted on, whatever comes later: a test-tone or PTT command (Mobilinkd's 0x07, 0x08, 0x09: they key the transmitter), a frequency set from the host (slot C stays locked, KISS-9), a save to flash. Answering read-only queries (firmware version, battery) is not done: the apps that send them, Mobilinkd's configuration apps, can't find the radio over Bluetooth anyway.

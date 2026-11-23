@@ -24,10 +24,10 @@ Tune any frequency the radio can receive, by stepping or by typing it.
 | Menu | Setting | Values | Default |
 | --- | --- | --- | --- |
 | MENU 2 | TX power | Low, mid, high | Low |
-| MENU 3 | Mode | FM (wide), NFM (narrow), AM; the mode is the bandwidth (VFO-20) | NFM |
+| MENU 3 | Mode | FM (wide), NFM (narrow), AM; the mode is the bandwidth (VFO-20) | By region: FM in the Americas, Australia and New Zealand, NFM elsewhere (SETUP-7) |
 | MENU 4 | Tones | RX and TX each: off, CTCSS (50), DCS (104, normal or inverted) | Off |
 | MENU 5 | Offset | Simplex, +, −, split (a TX frequency of its own); amount in kHz | 600 kHz on 2 m, 5 MHz on 70 cm |
-| MENU 6 | Step | 10, 50, 100, 500 Hz; 1, 2.5, 5, 6.25, 8.33, 10, 12.5, 25, 50, 100 kHz | 12.5 kHz on VHF/UHF |
+| MENU 6 | Step | 10, 50, 100, 500 Hz; 1, 2.5, 5, 6.25, 8.33, 10, 12.5, 25, 50, 100 kHz | By region: 5 kHz on 2 m and 1.25 m in the US and Canada, else 12.5 kHz on VHF/UHF (VFO-18) |
 
 > **Spec: VFO**
 >
@@ -91,6 +91,7 @@ Mock-ups approved (0b). Built in 2a. Done when all VFO rules pass in the simulat
 - Rule history and comparisons with stock and nicFW (kept here so the rules state behaviour only):
   - VFO-4: changed Oct 3, 2026.
   - VFO-7: decided Oct 6, 2026. Changed Oct 13, 2026 (user, decision 109): on the quick menu's PTT A, not hold \* itself.
+  - VFO-7: Nov 22, 2026 (a Discord report, ferrite#102): reverse swapped only the transmit side; the receiver is now tuned to the input too, and retuned when reverse, the shift or split changes.
   - VFO-9: decided Oct 6, 2026. Changed Oct 14, 2026 (decision 153): it refused on 18–64 MHz, from before HF channels (CHAN-26). Changed Oct 14, 2026 (user, decision 159): hold 9, not hold V/M (KEY-23).
   - VFO-20: decided Oct 6, 2026.
   - VFO-17: decided Oct 5, 2026.

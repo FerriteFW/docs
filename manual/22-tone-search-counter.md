@@ -6,7 +6,7 @@
 
 ### Using it
 
-**Tone search:** MENU 0 3 6.
+**Tone search:** MENU 0 3 5.
 
 1. The search listens on the active slot. It shows "searching" with the elapsed time until it finds a tone.
 2. **OK** applies what it found. On a VFO it sets the RX tone (and asks before setting TX too). On a channel it's loaded for now but not saved to the channel.
@@ -14,7 +14,7 @@
 
 **Tone hint:** when a station comes in on a slot but your tone keeps it silent, the radio checks which tone it's sending and shows it on the slot's card: "Heard 88.5". Open quick settings (MENU) and press **OK** on Tones to use it; the radio asks before changing the TX tone too. On a channel, # in that question saves it to the channel.
 
-**Frequency counter:** MENU 0 3 3.
+**Frequency counter:** MENU 0 3 2.
 
 1. Key the other transmitter close to the radio.
 2. The counter shows its frequency and level and keeps a list of recent hits.

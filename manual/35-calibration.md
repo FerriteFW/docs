@@ -2,13 +2,12 @@
 
 ### What it's for
 
-Ferrite reads each radio's factory calibration for power, squelch and frequency, checks it before trusting it, and never writes it. Two user trims correct frequency and the battery reading.
+Ferrite reads each radio's factory calibration for power, squelch and frequency, checks it before trusting it, and never writes it. Two user trims, for frequency and the battery reading, are specified but not built yet.
 
 ### Using it
 
 - **View:** MENU 0 9 9 2 shows calibration status, read only.
 - **Crystal trim and battery reading trim:** not built; their rows left the menu Oct 23, 2026 until they are (decision 276). CAL-13, CAL-17, CAL-18 and PWR-14 stay as the spec for then.
-- **Battery trim:** MENU 0 9 9 2. Match the reading to a meter.
 - **Backup:** the installer saves the calibration sector with the full SPI backup (chapter 2).
 
 ### Screens
@@ -41,7 +40,7 @@ No mock-up yet.
 > - **CAL-9** PA drive comes only from the band's curve at the chosen level, clamped to the highest calibrated value.
 > - **CAL-10** The PA lookup refuses any frequency outside its row's span, and any entry the factory left unprogrammed (0x00 or 0xFF), which stock would send to the DAC as it is (decision 222: both radios' 200–300 MHz rows end at 260 MHz, their UHF rows at 520 MHz).
 > - **CAL-11** The TX windows (0xF230, 0xF240) are equipment limits, intersected with the region plan and hardware range (chapter 15). Four windows of five bytes (0xF230 + 0, 5, 10; 0xF240 + 0): an enable byte, then the low and high edges, each two BCD bytes of whole MHz (01 36 = 136 MHz); a frequency is inside when low ≤ f < high, as stock checks it. Enable 0x01 is on, 0x00 or 0xFF off (an erased 0xF240); 0xF230 byte 0 = 0xFF (blank), any other enable byte, or an enabled window that isn't BCD with low < high locks transmit. 18–64 MHz counts as a window on any valid sector, as stock's loader replaces the windows with 18–64 MHz in its HF work mode (TX-41, decision 224).
-> - **CAL-12** Factory crystal trim applies only when 0xF210 byte 11 = 0xA0 on a programmed sector, to both chips, receive (every receive set-up and the scope's points) and transmit, as stock: the chip is tuned to f + (f / 100) × k / 435500 (f in 10 Hz, rounded toward zero; k = bytes 12–13, signed; one unit about 0.023 ppm). The user trim (0 9 9 3, not built yet) adds to k. Everything else (squelch tables, PA row, TX windows, region plan, the display) uses the frequency itself, since the trim only corrects the crystal (decision 222).
+> - **CAL-12** Factory crystal trim applies only when 0xF210 byte 11 = 0xA0 on a programmed sector, to both chips, receive (every receive set-up and the scope's points) and transmit, as stock: the chip is tuned to f + (f / 100) × k / 435500 (f in 10 Hz, rounded toward zero; k = bytes 12–13, signed; one unit about 0.023 ppm). The user crystal trim (not built yet, no menu number; CAL-17) adds to k. Everything else (squelch tables, PA row, TX windows, region plan, the display) uses the frequency itself, since the trim only corrects the crystal (decision 222).
 > - **CAL-13** The TX-7 read-back expects the frequency word after trims (the one written to REG_38/39); the band checks use the frequency itself (CAL-12).
 > - **CAL-19** Retired (decision 222): a sector with the trim marker and k ≠ 0 locked transmit until CAL-12 was built; the trim is now applied (CAL-12), and only one over ±20 ppm locks (CAL-6).
 

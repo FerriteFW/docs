@@ -27,16 +27,16 @@ No mock-up yet.
 | 0 1 5 | Skip list | View and clear this scan's nuisance skips | — |
 | 0 1 6 2 | Direction | Up, down | Up |
 | 0 1 6 3 | Scan inputs | Off, on: channel scans also listen on each channel's TX frequency (SCAN-22) | Off |
-| 0 1 6 4 | Return to | Start, last hit | Start |
+| 0 1 6 4 | Return to | Start, last hit | Last hit |
 
 > **Spec: running a scan**
 >
 > - **SCAN-1** SIDE2 starts and stops a scan on the active slot; `SCN` shows in the status bar while it runs.
-> - **SCAN-2** Targets: current zone, a zone set, All, a band view, Nearby, or a range preset. The target setting (once 0 1 3) is out of the menu until it is judged worth building (MENU-33, decision 256): SIDE2 scans the active slot's zone, or its band on a VFO.
+> - **SCAN-2** Targets: current zone, a zone set, All, a band view, Nearby, or a range preset. The target setting (once 0 1 3) is out of the menu until it is judged worth building (MENU-33, decision 256): SIDE2 scans the active slot's zone, or its band on a VFO; a range preset is scanned with SIDE2 in its list (SCAN-27).
 > - **SCAN-3** The zone set is the slot's zone and the zones 0–9 picked with digits on the scan screen (a toast says "Zone 3 added" / "removed"; a 2-byte mask in the App). A channel scan walks the slot's zone first, then each added zone in turn, each in number order (decision 333: a list the UI answers position by position, SCAN-25). Zones marked "scan all" don't join it yet.
 > - **SCAN-4** A channel scan walks channels in number order; a range scan walks start to end at the preset's step and mode (VFO-20).
 > - **SCAN-5** Resume: after the set time, when the carrier drops, or never (stop on hit). A zone's own rule overrides the radio's.
-> - **SCAN-6** Stopping with SIDE2 returns to the start or stays on the last hit, per Return to (0 1 6 4: Start by default). The last hit is the last frequency the scan stopped on: the slot's VFO moves there, or on a channel scan the slot goes to that channel, as a PTT on a hit does (SCAN-19).
+> - **SCAN-6** Stopping with SIDE2 returns to the start or stays on the last hit, per Return to (0 1 6 4: Last hit by default, decision 434; a radio with saved settings keeps its choice). The last hit is the last frequency the scan stopped on: the slot's VFO moves there, or on a channel scan the slot goes to that channel, as a PTT on a hit does (SCAN-19).
 > - **SCAN-7** The scan screen shows the target, resume rule, position, hits (time, frequency or name, signal) and skip count.
 > - **SCAN-8** Scanning keeps the receivers awake; it pauses while the crossband repeater runs.
 
@@ -54,6 +54,7 @@ No mock-up yet.
 >
 > - **SCAN-16** On the scan screen, ▲ and ▼ set the direction the scan goes from here; stopped on a hit (or in the resume wait after one) they also leave it at once and go on that way, without counting a skip.
 > - **SCAN-17** # on a hit skips it for every scan: a channel scan sets that channel's Skip flag (SCAN-9), saved like any channel edit, and goes on; a range scan adds the frequency to the preset's skipped list (SCAN-10), refused with a toast when its 48 are full; a band scan keeps no list and says so ("\* skips it once").
+>     - **SCAN-17.1** # on the Skip list (MENU 0 1 5) clears it all only after the shared confirm ("Clear the skip list?", MENU-23), as the lists beside it ask before deleting; OK still lets one back in. A range scan's # on a hit adds it to the preset's list for good; once the scan has stopped, # adds to no preset.
 > - **SCAN-18** \* stays the skip for this scan only (SCAN-11): ▲▼ leave a hit, \* leaves it and counts it as skipped until the scan ends, # leaves it for good.
 > - **SCAN-19** PTT on a scanning slot ends the scan. Stopped on a hit (squelch open, or still on it in the resume wait), the slot moves there, onto that channel or its VFO, and transmits; otherwise it transmits where the scan started.
 >     - **SCAN-19.1** Stopped on a hit means the scan holds there (the Radio task says so, through the resume wait): passing the last hit's frequency again, or a busy step the scan doesn't stop on, isn't a stop, so the scan screen's hints, \* and PTT stay with the scanning case.
@@ -69,6 +70,7 @@ No mock-up yet.
 > - **SCAN-25** A channel scan runs in the Radio task without a copy of the channels and without a bit per channel (decision 333): its list is the UI's (SCAN-3: the slot's zone from its member list, CHAN-36, Local's nearest first, CHAN-34.2, then the added zones paged through flash), and the Radio task holds only the list's length and its priority positions (the zone's priority 1 and 2 at their place in the list, or just after it when outside it; then flagged channels), sent with the resume rule and the start at the slot's place in its zone. It asks what is at a position a few stops ahead (`LiveAll::want`: the slot and the position); the UI answers with the receive frequency, or 0 for a position that is no stop (a Skip-flagged or HF channel, SAFE-20, or none there now), which the scan passes at once; it keeps 16 answers for all slots and holds a step until its frequency has come, so every stop gets its full listen. When the channels change under a running scan, its list goes again (length and priorities; the scan goes on where it is, its frequencies asked again). RAM: about 300 bytes in the Radio task.
 > - **SCAN-26** Direction (0 1 6 2) is the way a scan starts, up (the default) or down; ▲ and ▼ on the scan screen still change it while it runs (SCAN-16).
 > - **SCAN-24** A range preset's resume is Global (the default: it follows the radio's rule, 0 1 2) or its own: after 1–10 s, carrier drop, or stop on hit, as a zone's (SCAN-5). Airband wants carrier drop, a busy band a time. As nicFW, whose resume is global, plus a per-range override.
+> - **SCAN-27** SIDE2 on a range preset in MENU 0 1 4 scans it on the active slot (decision 428, ferrite#83): the slot's VFO goes to the preset's start (or stays where it is, if that's inside the range), at the preset's mode and step, and the scan walks only the preset's range at its step, its skipped frequencies left out (SCAN-10), with its resume rule (SCAN-24) and 0 1 6 2's direction. A scan running there stops first; Low Power Mode and an off slot refuse it as SIDE2 on home does. The list's hint bar shows SIDE2 Scan (\* still deletes). The Scan menu's Range presets row says how many there are (None, 1 preset, N presets). The skips reach the radio a few at a time before the scan starts, so all 48 are left out from the first step.
 
 ### Under the hood
 
