@@ -60,6 +60,7 @@ No mock-up yet.
 >     - **BCR-23.1** While broadcast plays the watch hops as usual, quietly (decision 437): a chip the hop leaves isn't slept but kept receiving, muted (REG_30 never goes to 0, so its AF DAC never steps in the shared amplifier), the hop back to it is a light retune (SQL-18.10), and both band receive selects stay on (the path's SAFE-24 hold: never the HF select or the relay; a key-up clears both first), so a hop between VHF and UHF moves no pin. When the broadcast stops the chips sleep as usual and the hold drops. This costs the idle chip's receive current while broadcast plays (ferrite#70: A+B+C clicked, A+B didn't).
 > - **BCR-24** Audio: any amateur slot heard takes the speaker and mutes the broadcast at once. The broadcast returns 2 s after that slot's audio ends (its squelch tail); a new signal meanwhile starts the wait again.
 > - **BCR-25** On the broadcast slot's card the knob and ▲▼ tune a VFO by the FM step (0 2 6 1) and ◀▶ seek; the station found is taken into the VFO. On a channel they step channels and zones as on any slot. A saved station picked from quick settings' 5 (BCR-31) plays in it.
+>     - **BCR-25.1** Holding ◀▶ on the broadcast slot's VFO steps one band, to the neighbour, and the rest of that hold does nothing (its repeats, KEY-4, are ignored), so a hold leaves broadcast without racing past the next band. A hold that starts on any other band repeats through the bands as ever.
 > - **BCR-26** The broadcast card on home.
 >     - **BCR-26.1** The broadcast card shows the frequency, the SNR and the signal, green while it plays.
 >     - **BCR-26.2** It shows STEREO when the pilot is heard.
@@ -69,6 +70,7 @@ No mock-up yet.
 >     - **BCR-26.6** The other two home layouts show the RDS text in place of the slot's settings.
 >     - **BCR-26.7** Single + scope shows the signal in dBuV with the SNR and STEREO in a row under the frequency, the RDS text under them, and its S-meter shows the SI4732's signal on FM's own scale (0–70 dBuV, labelled 0–60) in place of the S scale, green while it plays.
 >     - **BCR-26.8** While the slot plays a station that sends a programme type (RDS PTY), its name takes the place of "Broadcast" in the slot's header ("VFO · Classic rock", "012 · Jazz"). The names follow the region: the North American RBDS list in the US and Canada, the European RDS list elsewhere. "Broadcast" again when the station sends none (type 0) or the slot stops playing.
+>     - **BCR-26.9** On a saved channel with a name (as 0 2 4 shows it), the card shows the name beside the frequency, which stays large: in the SNR's place on the large card (the SNR isn't shown there then), and in the stereo tag's place on the small one, cut to fit. A VFO, or 0 2 4 on frequency, shows the card as before. (ferrite#178, Alex: beside the frequency.)
 > - **BCR-27** One FM state: the broadcast slot's station is the broadcast; the Status page's Broadcast row says "FM 100.5 on A" (its OK opens 0 2 6).
 > - **BCR-28** Quick settings (MENU) on a slot in the broadcast band are FM's: 1 step, 2 AGC, 3 radio monitor, 4 sleep timer, 0 More.
 > - **BCR-29** The broadcast slot runs as the exclusive mode FM broadcast (MODE-1).
@@ -122,6 +124,7 @@ No mock-up. FM is in 1e. FM with RDS and radio monitor are in 2e; the presets ga
   - BCR-3, BCR-18, BCR-25, BCR-28, BCR-31: changed Oct 22, 2026 (decision 258): the 20 FM presets (once 0 3 1 1, a screen of their own) had no way to be stored on the radio; saved stations are channels, and OK on the FM screen opens them. The options renumbered (step 0 2 6 1, AGC 0 2 6 2, radio monitor 0 2 6 3, sleep timer 0 2 6 4).
   - BCR-26, BCR-29: changed Oct 13, 2026 (decision 115): single + scope shows the broadcast slot's signal, SNR and stereo pilot, its S-meter on the SI4732's signal (UI backlog 12's follow-up, seen on the black radio: no SNR, S-meter at S1); the strip sweeps beside a broadcast another slot plays (MODE-5).
   - BCR-1, BCR-3, BCR-27: changed Nov 4, 2026 (decision 354): the settings moved from Tools (0 3 1) to Channels (0 2 6).
+  - BCR-25.1: Nov 24, 2026 (Discord reports, ferrite#154, #95): with ◀▶ seeking, a hold was the only way off broadcast, and its repeats raced through several bands.
 
 ### Open points
 

@@ -84,6 +84,7 @@ When transmit is refused, the screen names the reason and the menu path that fix
 >     - **TX-12.2** The Transmit screen shows no power or drive figure, never watts.
 >     - **TX-12.3** Its meter is the mic level, amber near full deviation (drive only ever read ~100%): the keyed chip's voice amplitude (BK4829 REG_64), so it shows whichever mic is in use, the speaker mic's too (decision 430; the PA0 tap stock's VOX reads never hears the speaker mic). It's in dB over REG_64's quiet floor, 1 dB a twentieth of the bar, full at 20 dB: REG_64 read 110–114 with the mic quiet and, for speech at a normal distance, a median of 263 and peaks of 700–1050 (black, Nov 22, 2026; decision 431).
 >     - **TX-12.4** With a speaker mic plugged in, the meter's row names the mic in use at its right: "Spk mic", or "Radio mic" when the radio's own PTT picked the radio's mic (SND-12.7). Without one, nothing.
+>     - **TX-12.5** The meter includes the gain the key-up applies: REG_64 reads the mic before the gain stages (black with a speaker mic, Nov 24, 2026: 108–112 silent at Mic gain 1, 8 and 12, while the noise on air rose 22 dB), so the reading in dB gets the gain against the scale's own (Mic gain 9: REG_7D 0x3F, REG_2C 34), half a dB a REG_7D count and about 1 dB a REG_2C count. Mic gain 12 reads about 8 dB higher than 9, Mic gain 1 about 16 dB lower. A reading at the quiet floor stays empty at any gain, so silence never lights the bar. (ferrite#180: the meter showed the same at any gain.)
 
 > **Spec: calibration and identity**
 >

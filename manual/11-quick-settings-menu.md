@@ -88,6 +88,7 @@ APRS mode, beacon, power, frequency, path, digipeat, beacon text ("Bcn text", th
 > **Spec: rows and editing**
 >
 > - **MENU-12** Every row shows its number, full name and value; a dot marks a non-default value.
+>     - **MENU-12.1** A group's row shows a live value: its first setting's (0 3 1 Scope, 0 4 5 SAME, 0 7 3 Display, 0 7 4, 0 7 5 Sounds, 0 8 2), 0 8 5 DTMF its tone speed, 0 1 5 the skip count ("Empty" when none); never the menu table's fixed text. (ferrite#135)
 > - **MENU-13** Quick rows say whether the value belongs to this channel or the VFO.
 > - **MENU-14** An item that doesn't apply stays visible and greyed; selecting it says why (e.g. "VFO only").
 > - **MENU-15** A one-line help for the highlighted item sits at the foot, with its path.

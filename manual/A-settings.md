@@ -197,7 +197,7 @@ No menu number; on the HF screen's options page (hold MENU). Kept in the HF stat
 | 0 8 2 1 | VOX | Off, on | Off | 18 |
 | 0 8 2 2 | VOX level | 1–9 | 5 | 18 |
 | 0 8 2 3 | VOX tail | 0.5, 1, 1.5, 2, 3, 5 s | 2 s | 18 |
-| 0 8 3 | Mic gain | 1–9 | 8 | 18 |
+| 0 8 3 | Mic gain | 1–12 | 8 | 18 |
 | 0 8 4 | End tone (roger) | Off, beep, two-tone up, two-tone down, chirp, Quindar; a channel's End tone overrides it (TONE-10) | Off | 16 |
 | 0 8 5 1 | DTMF dialer | Type and send | — | 17 |
 | 0 8 5 2 | DTMF memories | 16 × 16 digits, 10-character names | Empty | 17 |

@@ -58,7 +58,7 @@ There's no arming step: after setup, transmit works on your region's amateur ban
 > **Spec: transmit in setup**
 >
 > - **SETUP-6** No arming step and no licence confirmation.
-> - **SETUP-7** Region sets the amateur transmit bands and defaults: a new VFO or channel's mode is wide FM in the Americas, AU and NZ and NFM in the UK, Europe, Japan and Other; weather radio and SAME in the US and Canada only (hidden elsewhere, WX-3).
+> - **SETUP-7** Region sets the amateur transmit bands and defaults: a new VFO or channel's mode is wide FM in the Americas, AU and NZ and NFM in the UK, Europe, Japan and Other (the airband is NAM everywhere, VFO-4.2); weather radio and SAME in the US and Canada only (hidden elsewhere, WX-3).
 > - **SETUP-8** Extend TX is off by default; turning it on shows its warning first: may be illegal where you are, can interfere with services people rely on, you're responsible for every transmission.
 > - **SETUP-9** An empty callsign is allowed; automatic transmissions stay refused until one is set.
 > - **SETUP-10** The summary shows the transmit state, that there are no channels yet, and how to add them.

@@ -63,8 +63,9 @@ There are no channels or zones in HF mode: each band remembers its own VFO, and 
 
 > **Spec: receivers and bands**
 >
-> - **HF-9** HF mode covers everything below 64 MHz: the SI4732 (LW, MW, SW broadcast AM; USB, LSB, CW with the patch) and BK4829 chip 1 through the relay (18–64 MHz: 17 m to 6 m and CB; FM and AM).
-> - **HF-10** The receiver follows from frequency alone, as stock and nicFW do: below 18 MHz the SI4732 (AM, and USB, LSB, CW with the patch); from 18 MHz chip 1 (FM and AM). USB, LSB and CW aren't offered from 18 MHz: chip 1 has no SSB (its baseband route hears both sidebands), and the SI4732's AM/SSB range ends at 23 MHz (AN332). A mode a frequency doesn't offer becomes FM there, and AM below 18 MHz.
+> - **HF-9** HF mode covers everything below 64 MHz: the SI4732 (LW, MW, SW broadcast AM; USB, LSB, CW with the patch) and BK4829 chip 1 through the relay (18–64 MHz: 17 m to 6 m and CB; FM and AM; a home slot there has NFM too, VFO-14).
+> - **HF-10** The receiver follows from frequency and mode, as stock and nicFW do below 18 MHz: below 18 MHz the SI4732 (AM, and USB, LSB, CW with the patch); from 18 MHz chip 1 in FM and AM. Chip 1 has no SSB (its baseband route hears both sidebands), so from 18 MHz USB, LSB and CW stay on the SI4732 (HF-10.1). A mode a frequency doesn't offer becomes FM there, and AM below 18 MHz.
+>     - **HF-10.1** *(experimental; decision 446)* USB, LSB and CW are offered up to 30 MHz on the SI4732 (17 m, 15 m, 12 m, 10 m), with the relay released for it (HF-11); from 30 MHz they aren't offered. The SI4732's documented range ends at 23 MHz (AN332's tune command; its brief says SW to 26.1 MHz) and the board's input past 18 MHz is untested, so results may vary: going into SSB past 18 MHz shows "Experimental" / "please report", and the step line names the receiver "SI4732 exp" there (the readback's `rx` "SI4732 EXP"). Receive only (HF-24). Reports of what works, band by band, are welcome on GitHub or Discord.
 > - **HF-11** The relay follows the receiver in use, as stock does: energised while chip 1 is in use (18–64 MHz, FM or AM), released while the SI4732 is (below 18 MHz). Stock always releases it for the SI4732 (0x080114BC). It switches only when the receiver changes (tuning across 18 MHz), never while a chip is keyed or in the unkey wait; the receiver being left is muted first and the new one unmuted after the relay settles (it used to stay energised for all of HF mode).
 > - **HF-12** Keys (decision 349, after nicFW's tuner keys): knob/▲▼ tune by the step; ◀▶ change the step (◀ a bigger one, ▶ a smaller), and the frequency's digit at that step is underlined; SIDE2 the next mode the frequency allows (a row of the modes shows for 1.5 s, the one picked lit); SIDE2 + knob 1 MHz; SIDE1 the next band in the list the mode picks (HF-32), hold SIDE1 the band before; \* a narrower filter, # a wider one (stopping at either end); digits frequency entry (\* point, then \* or OK enters, VFO-24); hold 3 / hold 1 seek up / down (HF-31); hold 4 the next AGC; hold 7 the recent list; hold 9 saves a channel (HF-26); hold MENU HF options (MENU-25), 0 there the full menu. Hold # stays key lock.
 > - **HF-13** ABC and V/M (tapped or held) do nothing in HF mode; a toast says why.
@@ -84,7 +85,7 @@ There are no channels or zones in HF mode: each band remembers its own VFO, and 
 
 > **Spec: transmit**
 >
-> - **HF-22** HF transmit (18–64 MHz, chip 1, FM; AM is receive only) works in HF mode and from a home slot on those frequencies, under the same chapter 15 rules (TX-4).
+> - **HF-22** HF transmit (18–64 MHz, chip 1, FM or a home slot's NFM; AM is receive only) works in HF mode and from a home slot on those frequencies, under the same chapter 15 rules (TX-4).
 > - **HF-23** In HF mode, any PTT (A, B, C or the side connector) transmits on the HF frequency, on chip 1 only, in FM (AM is receive only), where the region and Extend TX allow, with every chapter 15 check. It doesn't go home first (an exception to KEY-7).
 >     - **HF-23.1** After any key-up in HF mode (PTT on 10 m or 6 m FM, or an automatic transmission) the HF receiver is set up again on the Radio task's next tick: its receive route, its tune and the speaker. The key-up leaves the transmit path's receive set-up and the speaker off, and the screen doesn't ask for HF mode again, so the receiver stayed silent until a retune (ferrite#130).
 > - **HF-24** On an SI4732 frequency or mode (below 18 MHz, or USB, LSB, CW), PTT refuses: "Receive only here".
@@ -122,7 +123,7 @@ No mock-up. Receive is roadmap 2e (Listen); SSB with patch import in 3e; transmi
 - Rule history and comparisons with stock and nicFW (kept here so the rules state behaviour only):
   - HF-10: decided Oct 7, 2026; stock uses the BK4829 there.
   - HF-11: changed Oct 6, 2026.
-  - HF-22: changed Oct 3, 2026.
+  - HF-22: changed Oct 3, 2026. Nov 24, 2026 (ferrite#84): a home slot's NFM there named.
   - HF-13, HF-26: changed Oct 14, 2026 (user, decision 159): hold 9 saves (hold V/M did); hold V/M joins V/M's toast, since the zone list means nothing in HF mode (KEY-23).
   - HF-32: decided Oct 7, 2026; nicFW's tuner has one LW/MW/SW list, stock a fixed band list.
   - HF-33: decided Oct 7, 2026. Checked Oct 12, 2026: HF mode puts every BK4829 it doesn't use to sleep (watch and scan pause, HF-8), so none needs the cycle; the sleep step never touches the SI4732 (BCR-19).

@@ -52,7 +52,7 @@ Squelch keeps the speaker quiet until a signal is there. Monitor opens it on dem
 > - **SQL-12** The squelch screen shows the noise floor and the signal.
 >     - **SQL-12.1** The squelch screen (SIDE1 + knob or ▲▼) shows the noise floor beside the live signal: the signal while the squelch is closed, smoothed (an eighth of each reading).
 >     - **SQL-12.2** With a carrier, how far it is above the floor ("Noise floor -121 dBm, signal +36 dB").
->     - **SQL-12.3** No other meter styles: bars or dBm on the cards (0 7 3 1). dBm shows the level as a number ("-93 dBm", green while the squelch is open) where the bars and their S-reading are.
+>     - **SQL-12.3** No other meter styles: bars or dBm on the cards (0 7 3 1). dBm shows the level as a number ("-93 dBm", green while the squelch is open) where the bars and their S-reading are; on watch + activity's cards, whose state has no bars, the number takes the S-reading's place beside RX ("RX -93 dBm"). Every home layout follows the setting (ferrite#216).
 > - **SQL-14** A tapped (latched) monitor shows MON on the slot's card, where RX and idle show, and nowhere in the status bar. Built for the tap; monitor while held comes with the Radio task's squelch (milestone 2).
 >     - **SQL-14.1** Making another slot active (SLOT, the link's or terminal's `slot X active`, Low Power Mode giving a broadcast slot's place to A) turns a monitor latched on the slot left off, with a toast ("Monitor off · slot changed"). A latch held the watch on its slot (WATCH-3.2), so the new active slot heard nothing (ferrite#129).
 > - **SQL-13** Level 0 is squelch off: audio always heard, shown "0 (open)" in menus.

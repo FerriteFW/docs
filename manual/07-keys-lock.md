@@ -77,7 +77,7 @@ No mock-up yet.
 > - **KEY-1** One fixed map; no user assignment; a key's meaning never depends on a setting. One exception, by the layout: in single + scope, # on home pauses and resumes the strip rather than opening the quick help (MODE-5.1, decision 441; the hint bar says so).
 > - **KEY-2** One table maps the 20 matrix codes, direct keys, PTTs, side keys and encoder to logical keys; all other code uses logical keys only.
 > - **KEY-3** Short press fires on release, under 700 ms. Long press fires while held, at 700 ms; the release after it does nothing (digits on home too: HOME-8). There is no gap between the two (stock is about 500 ms, nicFW about 1 s).
-> - **KEY-4** ▲▼◀▶ and the knob repeat at 10 per second after 400 ms held.
+> - **KEY-4** ▲▼◀▶ and the knob repeat at 10 per second after 400 ms held (a hold on the broadcast VFO steps one band only, BCR-25.1).
 > - **KEY-5** One BACK rule everywhere: a short BACK goes back one level, to the screen this one was opened from (on home it does nothing); on an edit or a screen's own step (typed digits, a sub-page) it takes that step back first. Hold BACK goes home from any screen, except the modal ones that must not be left: the PIN at power on, a link write in progress and power off. The key test shows a short BACK like any key and is left with hold BACK.
 > - **KEY-6** Keys typed ahead are buffered and never dropped while a screen draws.
 > - **KEY-7** Which PTT keys which slot.

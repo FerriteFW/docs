@@ -13,6 +13,7 @@ The GPS gives position, UTC time and speed to the clock, APRS, the Nearby channe
 | GPS screen options | Hold MENU on the GPS screen: mark here, waypoints, GPS settings |
 | Mark where you are | MENU 0 6 7, mark here |
 | Go to a waypoint | MENU 0 6 7, pick one: a dial that turns course up while you move, the distance large, bearing and ETA |
+| Delete a waypoint | MENU 0 6 7, pick it, hold MENU, 6 Delete, OK twice |
 | Set the clock by hand | MENU 0 6 6 (with no GPS time) |
 | Use a fixed position | MENU 0 6 9 (used when there's no fix) |
 
@@ -52,6 +53,7 @@ The status bar shows a satellite while GPS is on: outline while searching, solid
 > - **GPS-2** Every fix records satellites, HDOP and its age; the last fix is kept with its age while the module sleeps; consumers see the age and never treat a stale fix as current. The position screen shows accuracy as "±N m" (HDOP × 5 m), not the raw HDOP.
 > - **GPS-3** With no fix, position users (APRS, Nearby) take the fixed position, or none.
 >     - **GPS-3.1** The phone's position (LINK-72, from Ferrite Pocket) comes between: with no fix of the radio's own, a phone position younger than 2 minutes (its age when sent counts) is used for Nearby, distances and the map, ahead of the fixed position. It is never beaconed: a beacon takes the fixed position instead, or waits for a fix (GPS-33); the APRS card says "phone pos (not sent)". It never counts as the radio's own fix for GPS on Auto, which keeps looking. Decision 388.
+>     - **GPS-3.2** A fixed position is kept on the globe: a settings record (from the link, or a damaged store) with a latitude past ±90° or a longitude past ±180° loads at the edge, and the grid square of any position is the edge's square, the poles and the date line in the last one (RR99xx). (ferrite#149, found by Console's fuzz tests.)
 > - **GPS-4** GPS off during (0 6 8) powers the module off for the chosen cases and back on after.
 > - **GPS-5** While transmitting, PB10 (USART3 TX) is driven low and restored after, as stock does.
 > - **GPS-6** The status-bar icon shows only with GPS on (in Auto, while the module is powered, GPS-1.5): outline searching, solid with a fix from the last 3 minutes (GPS-25), not merely while the module runs.
@@ -100,6 +102,7 @@ The status bar shows a satellite while GPS is on: outline while searching, solid
 >
 > - **GPS-10** Up to 2,032 waypoints, 32 B each (name 16, position, source: marked, APRS, link, grid), in SPI flash at 0x080000 (16 sectors of 127; decision 333), newest first. Deleting one moves the later ones down (a power cut part way can leave one twice, never lose one).
 >     - **GPS-10.1** Console edits the waypoints on its map and in GPX (decision 396): a right-click on APRS › Map adds one there, on top, named "Waypoint n"; dragging a waypoint's diamond moves it; APRS › Waypoints imports a GPX file's waypoints (its `wpt`s, in order, on top, each name cut to 16 characters, "WP n" for one without; routes and tracks left out; as many as there is room for, the rest counted) and exports them all as GPX 1.1. Each is an unwritten edit until Write, as any other.
+>     - **GPS-10.2** "Delete" (the sixth row) in the waypoints' options (hold MENU on the list or on the one being gone to) deletes the selected waypoint after a confirm ("Delete?", "This waypoint only; the rest move up"; BACK keeps it), as the link's delete does: the later ones move up, a toast says its name and "deleted", and the list is back on screen. Renaming one waits (Console renames them; ferrite#220).
 > - **GPS-11** The waypoint list shows distance and bearing from the current fix; the selected one gets a compass arrow.
 > - **GPS-12** The arrival alarm fires once when the fix comes within the set radius: a toast with the waypoint's name and distance, an event log entry, and a tone when Arrival tone (0 7 5 4) is on.
 > - **GPS-24** The arrival alarm watches the waypoint being gone to: the one the Go to page shows, kept after leaving the page until another is opened there. Its radius is "Arrival alarm" in the waypoints' options (hold MENU on the list): off, 50, 100, 200, 500 m, 1 km, each OK the next, with a toast naming it; off by default. It fires once and is armed again only after the fix has been more than twice the radius away. The log entry's source is GPS ("Waypoint arrival": the waypoint, "Arrived, N m").
