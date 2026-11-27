@@ -24,9 +24,9 @@ MENU opens the active slot's nine settings. MENU 0 opens everything else. Every 
 | --- | --- | --- |
 | 0 1 | Watch and scan | Watch, resume, priority check, range presets, skip list, Advanced (pause time, direction, scan inputs, return to) |
 | 0 2 | Channels | Browse, add repeater, zones, channel display, Local zone, FM broadcast (its settings: step, AGC, radio monitor, sleep timer; decision 354) |
-| 0 3 | Tools | Band scope, frequency counter, HF mode, crossband repeater, tone search (satellites after v1, ch 28a) |
-| 0 4 | Decoders and alerts | Event log, POCSAG, DTMF decode, popups, weather alerts |
-| 0 5 | APRS | Heard, messages, APRS mode, frequency, my station, beacon, digipeat, KISS TNC, Advanced (path, TX delay, TX level, FX.25, mute speaker) |
+| 0 3 | Tools | Band scope, frequency counter, HF mode, crossband repeater, tone search, satellites, SSTV, ACARS (on trial) |
+| 0 4 | Decoders and alerts | Event log, POCSAG (pages, Pager mode, frequency, capcode filter, speed), DTMF decode, popups, weather alerts |
+| 0 5 | APRS | Heard, messages, APRS mode (Off, Tracker, On, KISS, Pager), frequency, my station, beacon, digipeat, KISS TNC, Advanced (path, TX delay, TX level, FX.25, mute speaker) |
 | 0 6 | GPS and time | GPS, position, coordinate format, units, time zone, clock, waypoints, GPS during RX/TX, fixed position |
 | 0 7 | Display, sound, power | Theme, home layout, display, backlight, sounds, LEDs, Battery Save, auto power off, menu timeout |
 | 0 8 | Transmit | Timeout, VOX, mic gain, end tone, DTMF, callsign and ID, busy lockout default, Advanced (subtone level, tail elimination, Extend TX, Dry TX) |

@@ -30,7 +30,7 @@ One fixed map; no key can be reassigned. Short = released under 700 ms. Long = h
 | 3 | Squelch (the value editor) | 8 | Offset: its amount, typed (VFO and channel alike, KEY-11) |
 | 4 | Watch on/off | 9 | Copy: a VFO to a channel; a channel to the VFO (asks first) |
 
-**Quick menu** (hold \* on home, HOME-17): a box over home while it is up. PTT A reverse, PTT B night red, PF1 GPS on/off, PF2 Bluetooth on/off, knob brightness, each at once; BACK, \* or any other key closes it (and does nothing else), as do 5 s idle. PTT A and PTT B never transmit while it is up, nor a PTT held through its close until let go; the side connector's PTT closes it and transmits.
+**Quick menu** (hold \* on home, HOME-17): a box over home while it is up. PTT A reverse, PTT B night red, then daylight, then back (HOME-17), PF1 GPS on/off, PF2 Bluetooth on/off, knob brightness, each at once; BACK, \* or any other key closes it (and does nothing else), as do 5 s idle. PTT A and PTT B never transmit while it is up, nor a PTT held through its close until let go; the side connector's PTT closes it and transmits.
 
 **Scanning** (the scan screen): \* skips the hit for this scan, # skips it for every scan (a channel's Skip flag), ▲▼ set the direction and leave a hit, digits add zones, SIDE2 stops, PTT transmits on the hit (chapter 14, SCAN-16 – SCAN-19).
 
