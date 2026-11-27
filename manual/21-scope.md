@@ -49,7 +49,7 @@ The home layout *single + scope* shows a small scope strip under the active slot
 > - **SCOPE-12** PTT on the band scope (like HF-23, an exception to KEY-7).
 >     - **SCOPE-12.1** PTT works only while monitoring: the active slot goes to VFO on the monitored frequency (as OK does) and transmits there, with every chapter 15 check; it doesn't go home first.
 >     - **SCOPE-12.2** While sweeping, PTT is ignored with a toast "Listen first: SIDE1 at the marker".
-> - **SCOPE-13** While the scope is open, watch, scan, background jobs and Battery Save pause, and automatic transmissions (beacons, KISS, digipeating) wait; leaving resumes them.
+> - **SCOPE-13** While the scope is open, watch, scan, background jobs and Battery Save pause, and automatic transmissions (beacons, KISS, digipeating) wait (TX-51); leaving resumes them.
 > - **SCOPE-14** Input first: a key or knob step on the scope, or on home while its strip sweeps, stops the bars' redraw in progress (the rest is drawn on the next pass) and holds the sweep for 200 ms after the last step, its pass starting again from the first point. The input is handled and drawn first; the bars catch up after.
 
 ### Under the hood

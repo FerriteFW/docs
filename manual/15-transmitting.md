@@ -119,8 +119,14 @@ When transmit is refused, the screen names the reason and the menu path that fix
 >     - **TX-35.3** A KISS frame is refused on an emergency frequency.
 >     - **TX-35.4** VOX is refused on an emergency frequency, and never opens the emergency prompt nor answers it.
 >     - **TX-35.5** Each of these refusals shows a toast saying why ("No VOX: emergency frequency" for VOX).
+>         - **TX-35.5.1** An automatic transmission's toast (a beacon, KISS, a message, a reply, SSTV, refused or not built) reads "Beacon not sent:" and the reason; where the reason doesn't fit the line after that, the head is the transmission alone ("Beacon: repeater running"), then "Not sent:". The reason is shown whole (WFM's, the longest, meets only SSTV, whose short head leaves it room).
 >     - **TX-35.6** Only a person pressing PTT twice can transmit there.
 >     - **TX-35.7** The APRS frequency on A or B while C is the APRS slot asks for PTT twice the same way, and refuses VOX and remote key-ups (APRS-21.3).
+> - **TX-51** Automatic transmissions (APRS beacons, our messages, acks, digipeats, KISS frames) never key while HF mode, the band scope, the frequency counter, tone search or the satellite screen runs (HF-6, SCOPE-13, SAT-14; decision 462). A person's PTT still keys. Home's scope strip doesn't hold them: it stops for the key-up (TX-24).
+>     - **TX-51.1** Beacons (Beacon now too) and our messages wait, and go when the mode ends; a frame already waiting for a clear moment waits too.
+>     - **TX-51.2** Acks owed and a waiting digipeat are dropped: they'd be stale by the time the mode ends.
+>     - **TX-51.3** A KISS frame waits within KISS-13's 5 s; one still waiting then is dropped with a toast naming the mode ("KISS not sent: HF mode", HF-7).
+>     - **TX-51.4** The pause holds through a person's key-up from the scope or HF mode.
 > - **TX-36** HF transmit (18–64 MHz) always starts on Low: each time you tune onto an HF frequency, the power is Low until you raise it, because nothing on the radio measures the antenna match.
 
 > **Spec: key-up and unkey**
@@ -165,7 +171,7 @@ When transmit is refused, the screen names the reason and the menu path that fix
 >     - **TX-31.2** That limit is set on the bench (the board reached about 86 °C after 2 min at full power on 2 m).
 > - **TX-32** Battery: a warning before the cut-off; refuse below it; sample during transmit and unkey (TX-26) below the under-load threshold, with hysteresis: the reading must stay under it for 500 ms without a break (10 or more samples at the keyed tick), so one low sample never unkeys.
 > - **TX-33** Power switched off while keyed (a crossband pass too): the safe state runs first, before any chip sleeps or the SI4732 is touched: PA drive 0, the repeat audio off, the chip out of transmit, the unkey wait, every select off; no end tone, CW ID or tail. Then power is released (PA11). Stock unkeys nothing here.
-> - **TX-38** The duty limit (TX-31), until the bench sets it: keyed time fills a 120 s bucket, weighted by power because heat follows power: High fills it at full rate, Mid at half, Low at a quarter (continuous transmit from cold: High 2 min, Mid 4 min, Low 8 min). It drains at a quarter of real time while unkeyed; full, it unkeys (no end tone) and refuses with "The transmitter is cooling" until the bucket is half empty (about 4 min). The TX timeout (TX-30) is separate: it limits one transmission, this limits heat across many.
+> - **TX-38** The duty limit (TX-31), until the bench sets it: keyed time fills a 240 s bucket, weighted by power because heat follows power: High fills it at full rate, Mid at half, Low at a quarter (continuous transmit from cold: High 4 min, Mid 8 min, Low 16 min). It drains at half of real time while unkeyed; full, it unkeys (no end tone) and refuses with "The transmitter is cooling" until the bucket is half empty (about 4 min). The TX timeout (TX-30) is separate: it limits one transmission, this limits heat across many.
 > - **TX-39** The Radio task's own refusals (TX-17) show the TX refused screen like the UI's: "AM is receive only" (fix MENU 3, Mode; HF mode's AM too), an emergency frequency without a person's second PTT on the prompt (TX-35), "Release PTT" after a timeout (TX-30), and the duty limit (TX-38). It also makes the UI's own refusals again from its own state, so no path to it skips them (decision 128): a receive-only channel (CHAN-4, sent with each slot), busy lockout with the squelch open (TX-21), HF mode on an SI4732 frequency or mode (HF-24), the SI4732 still playing a broadcast (TX-24), the relay in the other state (TX-37), and a frequency outside every PA curve row (TX-11).
 >     - **TX-39.1** A key-up's slot outside A–C (satellite mode's, HF mode's) is named on the transmit and refused screens ("Satellite", "HF mode"), never looked up among the three slots: a refused satellite key-up faulted the radio there (ferrite#124, decision 438).
 > - **TX-40** CW ID goes after voice transmissions only (as the end tone, TONE-11), at the first unkey after power-on and then once 10 min have passed since the last (VOX-12); it is skipped at a timeout, battery or duty cut-off and stays due for the next unkey.
@@ -207,6 +213,7 @@ Mock-ups drawn Oct 2, awaiting review (0c). Built in roadmap 4a, measured in 4e.
   - TX-36: decided Oct 3, 2026.
   - TX-30: decided Oct 6, 2026.
   - TX-38: decided Oct 7, 2026, weights to confirm on the bench.
+  - TX-38: bucket doubled to 240 s and the drain from a quarter to half of real time (Nov 24, 2026, decision 451, ferrite#228).
   - TX-41: decision 73, Oct 7, 2026 (Extend TX stopped at 64 MHz); changed Oct 21, 2026 (decision 224): 18–64 MHz as stock. nicFW transmits wherever its own band plan allows, with its own power table.
   - TX-42: decision 76; Stock has no such guard; adopted from `tx-gotchas.md` item 9.
   - TX-43: decision 76. TX-43.2 changed Oct 16, 2026 (decision 190): Dry TX on sends too.

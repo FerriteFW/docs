@@ -58,7 +58,7 @@ There are no channels or zones in HF mode: each band remembers its own VFO, and 
 > **Spec: what pauses**
 >
 > - **HF-6** While in HF mode, everything else pauses: watch, scan, APRS receive and beacons, digipeating, decoders, background jobs and SAME weather alerts. The Status page lists them as "Paused: HF mode", and with SAME on the status bar shows the alerts-paused bell (SBAR-18).
-> - **HF-7** No automatic transmission runs in HF mode; KISS frames and remote `KEY` are refused with the reason.
+> - **HF-7** No automatic transmission runs in HF mode (TX-51): beacons and messages wait for the end of it, and a KISS frame is refused with the reason; remote `KEY` is refused with the reason.
 > - **HF-8** Leaving resumes each paused feature as it was; nothing paused is changed or forgotten.
 
 > **Spec: receivers and bands**
@@ -77,7 +77,7 @@ There are no channels or zones in HF mode: each band remembers its own VFO, and 
 > **Spec: SSB patch**
 >
 > - **HF-17** Ferrite never ships, publishes or commits the patch. Each owner imports it from their own stock `.BTF`. (Was BCR-8.)
-> - **HF-18** Import it with the flasher (`--ssb-from`: the patch is bundled after the image, and the first boot copies it to SPI flash and verifies its SHA-256; later boots find it installed and write nothing), or over the link with `SSB_WRITE` (the cable, or Bluetooth past the PIN while a PIN lock is on: LINK-8). Only the storage task writes it, to 0x008000 (layout 3, decision 333; 0x06B000 in layout 2). (Was BCR-9.)
+> - **HF-18** Import it with the flasher (`--ssb-from`: the patch is bundled after the image, and the first boot copies it to SPI flash and verifies its SHA-256; later boots find it installed and write nothing), or over the link with `SSB_WRITE` (LINK-73; the cable, or Bluetooth past the PIN while a PIN lock is on: LINK-8; Console's Add SSB, INST-10.2): the same steps as the boot install (the region erased, the patch programmed, the header written last only once length, records and SHA-256 check), and USB, LSB and CW show at once, without a restart. Over the link only the known stock patch is taken (the on-screen question for another, INST-12, isn't asked there). Only the storage task writes it, to 0x008000 (layout 3, decision 333; 0x06B000 in layout 2). (Was BCR-9.)
 > - **HF-19** As stock (decision 351): the SI4732 runs AM without the patch, and USB, LSB and CW with it: powered up with the patch flag (`POWER_UP 01 31 05`), 550 ms for the crystal, then the patch's 8-byte records streamed from SPI flash (a few seconds), then SSB_MODE (the filter's bandwidth, AVC on, AFC off), stock's AVC max gain and soft mute off. A change between USB, LSB and CW keeps the patch; a change to AM powers the chip up again without it, and back to a sideband loads it again. Stock waits 3 s at each such switch; Ferrite doesn't. (Was BCR-10.) The patch goes at a 3 µs I2C half period (about 150 kHz): at 1 µs the clock's low time was under the SI4732's 1.3 µs minimum (ferrite#88; decision 433).
 >     - **HF-19.1** In USB, LSB and CW the chip tunes to the whole kHz and the rest goes on the BFO (SSB_BFO, Hz), so a step under 1 kHz moves only the BFO; CW is received on USB 700 Hz below the frequency shown, so a carrier on it is a 700 Hz tone. The filter's SSB bandwidths are 3, 2.2, 1.2 and 0.5 kHz (SSB_MODE's AUDIOBW). The BFO's sign (the chip hearing tune + BFO) is to confirm on a real signal.
 > - **HF-20** With no verified patch, USB, LSB and CW are hidden and About says the patch isn't installed. AM and chip 1 still work. (Was BCR-11.)

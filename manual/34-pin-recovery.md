@@ -31,6 +31,7 @@ No mock-up yet.
 >
 > - **PIN-1** With a PIN set, ask for it at power on, and at unlock when chosen, before anything else is usable.
 > - **PIN-2** Digits are masked; the screen shows attempts left and the settings-reset hint.
+>     - **PIN-2.1** At power on, the PIN screen also shows the owner card (SETUP-11) under the attempts line: "If found, please contact", then the name (larger), the callsign, the phone and the e-mail that are set, whatever the boot screen is set to (0 7 3 3). Nothing when the card is empty (a callsign alone isn't a card); not at unlock or in the PIN settings.
 > - **PIN-3** Three wrong entries: wait 30 s, always 30 s; a power cycle resets the count.
 > - **PIN-4** A settings reset clears the PIN.
 > - **PIN-10** 0 9 3 1 PIN lock and 0 9 3 3 Change PIN are two items. Choosing a lock mode with no PIN set opens PIN entry first; turning the lock off asks for the PIN; Change PIN asks for the old PIN when there is one, then the new one twice (a mismatch starts the new one again). Wrong PINs count toward PIN-3 here too.
@@ -62,6 +63,7 @@ No mock-up. Built in 2g (PIN, key lock, channel-only mode). Done when every PIN 
 - Rule history and comparisons with stock and nicFW (kept here so the rules state behaviour only):
   - PIN-3: decided Oct 6, 2026.
   - PIN-10: decided Oct 4, 2026.
+  - PIN-2.1: Nov 25, 2026 (Discord request, Alex; decision 468).
   - PIN-5: decided Oct 6–7, 2026; decided Oct 7, 2026. Changed Oct 13, 2026 (decision 109): hold \* is the quick menu, still refused. Changed Oct 14, 2026 (decision 159): hold 9 is copy, refused; the zone list moved to hold V/M, which still opens it.
 
 ### Open points

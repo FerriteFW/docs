@@ -91,6 +91,7 @@ Zone: name (16), in "scan all", shown in ◀▶, sort by distance, resume rule, 
 | 0 3 5 | Tone search | Find the active slot's CTCSS/DCS | — | 22 |
 | 0 3 6 | Satellites | Opens the pass list | — | 28a |
 | 0 3 7 | SSTV | Opens the SSTV screen | — | 27a |
+| 0 3 8 | ACARS | Opens the ACARS screen (on trial; its frequency is ◀▶ there) | — | 27b |
 
 ### HF mode options (hold MENU on the HF screen)
 
@@ -110,7 +111,7 @@ No menu number; on the HF screen's options page (hold MENU). Kept in the HF stat
 | Menu | Setting | Values | Default | Ch |
 | --- | --- | --- | --- | --- |
 | 0 4 1 | Event log | View, filter, clear | — | 24 |
-| 0 4 2 | POCSAG | Decode (off, on), frequency (6.25 kHz steps), capcode filter (one capcode, typed) | Off, 439.9875 MHz, none | 27 |
+| 0 4 2 | POCSAG | Pages, Decode (off, on: Pager mode on slot C), frequency (6.25 kHz steps), capcode filter (one capcode, typed), Speed (1200, 2400) | Off, 439.9875 MHz, none, 1200 | 27 |
 | 0 4 3 | DTMF decode | Off, on | On | 27 |
 | 0 4 4 | Popups | Off, on (3 s toast per decode) | On | 24 |
 | 0 4 5 1 | SAME | Off, on (US and Canada only; hidden elsewhere) | On | 23 |
@@ -122,7 +123,7 @@ No menu number; on the HF screen's options page (hold MENU). Kept in the HF stat
 | --- | --- | --- | --- | --- |
 | 0 5 1 | Heard | Station list | — | 25 |
 | 0 5 2 | Messages | Inbox, sent, compose; quick messages in its options (TEXT-7) | — | 25 |
-| 0 5 3 | APRS mode | Off, Tracker (beacons only), On, KISS (each but Off takes slot C) | Off | 25 |
+| 0 5 3 | APRS mode | Off, Tracker (beacons only), On, KISS, Pager (POCSAG on C) (each but Off takes slot C) | Off | 25 |
 | 0 5 4 | APRS frequency | Any | The region's (144.390 MHz in the US and Canada) | 25 |
 | 0 5 5 1 | SSID | 0–15, with names | 7 Handheld (decision 191) | 25 |
 | 0 5 5 2 | Symbol | Person, car, jeep, truck, van, RV, motorcycle, bicycle, house, boat | Person | 25 |

@@ -12,6 +12,7 @@ Turn the volume knob on. The boot screen shows the logo, FERRITE, the version, y
 - **Owner card** (MENU 0 7 3 3): the boot screen shows "This radio belongs to…" instead; any key skips it.
 - **Hold MENU** while powering on: settings reset (MENU confirms; a second confirm clears channels too).
 - **PIN** set: the radio asks for it at power-on.
+- **A tool open** when you turned the radio off (the band scope, HF mode, ACARS...) opens again, after the PIN; crossband comes back ready, not running.
 - **Bottom two side buttons** held: the stock bootloader (chapter 3), not Ferrite.
 
 ### Screens
@@ -66,8 +67,14 @@ Turn the volume knob on. The boot screen shows the logo, FERRITE, the version, y
 >     - **BOOT-14.4** It never touches calibration or the SSB patch.
 >     - **BOOT-14.5** It then runs first-run setup, as for a new radio: no region is set until setup picks one.
 >     - **BOOT-14.6** A tap of OK (MENU) that skips the owner card is not a hold: when MENU still counts as down after the boot screen, the radio waits up to a long press's time (700 ms) for its release, and asks for the reset only if it is still held (ferrite#62: the tap's release came after the boot screen ended, and the reset prompt opened).
-> - **BOOT-15** Otherwise, home.
-> - **BOOT-17** Order at power-on: the self-test runs while held keys are read (MENU held through it: the reset, BOOT-14, which comes before the PIN), then the PIN (BOOT-13), then home; a first boot goes to setup. The reset comes before the PIN so a forgotten PIN can still be cleared by a full reset; the self-test comes before the PIN so faults show even on a locked radio.
+> - **BOOT-15** Otherwise, home, or the tool BOOT-19 reopens.
+> - **BOOT-19** Power on reopens the tool that was open when the radio turned off (the switch, Auto power off or an empty battery), after the boot screen and after the PIN (BOOT-13) if one is asked: the band scope, the frequency counter, HF mode (loading the SSB patch as on any opening), tone search, the satellite screen, SSTV, ACARS or crossband.
+>     - **BOOT-19.1** Crossband comes back at its ready screen, not running: nothing transmits on its own at power on.
+>     - **BOOT-19.2** Only the screen up at power off counts: a tool closed back to home, or a menu, list or editor over it, leaves home at the next power on. Setting-like decoders (pager decode, broadcast on a slot) are settings and keep their own state.
+>     - **BOOT-19.3** No tool reopens after the power-on reset (BOOT-14), first-run setup (BOOT-12), a failed check (BOOT-10) or a restart after a fault or a hang (SAFE-8.2): home.
+>     - **BOOT-19.4** A tool that can't open says so with its own message (as Low Power Mode's, PWR-24.4), and home stays.
+>     - **BOOT-19.5** The tool is stored with the settings only as the radio turns off, so it adds no flash write of its own; a radio coming from an older version starts at home.
+> - **BOOT-17** Order at power-on: the self-test runs while held keys are read (MENU held through it: the reset, BOOT-14, which comes before the PIN), then the PIN (BOOT-13), then home or the tool open at power off (BOOT-19); a first boot goes to setup. The reset comes before the PIN so a forgotten PIN can still be cleared by a full reset; the self-test comes before the PIN so faults show even on a locked radio.
 > - **BOOT-16** The self-test has six checks: MCU, SPI flash, BK4829 VHF, BK4829 UHF, SI4732 and calibration. The SI4732 is checked by powering it up in FM (answering within 500 ms, its revision read), then powered down and held in reset again until FM broadcast or HF mode starts it (since Oct 12, 2026; before, it showed "not tested"); calibration passes when the factory sector at 0x00F000 isn't blank (read only; its CRC check comes with the installer, 1b).
 
 ### Under the hood
@@ -85,6 +92,7 @@ Mock-ups approved (0b); `ferrite-ui` boot screen drawn. Built in roadmap 1c; don
   - BOOT-17: decision 73, Oct 7, 2026; Stock also reads held keys first.
   - BOOT-18: decision 321, Oct 28, 2026 (Alex): animation 5 of `research/boot-animation/preview.html` with its "Lock" sound ending.
   - BOOT-16: decided Oct 6, 2026.
+  - BOOT-19: decision 469, Nov 25, 2026 (Alex): a radio left decoding keeps decoding after a power cycle. Crossband coming back ready rather than running (BOOT-19.1) is proposed to Alex. Not reopening after a fault restart (BOOT-19.3) keeps a tool that faults from reopening in a loop.
 
 ### Open points
 

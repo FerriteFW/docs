@@ -32,7 +32,7 @@ What the radio decoded or received while you weren't looking. Three things, each
 > - **INBOX-1** A toast is one line for 3 s over the hint bar and never covers the frequency.
 > - **INBOX-2** Only alerts (SAME warning, DSC distress) take the full screen.
 > - **INBOX-3** The inbox icon shows only while something is unread; one count; red while an alert is unacknowledged.
->     - **INBOX-3.1** The count is the unread messages to you (APRS-32), not the log's entries: decodes, arrivals and alerts go to the event log, which keeps its own unread count (0 4 1's "N new"); an unread alert still turns the icon red. Reading a message lowers the count; the log's "Mark all read" doesn't touch it. Decision 238.
+>     - **INBOX-3.1** The count is the unread messages to you (APRS-32) and the unread pages (DEC-22, decision 452), not the log's other entries: decodes, arrivals and alerts go to the event log, which keeps its own unread count (0 4 1's "N new"); an unread alert still turns the icon red. Reading a message lowers the count; the log's "Mark all read" doesn't touch it. Decision 238.
 >     - **INBOX-3.2** "Clear the log" leaves no "N new"; the messages' "Mark all read" takes each message's log entry out of the log's count with it (INBOX-7.1), as reading one message does. Decision 284.
 > - **INBOX-4** An alert sounds its tone until OK; OK silences, hold MENU opens the log, BACK returns to the screen it came over.
 > - **INBOX-5** Notifications never interrupt receive, scan, watch or decoders, and never key the transmitter.
